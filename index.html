@@ -167,7 +167,21 @@
     <div class="order-form">
       <div class="form-group"><label>Ismingiz</label><input type="text" id="name" placeholder="Masalan: Alibek" /></div>
       <div class="form-group"><label>Telefon raqam</label><input type="tel" id="phone" placeholder="+998 95 100 01 30" /></div>
-      <div class="form-group"><label>Manzil</label><input type="text" id="address" placeholder="Ko'cha, uy raqami" /></div>
+      <div class="form-group">
+        <label>🏠 Turar joy adresi</label>
+        <input type="text" id="address" placeholder="Ko'cha, uy raqami, kvartira" />
+      </div>
+      <div class="form-group">
+        <label>📍 Hozirgi joylashuv (ixtiyoriy)</label>
+        <div style="display:flex; gap:10px; align-items:center;">
+          <input type="text" id="location" placeholder="Avtomatik aniqlash uchun bosing 👇" readonly style="flex:1; background:#f9f4ee; cursor:default; font-size:0.88rem;" />
+          <button type="button" onclick="detectLocation()" id="locate-btn" style="background:var(--earth);color:var(--yolk);border:none;border-radius:10px;padding:12px 14px;font-size:1.2rem;cursor:pointer;transition:background 0.2s;flex-shrink:0;" title="Joylashuvni aniqlash">📍</button>
+        </div>
+        <div id="map-preview" style="display:none; margin-top:10px; border-radius:12px; overflow:hidden; border:1.5px solid #DDD0BC;">
+          <iframe id="map-frame" width="100%" height="180" frameborder="0" style="display:block;"></iframe>
+        </div>
+        <div id="location-status" style="font-size:0.82rem; color:var(--gray); margin-top:6px;"></div>
+      </div>
       <div class="form-group">
         <label>Dona soni</label>
         <div class="quantity-row">
@@ -342,17 +356,74 @@
     updateTotal();
   }
 
+  // ========== LOCATION ==========
+  let userCoords = null;
+
+  function detectLocation() {
+    const btn = document.getElementById('locate-btn');
+    const status = document.getElementById('location-status');
+    const input = document.getElementById('location');
+    const mapPreview = document.getElementById('map-preview');
+    const mapFrame = document.getElementById('map-frame');
+
+    if (!navigator.geolocation) {
+      status.textContent = '❌ Brauzeringiz geolokatsiyani qollab-quvvatlamaydi';
+      return;
+    }
+
+    btn.textContent = '⏳';
+    btn.disabled = true;
+    status.textContent = '📡 Joylashuv aniqlanmoqda...';
+
+    navigator.geolocation.getCurrentPosition(
+      async (pos) => {
+        const lat = pos.coords.latitude.toFixed(6);
+        const lon = pos.coords.longitude.toFixed(6);
+        userCoords = { lat, lon };
+
+        // Reverse geocoding — nominatim (bepul)
+        try {
+          const res = await fetch(`https://nominatim.openstreetmap.org/reverse?lat=${lat}&lon=${lon}&format=json`);
+          const data = await res.json();
+          const addr = data.display_name || `${lat}, ${lon}`;
+          input.value = addr;
+          status.textContent = '✅ Joylashuv aniqlandi';
+        } catch {
+          input.value = `${lat}, ${lon}`;
+          status.textContent = '✅ Koordinatalar aniqlandi';
+        }
+
+        // Xarita preview
+        mapFrame.src = `https://www.openstreetmap.org/export/embed.html?bbox=${parseFloat(lon)-0.005},${parseFloat(lat)-0.005},${parseFloat(lon)+0.005},${parseFloat(lat)+0.005}&layer=mapnik&marker=${lat},${lon}`;
+        mapPreview.style.display = 'block';
+        btn.textContent = '✅';
+        btn.disabled = false;
+      },
+      (err) => {
+        btn.textContent = '📍';
+        btn.disabled = false;
+        if (err.code === 1) status.textContent = '❌ Ruxsat berilmadi. Brauzer sozlamalaridan joylashuvga ruxsat bering.';
+        else status.textContent = '❌ Joylashuvni aniqlab bo'lmadi. Qo'lda kiriting.';
+      },
+      { enableHighAccuracy: true, timeout: 10000 }
+    );
+  }
+
   // ========== ORDER ==========
   async function submitOrder() {
     if (state.stock === 0) return;
-    const name    = document.getElementById('name').value.trim();
-    const phone   = document.getElementById('phone').value.trim();
-    const address = document.getElementById('address').value.trim();
+    const name     = document.getElementById('name').value.trim();
+    const phone    = document.getElementById('phone').value.trim();
+    const address  = document.getElementById('address').value.trim();
+    const location = document.getElementById('location').value.trim();
+
     if (!name || !phone || !address) { showToast("❌ Barcha maydonlarni to'ldiring!", '#e53935'); return; }
     if (qty > state.stock) { showToast(`⚠️ Faqat ${state.stock} ta mavjud!`, '#e53935'); return; }
 
     const total = (qty * state.price).toLocaleString('uz-UZ') + " so'm";
-    const text  = `🥚 Yangi buyurtma!\n\n👤 Ism: ${name}\n📞 Tel: ${phone}\n📍 Manzil: ${address}\n🔢 Soni: ${qty} ta\n💰 Jami: ${total}`;
+    const mapLink = userCoords ? `\n🗺 Xarita: https://www.google.com/maps?q=${userCoords.lat},${userCoords.lon}` : '';
+    const locationLine = location ? `\n📌 Joylashuv: ${location}${mapLink}` : '';
+    const text = `🥚 Yangi buyurtma!\n\n👤 Ism: ${name}\n📞 Tel: ${phone}\n🏠 Adres: ${address}${locationLine}\n🔢 Soni: ${qty} ta\n💰 Jami: ${total}`;
 
     const BOT_TOKEN = "8656295440:AAEUBRVs4umfJkh-YPm3XMJh52R3e9l56bw";
     const CHAT_ID   = "6283517295";
@@ -373,6 +444,11 @@
         document.getElementById('name').value = '';
         document.getElementById('phone').value = '';
         document.getElementById('address').value = '';
+        document.getElementById('location').value = '';
+        document.getElementById('map-preview').style.display = 'none';
+        document.getElementById('location-status').textContent = '';
+        document.getElementById('locate-btn').textContent = '📍';
+        userCoords = null;
         qty = 1;
         document.getElementById('qty-display').textContent = '1';
         updateTotal();
