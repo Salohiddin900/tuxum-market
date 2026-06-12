@@ -1,0 +1,676 @@
+<!DOCTYPE html>
+<html lang="uz">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="Yangi, toza Хейилюй tuxumlari. Uyingizga yetkazib beramiz. Dona narxi 15 000 so'm." />
+  <title>Хейилюй Tuxum | Toza & Yangi</title>
+  <link rel="manifest" href="manifest.json" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700;900&family=Inter:wght@400;500;600&display=swap" rel="stylesheet" />
+  <style>
+    :root {
+      --yolk: #F5A623;
+      --yolk-dark: #C97F0A;
+      --shell: #FDF6EC;
+      --earth: #3B2A1A;
+      --white: #FFFFFF;
+      --gray: #7A6A5A;
+      --light: #FFF9F0;
+      --green: #4CAF50;
+    }
+
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+
+    body {
+      font-family: 'Inter', sans-serif;
+      background: var(--shell);
+      color: var(--earth);
+    }
+
+    /* NAV */
+    nav {
+      background: var(--earth);
+      padding: 16px 24px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      position: sticky;
+      top: 0;
+      z-index: 100;
+    }
+    .logo {
+      font-family: 'Playfair Display', serif;
+      color: var(--yolk);
+      font-size: 1.4rem;
+      font-weight: 900;
+    }
+    .nav-links a {
+      color: #fff;
+      text-decoration: none;
+      margin-left: 20px;
+      font-size: 0.9rem;
+      opacity: 0.85;
+      transition: opacity 0.2s;
+    }
+    .nav-links a:hover { opacity: 1; color: var(--yolk); }
+
+    /* HERO */
+    .hero {
+      background: var(--earth);
+      color: var(--white);
+      padding: 80px 24px 60px;
+      text-align: center;
+      position: relative;
+      overflow: hidden;
+    }
+    .hero::before {
+      content: '🥚';
+      font-size: 200px;
+      position: absolute;
+      right: -40px;
+      top: -20px;
+      opacity: 0.07;
+      transform: rotate(20deg);
+    }
+    .hero-badge {
+      display: inline-block;
+      background: var(--yolk);
+      color: var(--earth);
+      font-size: 0.75rem;
+      font-weight: 600;
+      padding: 6px 14px;
+      border-radius: 20px;
+      margin-bottom: 20px;
+      letter-spacing: 0.05em;
+      text-transform: uppercase;
+    }
+    .hero h1 {
+      font-family: 'Playfair Display', serif;
+      font-size: clamp(2.2rem, 6vw, 3.8rem);
+      font-weight: 900;
+      line-height: 1.15;
+      margin-bottom: 16px;
+    }
+    .hero h1 span { color: var(--yolk); }
+    .hero p {
+      font-size: 1.1rem;
+      opacity: 0.8;
+      max-width: 480px;
+      margin: 0 auto 32px;
+      line-height: 1.6;
+    }
+    .price-tag {
+      display: inline-block;
+      background: var(--yolk);
+      color: var(--earth);
+      font-size: 1.6rem;
+      font-weight: 700;
+      padding: 12px 28px;
+      border-radius: 12px;
+      margin-bottom: 28px;
+    }
+    .price-tag small { font-size: 0.85rem; font-weight: 500; }
+    .hero-btns { display: flex; gap: 12px; justify-content: center; flex-wrap: wrap; }
+    .btn-primary {
+      background: var(--yolk);
+      color: var(--earth);
+      border: none;
+      padding: 14px 28px;
+      border-radius: 10px;
+      font-size: 1rem;
+      font-weight: 600;
+      cursor: pointer;
+      text-decoration: none;
+      transition: transform 0.2s, background 0.2s;
+      display: inline-block;
+    }
+    .btn-primary:hover { background: var(--yolk-dark); transform: translateY(-2px); }
+    .btn-outline {
+      background: transparent;
+      color: var(--white);
+      border: 2px solid rgba(255,255,255,0.4);
+      padding: 14px 28px;
+      border-radius: 10px;
+      font-size: 1rem;
+      font-weight: 600;
+      cursor: pointer;
+      text-decoration: none;
+      transition: border-color 0.2s;
+      display: inline-block;
+    }
+    .btn-outline:hover { border-color: var(--yolk); color: var(--yolk); }
+
+    /* STATS */
+    .stats {
+      display: flex;
+      justify-content: center;
+      gap: 0;
+      background: var(--yolk);
+      flex-wrap: wrap;
+    }
+    .stat {
+      flex: 1;
+      min-width: 120px;
+      text-align: center;
+      padding: 24px 16px;
+      border-right: 1px solid rgba(255,255,255,0.3);
+    }
+    .stat:last-child { border-right: none; }
+    .stat-num {
+      font-family: 'Playfair Display', serif;
+      font-size: 2rem;
+      font-weight: 900;
+      color: var(--earth);
+    }
+    .stat-label { font-size: 0.8rem; color: var(--earth); opacity: 0.75; margin-top: 4px; }
+
+    /* SECTIONS */
+    section { padding: 64px 24px; max-width: 900px; margin: 0 auto; }
+
+    .section-title {
+      font-family: 'Playfair Display', serif;
+      font-size: 2rem;
+      font-weight: 900;
+      margin-bottom: 8px;
+      color: var(--earth);
+    }
+    .section-sub {
+      color: var(--gray);
+      margin-bottom: 40px;
+      font-size: 1rem;
+    }
+
+    /* FEATURES */
+    .features-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: 20px;
+    }
+    .feature-card {
+      background: var(--white);
+      border-radius: 16px;
+      padding: 28px 24px;
+      border: 1px solid #EDE0CC;
+      transition: transform 0.2s, box-shadow 0.2s;
+    }
+    .feature-card:hover { transform: translateY(-4px); box-shadow: 0 12px 32px rgba(59,42,26,0.1); }
+    .feature-icon { font-size: 2.2rem; margin-bottom: 14px; }
+    .feature-card h3 { font-size: 1rem; font-weight: 600; margin-bottom: 8px; }
+    .feature-card p { font-size: 0.88rem; color: var(--gray); line-height: 1.5; }
+
+    /* ORDER */
+    .order-section {
+      background: var(--light);
+      border-radius: 24px;
+      padding: 48px 32px;
+      border: 1px solid #EDE0CC;
+    }
+    .order-form { display: flex; flex-direction: column; gap: 16px; max-width: 480px; }
+    .form-group { display: flex; flex-direction: column; gap: 6px; }
+    label { font-size: 0.85rem; font-weight: 600; color: var(--earth); }
+    input, select, textarea {
+      padding: 12px 16px;
+      border: 1.5px solid #DDD0BC;
+      border-radius: 10px;
+      font-size: 0.95rem;
+      font-family: 'Inter', sans-serif;
+      background: var(--white);
+      color: var(--earth);
+      transition: border-color 0.2s;
+      outline: none;
+    }
+    input:focus, select:focus, textarea:focus { border-color: var(--yolk); }
+    .quantity-row { display: flex; gap: 12px; align-items: center; }
+    .qty-btn {
+      width: 40px; height: 40px;
+      border: 1.5px solid #DDD0BC;
+      border-radius: 8px;
+      background: var(--white);
+      font-size: 1.2rem;
+      cursor: pointer;
+      display: flex; align-items: center; justify-content: center;
+      transition: background 0.2s;
+    }
+    .qty-btn:hover { background: var(--yolk); border-color: var(--yolk); }
+    #qty-display {
+      font-size: 1.2rem;
+      font-weight: 700;
+      min-width: 40px;
+      text-align: center;
+    }
+    .total-box {
+      background: var(--earth);
+      color: var(--white);
+      padding: 16px 20px;
+      border-radius: 12px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+    .total-box span:last-child { font-size: 1.3rem; font-weight: 700; color: var(--yolk); }
+
+    /* AI CHAT */
+    .chat-section {
+      background: var(--earth);
+      border-radius: 24px;
+      padding: 40px 32px;
+      color: var(--white);
+    }
+    .chat-section .section-title { color: var(--white); }
+    .chat-section .section-sub { color: rgba(255,255,255,0.6); }
+    .chat-box {
+      background: rgba(255,255,255,0.07);
+      border-radius: 16px;
+      padding: 20px;
+      min-height: 200px;
+      max-height: 300px;
+      overflow-y: auto;
+      margin-bottom: 16px;
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+    }
+    .msg {
+      padding: 10px 14px;
+      border-radius: 12px;
+      font-size: 0.9rem;
+      line-height: 1.5;
+      max-width: 85%;
+    }
+    .msg.bot {
+      background: rgba(245,166,35,0.15);
+      border: 1px solid rgba(245,166,35,0.3);
+      align-self: flex-start;
+    }
+    .msg.user {
+      background: var(--yolk);
+      color: var(--earth);
+      align-self: flex-end;
+      font-weight: 500;
+    }
+    .msg.loading { opacity: 0.6; font-style: italic; }
+    .chat-input-row { display: flex; gap: 10px; }
+    .chat-input-row input {
+      flex: 1;
+      background: rgba(255,255,255,0.1);
+      border-color: rgba(255,255,255,0.2);
+      color: var(--white);
+    }
+    .chat-input-row input::placeholder { color: rgba(255,255,255,0.4); }
+    .chat-input-row input:focus { border-color: var(--yolk); }
+    .btn-send {
+      background: var(--yolk);
+      color: var(--earth);
+      border: none;
+      padding: 12px 20px;
+      border-radius: 10px;
+      font-weight: 600;
+      cursor: pointer;
+      font-size: 0.95rem;
+      transition: background 0.2s;
+    }
+    .btn-send:hover { background: var(--yolk-dark); }
+
+    /* DELIVERY */
+    .delivery-steps {
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+    }
+    .step {
+      display: flex;
+      align-items: flex-start;
+      gap: 16px;
+      background: var(--white);
+      padding: 20px;
+      border-radius: 14px;
+      border: 1px solid #EDE0CC;
+    }
+    .step-num {
+      background: var(--yolk);
+      color: var(--earth);
+      width: 36px; height: 36px;
+      border-radius: 50%;
+      display: flex; align-items: center; justify-content: center;
+      font-weight: 700;
+      flex-shrink: 0;
+    }
+    .step h4 { font-size: 0.95rem; font-weight: 600; margin-bottom: 4px; }
+    .step p { font-size: 0.85rem; color: var(--gray); }
+
+    /* CONTACT */
+    .contact-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: 16px;
+    }
+    .contact-card {
+      background: var(--white);
+      border-radius: 14px;
+      padding: 24px;
+      text-align: center;
+      border: 1px solid #EDE0CC;
+      text-decoration: none;
+      color: var(--earth);
+      transition: transform 0.2s;
+    }
+    .contact-card:hover { transform: translateY(-3px); }
+    .contact-card .icon { font-size: 2rem; margin-bottom: 10px; }
+    .contact-card h4 { font-weight: 600; margin-bottom: 4px; }
+    .contact-card p { font-size: 0.85rem; color: var(--gray); }
+
+    /* FOOTER */
+    footer {
+      background: var(--earth);
+      color: rgba(255,255,255,0.6);
+      text-align: center;
+      padding: 24px;
+      font-size: 0.85rem;
+    }
+    footer span { color: var(--yolk); }
+
+    /* TOAST */
+    .toast {
+      position: fixed;
+      bottom: 24px;
+      left: 50%;
+      transform: translateX(-50%) translateY(80px);
+      background: var(--green);
+      color: white;
+      padding: 14px 24px;
+      border-radius: 12px;
+      font-weight: 600;
+      font-size: 0.95rem;
+      transition: transform 0.3s;
+      z-index: 999;
+    }
+    .toast.show { transform: translateX(-50%) translateY(0); }
+
+    @media (max-width: 600px) {
+      .nav-links { display: none; }
+      .hero { padding: 60px 20px 48px; }
+      section { padding: 48px 20px; }
+      .order-section, .chat-section { padding: 32px 20px; }
+    }
+  </style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <div class="logo">🥚 Хейилюй</div>
+  <div class="nav-links">
+    <a href="#order">Buyurtma</a>
+    <a href="#ai">AI Maslahat</a>
+    <a href="#delivery">Yetkazib berish</a>
+    <a href="#contact">Aloqa</a>
+  </div>
+</nav>
+
+<!-- HERO -->
+<div class="hero">
+  <div class="hero-badge">✨ Yangi mahsulot</div>
+  <h1>Тoza va Yangi<br /><span>Хейилюй Tuxumlari</span></h1>
+  <p>10 ta sog'lom tovuqdan har kuni yangi tuxum. Uyingizga tez yetkazib beramiz.</p>
+  <div class="price-tag">15 000 so'm <small>/ dona</small></div>
+  <div class="hero-btns">
+    <a href="#order" class="btn-primary">🛒 Buyurtma qilish</a>
+    <a href="#ai" class="btn-outline">🤖 AI dan so'rash</a>
+  </div>
+</div>
+
+<!-- STATS -->
+<div class="stats">
+  <div class="stat">
+    <div class="stat-num">10</div>
+    <div class="stat-label">Sog'lom tovuq</div>
+  </div>
+  <div class="stat">
+    <div class="stat-num">15K</div>
+    <div class="stat-label">So'm / dona</div>
+  </div>
+  <div class="stat">
+    <div class="stat-num">24/7</div>
+    <div class="stat-label">Buyurtma qabul</div>
+  </div>
+  <div class="stat">
+    <div class="stat-num">🚀</div>
+    <div class="stat-label">Tez yetkazish</div>
+  </div>
+</div>
+
+<!-- FEATURES -->
+<section>
+  <div class="section-title">Nima uchun bizni tanlaysiz?</div>
+  <div class="section-sub">Хейилюй tuxumlarining afzalliklari</div>
+  <div class="features-grid">
+    <div class="feature-card">
+      <div class="feature-icon">🐔</div>
+      <h3>Sog'lom tovuqlar</h3>
+      <p>Таbiy oziqlantirilgan, erkin yuradigan Хейилюй zotli tovuqlar</p>
+    </div>
+    <div class="feature-card">
+      <div class="feature-icon">🥚</div>
+      <h3>Yangi tuxumlar</h3>
+      <p>Har kuni yangi, hech qanday kimyoviy moddalar ishlatilmaydi</p>
+    </div>
+    <div class="feature-card">
+      <div class="feature-icon">🚗</div>
+      <h3>Tez yetkazish</h3>
+      <p>Buyurtma qilgan kuningiz yoki ertasi kuni eshigingizga yetkazamiz</p>
+    </div>
+    <div class="feature-card">
+      <div class="feature-icon">💰</div>
+      <h3>Arzon narx</div>
+      <p>Bozordan arzon — to'g'ridan-to'g'ri fermadan sizga</p>
+    </div>
+  </div>
+</section>
+
+<!-- ORDER -->
+<section id="order">
+  <div class="order-section">
+    <div class="section-title">Buyurtma qilish</div>
+    <div class="section-sub">Quyidagi formani to'ldiring, siz bilan bog'lanamiz</div>
+    <div class="order-form">
+      <div class="form-group">
+        <label>Ismingiz</label>
+        <input type="text" id="name" placeholder="Masalan: Alibek" />
+      </div>
+      <div class="form-group">
+        <label>Telefon raqam</label>
+        <input type="tel" id="phone" placeholder="+998 95 100 01 30" />
+      </div>
+      <div class="form-group">
+        <label>Manzil</label>
+        <input type="text" id="address" placeholder="Ko'cha, uy raqami" />
+      </div>
+      <div class="form-group">
+        <label>Dona soni</label>
+        <div class="quantity-row">
+          <button class="qty-btn" onclick="changeQty(-1)">−</button>
+          <span id="qty-display">1</span>
+          <button class="qty-btn" onclick="changeQty(1)">+</button>
+        </div>
+      </div>
+      <div class="total-box">
+        <span>Jami to'lov:</span>
+        <span id="total-price">15 000 so'm</span>
+      </div>
+      <button class="btn-primary" onclick="submitOrder()" style="font-size:1rem; padding:16px;">
+        ✅ Buyurtma yuborish
+      </button>
+    </div>
+  </div>
+</section>
+
+<!-- AI CHAT -->
+<section id="ai">
+  <div class="chat-section">
+    <div class="section-title">🤖 AI Maslahatchi</div>
+    <div class="section-sub">Tuxum, ovqat yoki biznes haqida savol bering</div>
+    <div class="chat-box" id="chat-box">
+      <div class="msg bot">Salom! 👋 Men <b>Хейилюй Tuxum</b> AI maslahatchiман.<br>Tuxum, retsept, narx, buyurtma haqida savol bering! 🥚</div>
+      <div class="msg bot" style="opacity:0.7;font-size:0.8rem;">💡 Masalan: "Tuxumning foydasi nima?" yoki "Nechta dona buyurtma qilsam bo'ladi?"</div>
+    </div>
+    <div class="chat-input-row">
+      <input type="text" id="chat-input" placeholder="Savol yozing..." onkeydown="if(event.key==='Enter') sendMsg()" />
+      <button class="btn-send" onclick="sendMsg()">Yuborish →</button>
+    </div>
+  </div>
+</section>
+
+<!-- DELIVERY -->
+<section id="delivery">
+  <div class="section-title">Yetkazib berish</div>
+  <div class="section-sub">Buyurtmangiz qanday yetib keladi?</div>
+  <div class="delivery-steps">
+    <div class="step">
+      <div class="step-num">1</div>
+      <div>
+        <h4>Buyurtma qiling</h4>
+        <p>Saytdan yoki Telegram bot orqali buyurtma bering</p>
+      </div>
+    </div>
+    <div class="step">
+      <div class="step-num">2</div>
+      <div>
+        <h4>Tasdiqlash</h4>
+        <p>Biz telefon orqali buyurtmangizni tasdiqlaymiz</p>
+      </div>
+    </div>
+    <div class="step">
+      <div class="step-num">3</div>
+      <div>
+        <h4>Yetkazib berish</h4>
+        <p>Yangi tuxumlar ehtiyotkorlik bilan qadoqlanib, eshigingizga yetkaziladi</p>
+      </div>
+    </div>
+    <div class="step">
+      <div class="step-num">4</div>
+      <div>
+        <h4>To'lov</h4>
+        <p>Naqd yoki Click / Payme orqali to'lang</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CONTACT -->
+<section id="contact">
+  <div class="section-title">Aloqa</div>
+  <div class="section-sub">Qo'shimcha savol bo'lsa, bog'laning</div>
+  <div class="contact-grid">
+    <a href="https://t.me/salohiddinTm" target="_blank" class="contact-card">
+      <div class="icon">✈️</div>
+      <h4>Telegram</h4>
+      <p>@salohiddinTm</p>
+    </a>
+    <a href="https://t.me/txum_bot" target="_blank" class="contact-card">
+      <div class="icon">🤖</div>
+      <h4>Telegram Bot</h4>
+      <p>@txum_bot</p>
+    </a>
+    <a href="https://t.me/tuxum_kanal" target="_blank" class="contact-card">
+      <div class="icon">📢</div>
+      <h4>Telegram Kanal</h4>
+      <p>@tuxum_kanal</p>
+    </a>
+    <a href="tel:+998951000130" class="contact-card">
+      <div class="icon">📞</div>
+      <h4>Telefon</h4>
+      <p>+998 95 100 01 30</p>
+    </a>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <p>© 2025 <span>Хейилюй Tuxum</span> — Barcha huquqlar himoyalangan</p>
+</footer>
+
+<!-- TOAST -->
+<div class="toast" id="toast"></div>
+
+<script>
+  // Quantity
+  let qty = 1;
+  const PRICE = 15000;
+
+  function changeQty(delta) {
+    qty = Math.max(1, qty + delta);
+    document.getElementById('qty-display').textContent = qty;
+    document.getElementById('total-price').textContent =
+      (qty * PRICE).toLocaleString('uz-UZ') + ' so\'m';
+  }
+
+  // Order
+  function submitOrder() {
+    const name = document.getElementById('name').value.trim();
+    const phone = document.getElementById('phone').value.trim();
+    const address = document.getElementById('address').value.trim();
+    if (!name || !phone || !address) {
+      showToast('❌ Iltimos, barcha maydonlarni to\'ldiring!', '#e53935');
+      return;
+    }
+    const msg = `Yangi buyurtma!\nIsm: ${name}\nTelefon: ${phone}\nManzil: ${address}\nSoni: ${qty} dona\nJami: ${(qty*PRICE).toLocaleString()} so'm`;
+    const url = `https://t.me/salohiddinTm?text=${encodeURIComponent(msg)}`;
+    window.open(url, '_blank');
+    showToast('✅ Buyurtma yuborildi! Tez orada bog\'lanamiz.');
+  }
+
+  // Toast
+  function showToast(msg, bg = '#4CAF50') {
+    const t = document.getElementById('toast');
+    t.textContent = msg;
+    t.style.background = bg;
+    t.classList.add('show');
+    setTimeout(() => t.classList.remove('show'), 3000);
+  }
+
+  // AI Chat
+  async function sendMsg() {
+    const input = document.getElementById('chat-input');
+    const text = input.value.trim();
+    if (!text) return;
+    input.value = '';
+
+    const box = document.getElementById('chat-box');
+    box.innerHTML += `<div class="msg user">${escapeHtml(text)}</div>`;
+    box.innerHTML += `<div class="msg bot loading" id="loading-msg">✍️ Javob yozilmoqda...</div>`;
+    box.scrollTop = box.scrollHeight;
+
+    try {
+      const res = await fetch('/api/chat', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ message: text })
+      });
+      const data = await res.json();
+      const reply = data.reply || 'Kechirasiz, xatolik yuz berdi.';
+      document.getElementById('loading-msg').remove();
+      box.innerHTML += `<div class="msg bot">${escapeHtml(reply)}</div>`;
+    } catch {
+      document.getElementById('loading-msg').remove();
+      box.innerHTML += `<div class="msg bot">⚠️ Internet aloqasi yo'q. Qayta urinib ko'ring.</div>`;
+    }
+    box.scrollTop = box.scrollHeight;
+  }
+
+  function escapeHtml(text) {
+    return text
+      .replace(/&/g, '&amp;')
+      .replace(/</g, '&lt;')
+      .replace(/>/g, '&gt;')
+      .replace(/\n/g, '<br>');
+  }
+</script>
+
+<script>
+  if ('serviceWorker' in navigator) {
+    navigator.serviceWorker.register('/sw.js');
+  }
+</script>
+</body>
+</html>
