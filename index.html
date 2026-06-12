@@ -250,67 +250,6 @@
     }
     .total-box span:last-child { font-size: 1.3rem; font-weight: 700; color: var(--yolk); }
 
-    /* AI CHAT */
-    .chat-section {
-      background: var(--earth);
-      border-radius: 24px;
-      padding: 40px 32px;
-      color: var(--white);
-    }
-    .chat-section .section-title { color: var(--white); }
-    .chat-section .section-sub { color: rgba(255,255,255,0.6); }
-    .chat-box {
-      background: rgba(255,255,255,0.07);
-      border-radius: 16px;
-      padding: 20px;
-      min-height: 200px;
-      max-height: 300px;
-      overflow-y: auto;
-      margin-bottom: 16px;
-      display: flex;
-      flex-direction: column;
-      gap: 12px;
-    }
-    .msg {
-      padding: 10px 14px;
-      border-radius: 12px;
-      font-size: 0.9rem;
-      line-height: 1.5;
-      max-width: 85%;
-    }
-    .msg.bot {
-      background: rgba(245,166,35,0.15);
-      border: 1px solid rgba(245,166,35,0.3);
-      align-self: flex-start;
-    }
-    .msg.user {
-      background: var(--yolk);
-      color: var(--earth);
-      align-self: flex-end;
-      font-weight: 500;
-    }
-    .msg.loading { opacity: 0.6; font-style: italic; }
-    .chat-input-row { display: flex; gap: 10px; }
-    .chat-input-row input {
-      flex: 1;
-      background: rgba(255,255,255,0.1);
-      border-color: rgba(255,255,255,0.2);
-      color: var(--white);
-    }
-    .chat-input-row input::placeholder { color: rgba(255,255,255,0.4); }
-    .chat-input-row input:focus { border-color: var(--yolk); }
-    .btn-send {
-      background: var(--yolk);
-      color: var(--earth);
-      border: none;
-      padding: 12px 20px;
-      border-radius: 10px;
-      font-weight: 600;
-      cursor: pointer;
-      font-size: 0.95rem;
-      transition: background 0.2s;
-    }
-    .btn-send:hover { background: var(--yolk-dark); }
 
     /* DELIVERY */
     .delivery-steps {
@@ -402,7 +341,6 @@
   <div class="logo">🥚 Хейилюй</div>
   <div class="nav-links">
     <a href="#order">Buyurtma</a>
-    <a href="#ai">AI Maslahat</a>
     <a href="#delivery">Yetkazib berish</a>
     <a href="#contact">Aloqa</a>
   </div>
@@ -416,7 +354,6 @@
   <div class="price-tag">15 000 so'm <small>/ dona</small></div>
   <div class="hero-btns">
     <a href="#order" class="btn-primary">🛒 Buyurtma qilish</a>
-    <a href="#ai" class="btn-outline">🤖 AI dan so'rash</a>
   </div>
 </div>
 
@@ -505,21 +442,6 @@
   </div>
 </section>
 
-<!-- AI CHAT -->
-<section id="ai">
-  <div class="chat-section">
-    <div class="section-title">🤖 AI Maslahatchi</div>
-    <div class="section-sub">Tuxum, ovqat yoki biznes haqida savol bering</div>
-    <div class="chat-box" id="chat-box">
-      <div class="msg bot">Salom! 👋 Men <b>Хейилюй Tuxum</b> AI maslahatchiман.<br>Tuxum, retsept, narx, buyurtma haqida savol bering! 🥚</div>
-      <div class="msg bot" style="opacity:0.7;font-size:0.8rem;">💡 Masalan: "Tuxumning foydasi nima?" yoki "Nechta dona buyurtma qilsam bo'ladi?"</div>
-    </div>
-    <div class="chat-input-row">
-      <input type="text" id="chat-input" placeholder="Savol yozing..." onkeydown="if(event.key==='Enter') sendMsg()" />
-      <button class="btn-send" onclick="sendMsg()">Yuborish →</button>
-    </div>
-  </div>
-</section>
 
 <!-- DELIVERY -->
 <section id="delivery">
@@ -572,11 +494,6 @@
       <h4>Telegram Bot</h4>
       <p>@txum_bot</p>
     </a>
-    <a href="https://t.me/tuxum_kanal" target="_blank" class="contact-card">
-      <div class="icon">📢</div>
-      <h4>Telegram Kanal</h4>
-      <p>@tuxum_kanal</p>
-    </a>
     <a href="tel:+998951000130" class="contact-card">
       <div class="icon">📞</div>
       <h4>Telefon</h4>
@@ -606,7 +523,7 @@
   }
 
   // Order
-  function submitOrder() {
+  async function submitOrder() {
     const name = document.getElementById('name').value.trim();
     const phone = document.getElementById('phone').value.trim();
     const address = document.getElementById('address').value.trim();
@@ -614,10 +531,37 @@
       showToast('❌ Iltimos, barcha maydonlarni to\'ldiring!', '#e53935');
       return;
     }
-    const msg = `Yangi buyurtma!\nIsm: ${name}\nTelefon: ${phone}\nManzil: ${address}\nSoni: ${qty} dona\nJami: ${(qty*PRICE).toLocaleString()} so'm`;
-    const url = `https://t.me/salohiddinTm?text=${encodeURIComponent(msg)}`;
-    window.open(url, '_blank');
-    showToast('✅ Buyurtma yuborildi! Tez orada bog\'lanamiz.');
+    const btn = document.querySelector('#order .btn-primary');
+    btn.textContent = '⏳ Yuborilmoqda...';
+    btn.disabled = true;
+    try {
+      const res = await fetch('/api/order', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          name, phone, address,
+          qty: qty,
+          total: (qty * PRICE).toLocaleString('uz-UZ') + " so'm"
+        })
+      });
+      const data = await res.json();
+      if (data.success) {
+        showToast('✅ Buyurtma yuborildi! Tez orada bog\'lanamiz. 🎉');
+        document.getElementById('name').value = '';
+        document.getElementById('phone').value = '';
+        document.getElementById('address').value = '';
+        qty = 1;
+        document.getElementById('qty-display').textContent = '1';
+        document.getElementById('total-price').textContent = "15 000 so'm";
+      } else {
+        showToast('⚠️ Xatolik! @txum_bot orqali buyurtma qiling.', '#e53935');
+      }
+    } catch {
+      showToast('⚠️ Internet xatosi. @txum_bot orqali buyurtma qiling.', '#e53935');
+    } finally {
+      btn.textContent = '✅ Buyurtma yuborish';
+      btn.disabled = false;
+    }
   }
 
   // Toast
@@ -629,42 +573,6 @@
     setTimeout(() => t.classList.remove('show'), 3000);
   }
 
-  // AI Chat
-  async function sendMsg() {
-    const input = document.getElementById('chat-input');
-    const text = input.value.trim();
-    if (!text) return;
-    input.value = '';
-
-    const box = document.getElementById('chat-box');
-    box.innerHTML += `<div class="msg user">${escapeHtml(text)}</div>`;
-    box.innerHTML += `<div class="msg bot loading" id="loading-msg">✍️ Javob yozilmoqda...</div>`;
-    box.scrollTop = box.scrollHeight;
-
-    try {
-      const res = await fetch('/api/chat', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ message: text })
-      });
-      const data = await res.json();
-      const reply = data.reply || 'Kechirasiz, xatolik yuz berdi.';
-      document.getElementById('loading-msg').remove();
-      box.innerHTML += `<div class="msg bot">${escapeHtml(reply)}</div>`;
-    } catch {
-      document.getElementById('loading-msg').remove();
-      box.innerHTML += `<div class="msg bot">⚠️ Internet aloqasi yo'q. Qayta urinib ko'ring.</div>`;
-    }
-    box.scrollTop = box.scrollHeight;
-  }
-
-  function escapeHtml(text) {
-    return text
-      .replace(/&/g, '&amp;')
-      .replace(/</g, '&lt;')
-      .replace(/>/g, '&gt;')
-      .replace(/\n/g, '<br>');
-  }
 </script>
 
 <script>
