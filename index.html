@@ -21,8 +21,6 @@
     }
     * { margin: 0; padding: 0; box-sizing: border-box; }
     body { font-family: 'Inter', sans-serif; background: var(--shell); color: var(--earth); }
-
-    /* NAV */
     nav {
       background: var(--earth);
       padding: 16px 24px;
@@ -39,8 +37,6 @@
       font-size: 0.9rem; opacity: 0.85; transition: opacity 0.2s;
     }
     .nav-links a:hover { opacity: 1; color: var(--yolk); }
-
-    /* HERO */
     .hero {
       background: var(--earth); color: var(--white);
       padding: 80px 24px 60px; text-align: center;
@@ -62,8 +58,6 @@
     }
     .hero h1 span { color: var(--yolk); }
     .hero p { font-size: 1.1rem; opacity: 0.8; max-width: 480px; margin: 0 auto 32px; line-height: 1.6; }
-
-    /* STOCK DISPLAY */
     .stock-display {
       display: inline-block;
       background: rgba(255,255,255,0.1);
@@ -86,7 +80,6 @@
       border-radius: 12px; margin-bottom: 28px; margin-left: 12px;
     }
     .price-tag small { font-size: 0.85rem; font-weight: 500; }
-
     .hero-btns { display: flex; gap: 12px; justify-content: center; flex-wrap: wrap; }
     .btn-primary {
       background: var(--yolk); color: var(--earth); border: none;
@@ -96,8 +89,6 @@
     }
     .btn-primary:hover { background: var(--yolk-dark); transform: translateY(-2px); }
     .btn-primary:disabled { opacity: 0.5; cursor: not-allowed; transform: none; }
-
-    /* STATS */
     .stats {
       display: flex; justify-content: center;
       background: var(--yolk); flex-wrap: wrap;
@@ -109,13 +100,9 @@
     .stat:last-child { border-right: none; }
     .stat-num { font-family: 'Playfair Display', serif; font-size: 2rem; font-weight: 900; color: var(--earth); }
     .stat-label { font-size: 0.8rem; color: var(--earth); opacity: 0.75; margin-top: 4px; }
-
-    /* SECTIONS */
     section { padding: 64px 24px; max-width: 900px; margin: 0 auto; }
     .section-title { font-family: 'Playfair Display', serif; font-size: 2rem; font-weight: 900; margin-bottom: 8px; }
     .section-sub { color: var(--gray); margin-bottom: 40px; font-size: 1rem; }
-
-    /* FEATURES */
     .features-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 20px; }
     .feature-card {
       background: var(--white); border-radius: 16px; padding: 28px 24px;
@@ -125,8 +112,6 @@
     .feature-icon { font-size: 2.2rem; margin-bottom: 14px; }
     .feature-card h3 { font-size: 1rem; font-weight: 600; margin-bottom: 8px; }
     .feature-card p { font-size: 0.88rem; color: var(--gray); line-height: 1.5; }
-
-    /* ORDER */
     .order-section { background: var(--light); border-radius: 24px; padding: 48px 32px; border: 1px solid #EDE0CC; }
     .order-form { display: flex; flex-direction: column; gap: 16px; max-width: 480px; }
     .form-group { display: flex; flex-direction: column; gap: 6px; }
@@ -150,8 +135,6 @@
       border-radius: 12px; display: flex; justify-content: space-between; align-items: center;
     }
     .total-box span:last-child { font-size: 1.3rem; font-weight: 700; color: var(--yolk); }
-
-    /* STOCK WARNING */
     .stock-warning {
       background: #fff3cd; border: 1px solid #ffc107;
       border-radius: 10px; padding: 12px 16px;
@@ -162,8 +145,6 @@
       border-radius: 10px; padding: 12px 16px;
       font-size: 0.9rem; color: var(--red); display: none;
     }
-
-    /* DELIVERY */
     .delivery-steps { display: flex; flex-direction: column; gap: 16px; }
     .step {
       display: flex; align-items: flex-start; gap: 16px;
@@ -176,8 +157,6 @@
     }
     .step h4 { font-size: 0.95rem; font-weight: 600; margin-bottom: 4px; }
     .step p { font-size: 0.85rem; color: var(--gray); }
-
-    /* CONTACT */
     .contact-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 16px; }
     .contact-card {
       background: var(--white); border-radius: 14px; padding: 24px; text-align: center;
@@ -187,12 +166,8 @@
     .contact-card .icon { font-size: 2rem; margin-bottom: 10px; }
     .contact-card h4 { font-weight: 600; margin-bottom: 4px; }
     .contact-card p { font-size: 0.85rem; color: var(--gray); }
-
-    /* FOOTER */
     footer { background: var(--earth); color: rgba(255,255,255,0.6); text-align: center; padding: 24px; font-size: 0.85rem; }
     footer span { color: var(--yolk); }
-
-    /* TOAST */
     .toast {
       position: fixed; bottom: 24px; left: 50%;
       transform: translateX(-50%) translateY(80px);
@@ -201,8 +176,6 @@
       transition: transform 0.3s; z-index: 999;
     }
     .toast.show { transform: translateX(-50%) translateY(0); }
-
-    /* ADMIN PANEL */
     .admin-toggle {
       position: fixed; bottom: 80px; right: 24px;
       background: var(--earth); color: var(--yolk);
@@ -211,7 +184,6 @@
       z-index: 998; transition: transform 0.2s;
     }
     .admin-toggle:hover { transform: scale(1.1); }
-
     .admin-overlay {
       display: none; position: fixed; inset: 0;
       background: rgba(0,0,0,0.5); z-index: 1000;
@@ -223,26 +195,15 @@
       padding: 32px; width: 90%; max-width: 420px;
       box-shadow: 0 20px 60px rgba(0,0,0,0.3);
     }
-    .admin-panel h2 {
-      font-family: 'Playfair Display', serif;
-      font-size: 1.5rem; margin-bottom: 6px;
-    }
+    .admin-panel h2 { font-family: 'Playfair Display', serif; font-size: 1.5rem; margin-bottom: 6px; }
     .admin-panel p { color: var(--gray); font-size: 0.9rem; margin-bottom: 24px; }
-
     .admin-login { display: flex; flex-direction: column; gap: 12px; }
     .admin-controls { display: none; flex-direction: column; gap: 20px; }
     .admin-controls.visible { display: flex; }
-
-    .stock-control {
-      background: var(--light); border-radius: 14px; padding: 20px;
-      border: 1px solid #EDE0CC;
-    }
+    .stock-control { background: var(--light); border-radius: 14px; padding: 20px; border: 1px solid #EDE0CC; }
     .stock-control label { font-size: 0.85rem; font-weight: 600; display: block; margin-bottom: 10px; }
     .stock-row { display: flex; gap: 10px; align-items: center; }
-    .stock-row input {
-      flex: 1; padding: 10px 14px; border: 1.5px solid #DDD0BC;
-      border-radius: 8px; font-size: 1rem;
-    }
+    .stock-row input { flex: 1; padding: 10px 14px; border: 1.5px solid #DDD0BC; border-radius: 8px; font-size: 1rem; }
     .btn-admin {
       background: var(--earth); color: var(--white); border: none;
       padding: 10px 20px; border-radius: 8px; font-size: 0.9rem;
@@ -254,30 +215,17 @@
       padding: 10px 20px; border-radius: 8px; font-size: 0.9rem;
       font-weight: 600; cursor: pointer;
     }
-
-    .price-control {
-      background: var(--light); border-radius: 14px; padding: 20px;
-      border: 1px solid #EDE0CC;
-    }
+    .price-control { background: var(--light); border-radius: 14px; padding: 20px; border: 1px solid #EDE0CC; }
     .price-control label { font-size: 0.85rem; font-weight: 600; display: block; margin-bottom: 10px; }
-
     .admin-close {
       background: none; border: 1px solid #DDD0BC; border-radius: 8px;
-      padding: 10px; cursor: pointer; font-size: 0.9rem; color: var(--gray);
-      width: 100%;
+      padding: 10px; cursor: pointer; font-size: 0.9rem; color: var(--gray); width: 100%;
     }
     .admin-close:hover { background: var(--shell); }
-
-    .current-stats {
-      display: flex; gap: 10px; margin-bottom: 4px;
-    }
-    .stat-mini {
-      flex: 1; background: var(--white); border: 1px solid #EDE0CC;
-      border-radius: 10px; padding: 12px; text-align: center;
-    }
+    .current-stats { display: flex; gap: 10px; margin-bottom: 4px; }
+    .stat-mini { flex: 1; background: var(--white); border: 1px solid #EDE0CC; border-radius: 10px; padding: 12px; text-align: center; }
     .stat-mini-num { font-size: 1.4rem; font-weight: 700; color: var(--earth); }
     .stat-mini-label { font-size: 0.75rem; color: var(--gray); }
-
     @media (max-width: 600px) {
       .nav-links { display: none; }
       .hero { padding: 60px 20px 48px; }
@@ -288,7 +236,6 @@
 </head>
 <body>
 
-<!-- NAV -->
 <nav>
   <div class="logo">🥚 Ухейилюйa</div>
   <div class="nav-links">
@@ -298,12 +245,10 @@
   </div>
 </nav>
 
-<!-- HERO -->
 <div class="hero">
   <div class="hero-badge">✨ Yangi mahsulot</div>
   <h1>Тoza va Yangi<br /><span>Ухейилюй Tuxumlari</span></h1>
   <p>10 ta sog'lom tovuqdan har kuni yangi tuxum. Uyingizga tez yetkazib beramiz.</p>
-
   <div style="display:flex; gap:16px; justify-content:center; align-items:center; flex-wrap:wrap; margin-bottom:28px;">
     <div class="stock-display">
       <div class="stock-count" id="hero-stock">—</div>
@@ -311,13 +256,11 @@
     </div>
     <div class="price-tag" id="hero-price">— so'm <small>/ dona</small></div>
   </div>
-
   <div class="hero-btns">
     <a href="#order" class="btn-primary" id="hero-order-btn">🛒 Buyurtma qilish</a>
   </div>
 </div>
 
-<!-- STATS -->
 <div class="stats">
   <div class="stat"><div class="stat-num">10</div><div class="stat-label">Sog'lom tovuq</div></div>
   <div class="stat"><div class="stat-num" id="stat-price">—</div><div class="stat-label">So'm / dona</div></div>
@@ -325,7 +268,6 @@
   <div class="stat"><div class="stat-num" id="stat-stock">—</div><div class="stat-label">Dona mavjud</div></div>
 </div>
 
-<!-- FEATURES -->
 <section>
   <div class="section-title">Nima uchun bizni tanlaysiz?</div>
   <div class="section-sub">Ухейилюйa tuxumlarining afzalliklari</div>
@@ -353,19 +295,16 @@
   </div>
 </section>
 
-<!-- ORDER -->
 <section id="order">
   <div class="order-section">
     <div class="section-title">Buyurtma qilish</div>
     <div class="section-sub">Quyidagi formani to'ldiring, siz bilan bog'lanamiz</div>
-
     <div id="stock-empty-msg" class="stock-empty" style="display:none; margin-bottom:16px;">
       😔 Hozirda tuxum qolmadi. Tez orada yangi tuxumlar keladi!
     </div>
     <div id="stock-low-msg" class="stock-warning" style="display:none; margin-bottom:16px;">
       ⚠️ Kam qoldi! Tez buyurtma bering.
     </div>
-
     <div class="order-form">
       <div class="form-group">
         <label>Ismingiz</label>
@@ -398,7 +337,6 @@
   </div>
 </section>
 
-<!-- DELIVERY -->
 <section id="delivery">
   <div class="section-title">Yetkazib berish</div>
   <div class="section-sub">Buyurtmangiz qanday yetib keladi?</div>
@@ -410,7 +348,6 @@
   </div>
 </section>
 
-<!-- CONTACT -->
 <section id="contact">
   <div class="section-title">Aloqa</div>
   <div class="section-sub">Qo'shimcha savol bo'lsa, bog'laning</div>
@@ -433,16 +370,12 @@
 
 <div class="toast" id="toast"></div>
 
-<!-- ADMIN BUTTON -->
 <button class="admin-toggle" onclick="openAdmin()" title="Admin panel">⚙️</button>
 
-<!-- ADMIN OVERLAY -->
 <div class="admin-overlay" id="admin-overlay" onclick="closeAdminOutside(event)">
   <div class="admin-panel">
     <h2>⚙️ Admin Panel</h2>
     <p>Tuxum soni va narxini boshqaring</p>
-
-    <!-- LOGIN -->
     <div class="admin-login" id="admin-login">
       <div class="form-group">
         <label>Parol</label>
@@ -451,10 +384,7 @@
       <button class="btn-primary" onclick="adminLogin()">Kirish</button>
       <button class="admin-close" onclick="closeAdmin()">Bekor qilish</button>
     </div>
-
-    <!-- CONTROLS -->
     <div class="admin-controls" id="admin-controls">
-
       <div class="current-stats">
         <div class="stat-mini">
           <div class="stat-mini-num" id="admin-stock-display">—</div>
@@ -465,7 +395,6 @@
           <div class="stat-mini-label">Narx (so'm)</div>
         </div>
       </div>
-
       <div class="stock-control">
         <label>📦 Tuxum sonini o'zgartirish</label>
         <div class="stock-row">
@@ -480,7 +409,6 @@
           <button class="btn-danger" onclick="setStock(0)" style="padding:7px 14px; font-size:0.82rem;">0 qilish</button>
         </div>
       </div>
-
       <div class="price-control">
         <label>💰 Narxni o'zgartirish (so'm)</label>
         <div class="stock-row">
@@ -488,15 +416,13 @@
           <button class="btn-admin" onclick="updatePrice()">Saqlash</button>
         </div>
       </div>
-
       <button class="admin-close" onclick="closeAdmin()">✅ Yopish</button>
     </div>
   </div>
 </div>
 
 <script>
-  // ========== STATE ==========
-  const ADMIN_PASSWORD = "admin123"; // O'zgartiring!
+  const ADMIN_PASSWORD = "admin123";
   let state = {
     stock: parseInt(localStorage.getItem('tuxum_stock') ?? '30'),
     price: parseInt(localStorage.getItem('tuxum_price') ?? '15000'),
@@ -508,18 +434,17 @@
     localStorage.setItem('tuxum_price', state.price);
   }
 
-  // ========== UI UPDATE ==========
   function updateUI() {
-    const stockEl    = document.getElementById('hero-stock');
-    const priceEl    = document.getElementById('hero-price');
-    const statPrice  = document.getElementById('stat-price');
-    const statStock  = document.getElementById('stat-stock');
-    const orderBtn   = document.getElementById('order-btn');
-    const heroBtn    = document.getElementById('hero-order-btn');
-    const emptyMsg   = document.getElementById('stock-empty-msg');
-    const lowMsg     = document.getElementById('stock-low-msg');
-    const adminSD    = document.getElementById('admin-stock-display');
-    const adminPD    = document.getElementById('admin-price-display');
+    const stockEl   = document.getElementById('hero-stock');
+    const priceEl   = document.getElementById('hero-price');
+    const statPrice = document.getElementById('stat-price');
+    const statStock = document.getElementById('stat-stock');
+    const orderBtn  = document.getElementById('order-btn');
+    const heroBtn   = document.getElementById('hero-order-btn');
+    const emptyMsg  = document.getElementById('stock-empty-msg');
+    const lowMsg    = document.getElementById('stock-low-msg');
+    const adminSD   = document.getElementById('admin-stock-display');
+    const adminPD   = document.getElementById('admin-price-display');
 
     stockEl.textContent = state.stock;
     priceEl.innerHTML   = state.price.toLocaleString('uz-UZ') + " so'm <small>/ dona</small>";
@@ -530,7 +455,6 @@
 
     updateTotal();
 
-    // Stock status
     if (state.stock === 0) {
       emptyMsg.style.display = 'block';
       lowMsg.style.display = 'none';
@@ -560,7 +484,6 @@
       (qty * state.price).toLocaleString('uz-UZ') + " so'm";
   }
 
-  // ========== QTY ==========
   function changeQty(delta) {
     const max = state.stock;
     qty = Math.min(max, Math.max(1, qty + delta));
@@ -568,7 +491,7 @@
     updateTotal();
   }
 
-  // ========== ORDER ==========
+  // ========== ORDER — Telegram orqali ==========
   async function submitOrder() {
     if (state.stock === 0) return;
     const name    = document.getElementById('name').value.trim();
@@ -580,17 +503,25 @@
     if (qty > state.stock) {
       showToast(`⚠️ Faqat ${state.stock} ta mavjud!`, '#e53935'); return;
     }
+
+    const total = (qty * state.price).toLocaleString('uz-UZ') + " so'm";
+    const text = `🥚 Yangi buyurtma!\n\n👤 Ism: ${name}\n📞 Tel: ${phone}\n📍 Manzil: ${address}\n🔢 Soni: ${qty} ta\n💰 Jami: ${total}`;
+
+    const BOT_TOKEN = "8656295440:AAEUBRVs4umfJkh-YPm3XMJh52R3e9l56bw";
+    const CHAT_ID   = "6283517295";
+
     const btn = document.getElementById('order-btn');
     btn.textContent = '⏳ Yuborilmoqda...';
     btn.disabled = true;
+
     try {
-      const res = await fetch('/api/order', {
+      const res = await fetch(`https://api.telegram.org/bot${BOT_TOKEN}/sendMessage`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ name, phone, address, qty, total: (qty * state.price).toLocaleString('uz-UZ') + " so'm" })
+        body: JSON.stringify({ chat_id: CHAT_ID, text })
       });
       const data = await res.json();
-      if (data.success) {
+      if (data.ok) {
         showToast("✅ Buyurtma yuborildi! Tez orada bog'lanamiz 🎉");
         document.getElementById('name').value = '';
         document.getElementById('phone').value = '';
@@ -599,17 +530,16 @@
         document.getElementById('qty-display').textContent = '1';
         updateTotal();
       } else {
-        showToast('⚠️ Xatolik! @txum_bot orqali buyurtma qiling.', '#e53935');
+        showToast('⚠️ Xatolik yuz berdi!', '#e53935');
       }
     } catch {
-      showToast('⚠️ Internet xatosi. @txum_bot orqali buyurtma qiling.', '#e53935');
+      showToast('⚠️ Internet xatosi!', '#e53935');
     } finally {
       btn.textContent = '✅ Buyurtma yuborish';
       btn.disabled = false;
     }
   }
 
-  // ========== ADMIN ==========
   function openAdmin() {
     document.getElementById('admin-overlay').classList.add('open');
     document.getElementById('admin-login').style.display = 'flex';
@@ -668,7 +598,6 @@
     showToast(`✅ Narx: ${val.toLocaleString('uz-UZ')} so'm`);
   }
 
-  // ========== TOAST ==========
   function showToast(msg, bg = '#4CAF50') {
     const t = document.getElementById('toast');
     t.textContent = msg; t.style.background = bg;
@@ -676,7 +605,6 @@
     setTimeout(() => t.classList.remove('show'), 3000);
   }
 
-  // Init
   updateUI();
 </script>
 </body>
