@@ -432,8 +432,23 @@
     });
 
     const ordersEvt = new EventSource(`${DB_URL}/orders.json`);
-    ordersEvt.addEventListener('put', async (e) => { await loadOrders(); });
+    let firstLoad = true;
+    ordersEvt.addEventListener('put', async (e) => {
+      const prevCount = orders.length;
+      await loadOrders();
+      if (!firstLoad && orders.length > prevCount) {
+        showToast('🔔 Yangi buyurtma keldi!', '#1976D2');
+        if ('Notification' in window && Notification.permission === 'granted') {
+          new Notification('🥚 Yangi buyurtma!', { body: orders[0]?.name + ' — ' + orders[0]?.total });
+        }
+      }
+      firstLoad = false;
+    });
     ordersEvt.addEventListener('patch', async (e) => { await loadOrders(); });
+    // Bildirishnoma ruxsati
+    if ('Notification' in window && Notification.permission === 'default') {
+      Notification.requestPermission();
+    }
   }
 
   // ========== UI ==========
