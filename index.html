@@ -21,100 +21,274 @@
     }
     * { margin: 0; padding: 0; box-sizing: border-box; }
     body { font-family: 'Inter', sans-serif; background: var(--shell); color: var(--earth); }
+
+    /* NAV */
     nav {
-      background: var(--earth); padding: 16px 24px;
-      display: flex; justify-content: space-between; align-items: center;
-      position: sticky; top: 0; z-index: 100;
+      background: var(--earth);
+      padding: 16px 24px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      position: sticky;
+      top: 0;
+      z-index: 100;
     }
     .logo { font-family: 'Playfair Display', serif; color: var(--yolk); font-size: 1.4rem; font-weight: 900; }
-    .nav-links a { color: #fff; text-decoration: none; margin-left: 20px; font-size: 0.9rem; opacity: 0.85; transition: opacity 0.2s; }
+    .nav-links a {
+      color: #fff; text-decoration: none; margin-left: 20px;
+      font-size: 0.9rem; opacity: 0.85; transition: opacity 0.2s;
+    }
     .nav-links a:hover { opacity: 1; color: var(--yolk); }
-    .hero { background: var(--earth); color: var(--white); padding: 80px 24px 60px; text-align: center; position: relative; overflow: hidden; }
-    .hero::before { content: '🥚'; font-size: 200px; position: absolute; right: -40px; top: -20px; opacity: 0.07; transform: rotate(20deg); }
-    .hero-badge { display: inline-block; background: var(--yolk); color: var(--earth); font-size: 0.75rem; font-weight: 600; padding: 6px 14px; border-radius: 20px; margin-bottom: 20px; text-transform: uppercase; }
-    .hero h1 { font-family: 'Playfair Display', serif; font-size: clamp(2.2rem, 6vw, 3.8rem); font-weight: 900; line-height: 1.15; margin-bottom: 16px; }
+
+    /* HERO */
+    .hero {
+      background: var(--earth); color: var(--white);
+      padding: 80px 24px 60px; text-align: center;
+      position: relative; overflow: hidden;
+    }
+    .hero::before {
+      content: '🥚'; font-size: 200px; position: absolute;
+      right: -40px; top: -20px; opacity: 0.07; transform: rotate(20deg);
+    }
+    .hero-badge {
+      display: inline-block; background: var(--yolk); color: var(--earth);
+      font-size: 0.75rem; font-weight: 600; padding: 6px 14px;
+      border-radius: 20px; margin-bottom: 20px; text-transform: uppercase;
+    }
+    .hero h1 {
+      font-family: 'Playfair Display', serif;
+      font-size: clamp(2.2rem, 6vw, 3.8rem);
+      font-weight: 900; line-height: 1.15; margin-bottom: 16px;
+    }
     .hero h1 span { color: var(--yolk); }
     .hero p { font-size: 1.1rem; opacity: 0.8; max-width: 480px; margin: 0 auto 32px; line-height: 1.6; }
-    .stock-display { display: inline-block; background: rgba(255,255,255,0.1); border: 1px solid rgba(245,166,35,0.4); border-radius: 16px; padding: 20px 40px; margin-bottom: 28px; }
-    .stock-count { font-family: 'Playfair Display', serif; font-size: 3.5rem; font-weight: 900; color: var(--yolk); line-height: 1; }
+
+    /* STOCK DISPLAY */
+    .stock-display {
+      display: inline-block;
+      background: rgba(255,255,255,0.1);
+      border: 1px solid rgba(245,166,35,0.4);
+      border-radius: 16px;
+      padding: 20px 40px;
+      margin-bottom: 28px;
+    }
+    .stock-count {
+      font-family: 'Playfair Display', serif;
+      font-size: 3.5rem;
+      font-weight: 900;
+      color: var(--yolk);
+      line-height: 1;
+    }
     .stock-label { font-size: 0.85rem; opacity: 0.7; margin-top: 4px; }
-    .price-tag { display: inline-block; background: var(--yolk); color: var(--earth); font-size: 1.6rem; font-weight: 700; padding: 12px 28px; border-radius: 12px; margin-bottom: 28px; margin-left: 12px; }
+    .price-tag {
+      display: inline-block; background: var(--yolk); color: var(--earth);
+      font-size: 1.6rem; font-weight: 700; padding: 12px 28px;
+      border-radius: 12px; margin-bottom: 28px; margin-left: 12px;
+    }
     .price-tag small { font-size: 0.85rem; font-weight: 500; }
+
     .hero-btns { display: flex; gap: 12px; justify-content: center; flex-wrap: wrap; }
-    .btn-primary { background: var(--yolk); color: var(--earth); border: none; padding: 14px 28px; border-radius: 10px; font-size: 1rem; font-weight: 600; cursor: pointer; text-decoration: none; transition: transform 0.2s, background 0.2s; display: inline-block; }
+    .btn-primary {
+      background: var(--yolk); color: var(--earth); border: none;
+      padding: 14px 28px; border-radius: 10px; font-size: 1rem;
+      font-weight: 600; cursor: pointer; text-decoration: none;
+      transition: transform 0.2s, background 0.2s; display: inline-block;
+    }
     .btn-primary:hover { background: var(--yolk-dark); transform: translateY(-2px); }
     .btn-primary:disabled { opacity: 0.5; cursor: not-allowed; transform: none; }
-    .stats { display: flex; justify-content: center; background: var(--yolk); flex-wrap: wrap; }
-    .stat { flex: 1; min-width: 120px; text-align: center; padding: 24px 16px; border-right: 1px solid rgba(255,255,255,0.3); }
+
+    /* STATS */
+    .stats {
+      display: flex; justify-content: center;
+      background: var(--yolk); flex-wrap: wrap;
+    }
+    .stat {
+      flex: 1; min-width: 120px; text-align: center;
+      padding: 24px 16px; border-right: 1px solid rgba(255,255,255,0.3);
+    }
     .stat:last-child { border-right: none; }
     .stat-num { font-family: 'Playfair Display', serif; font-size: 2rem; font-weight: 900; color: var(--earth); }
     .stat-label { font-size: 0.8rem; color: var(--earth); opacity: 0.75; margin-top: 4px; }
+
+    /* SECTIONS */
     section { padding: 64px 24px; max-width: 900px; margin: 0 auto; }
     .section-title { font-family: 'Playfair Display', serif; font-size: 2rem; font-weight: 900; margin-bottom: 8px; }
     .section-sub { color: var(--gray); margin-bottom: 40px; font-size: 1rem; }
+
+    /* FEATURES */
     .features-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 20px; }
-    .feature-card { background: var(--white); border-radius: 16px; padding: 28px 24px; border: 1px solid #EDE0CC; transition: transform 0.2s, box-shadow 0.2s; }
+    .feature-card {
+      background: var(--white); border-radius: 16px; padding: 28px 24px;
+      border: 1px solid #EDE0CC; transition: transform 0.2s, box-shadow 0.2s;
+    }
     .feature-card:hover { transform: translateY(-4px); box-shadow: 0 12px 32px rgba(59,42,26,0.1); }
     .feature-icon { font-size: 2.2rem; margin-bottom: 14px; }
     .feature-card h3 { font-size: 1rem; font-weight: 600; margin-bottom: 8px; }
     .feature-card p { font-size: 0.88rem; color: var(--gray); line-height: 1.5; }
+
+    /* ORDER */
     .order-section { background: var(--light); border-radius: 24px; padding: 48px 32px; border: 1px solid #EDE0CC; }
     .order-form { display: flex; flex-direction: column; gap: 16px; max-width: 480px; }
     .form-group { display: flex; flex-direction: column; gap: 6px; }
     label { font-size: 0.85rem; font-weight: 600; color: var(--earth); }
-    input, select, textarea { padding: 12px 16px; border: 1.5px solid #DDD0BC; border-radius: 10px; font-size: 0.95rem; font-family: 'Inter', sans-serif; background: var(--white); color: var(--earth); transition: border-color 0.2s; outline: none; }
+    input, select, textarea {
+      padding: 12px 16px; border: 1.5px solid #DDD0BC; border-radius: 10px;
+      font-size: 0.95rem; font-family: 'Inter', sans-serif;
+      background: var(--white); color: var(--earth); transition: border-color 0.2s; outline: none;
+    }
     input:focus, select:focus, textarea:focus { border-color: var(--yolk); }
     .quantity-row { display: flex; gap: 12px; align-items: center; }
-    .qty-btn { width: 40px; height: 40px; border: 1.5px solid #DDD0BC; border-radius: 8px; background: var(--white); font-size: 1.2rem; cursor: pointer; display: flex; align-items: center; justify-content: center; transition: background 0.2s; }
+    .qty-btn {
+      width: 40px; height: 40px; border: 1.5px solid #DDD0BC; border-radius: 8px;
+      background: var(--white); font-size: 1.2rem; cursor: pointer;
+      display: flex; align-items: center; justify-content: center; transition: background 0.2s;
+    }
     .qty-btn:hover { background: var(--yolk); border-color: var(--yolk); }
     #qty-display { font-size: 1.2rem; font-weight: 700; min-width: 40px; text-align: center; }
-    .total-box { background: var(--earth); color: var(--white); padding: 16px 20px; border-radius: 12px; display: flex; justify-content: space-between; align-items: center; }
+    .total-box {
+      background: var(--earth); color: var(--white); padding: 16px 20px;
+      border-radius: 12px; display: flex; justify-content: space-between; align-items: center;
+    }
     .total-box span:last-child { font-size: 1.3rem; font-weight: 700; color: var(--yolk); }
-    .stock-warning { background: #fff3cd; border: 1px solid #ffc107; border-radius: 10px; padding: 12px 16px; font-size: 0.9rem; color: #856404; display: none; }
-    .stock-empty { background: #fde8e8; border: 1px solid var(--red); border-radius: 10px; padding: 12px 16px; font-size: 0.9rem; color: var(--red); display: none; }
+
+    /* STOCK WARNING */
+    .stock-warning {
+      background: #fff3cd; border: 1px solid #ffc107;
+      border-radius: 10px; padding: 12px 16px;
+      font-size: 0.9rem; color: #856404; display: none;
+    }
+    .stock-empty {
+      background: #fde8e8; border: 1px solid var(--red);
+      border-radius: 10px; padding: 12px 16px;
+      font-size: 0.9rem; color: var(--red); display: none;
+    }
+
+    /* DELIVERY */
     .delivery-steps { display: flex; flex-direction: column; gap: 16px; }
-    .step { display: flex; align-items: flex-start; gap: 16px; background: var(--white); padding: 20px; border-radius: 14px; border: 1px solid #EDE0CC; }
-    .step-num { background: var(--yolk); color: var(--earth); width: 36px; height: 36px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-weight: 700; flex-shrink: 0; }
+    .step {
+      display: flex; align-items: flex-start; gap: 16px;
+      background: var(--white); padding: 20px; border-radius: 14px; border: 1px solid #EDE0CC;
+    }
+    .step-num {
+      background: var(--yolk); color: var(--earth); width: 36px; height: 36px;
+      border-radius: 50%; display: flex; align-items: center; justify-content: center;
+      font-weight: 700; flex-shrink: 0;
+    }
     .step h4 { font-size: 0.95rem; font-weight: 600; margin-bottom: 4px; }
     .step p { font-size: 0.85rem; color: var(--gray); }
+
+    /* CONTACT */
     .contact-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 16px; }
-    .contact-card { background: var(--white); border-radius: 14px; padding: 24px; text-align: center; border: 1px solid #EDE0CC; text-decoration: none; color: var(--earth); transition: transform 0.2s; }
+    .contact-card {
+      background: var(--white); border-radius: 14px; padding: 24px; text-align: center;
+      border: 1px solid #EDE0CC; text-decoration: none; color: var(--earth); transition: transform 0.2s;
+    }
     .contact-card:hover { transform: translateY(-3px); }
     .contact-card .icon { font-size: 2rem; margin-bottom: 10px; }
     .contact-card h4 { font-weight: 600; margin-bottom: 4px; }
     .contact-card p { font-size: 0.85rem; color: var(--gray); }
+
+    /* FOOTER */
     footer { background: var(--earth); color: rgba(255,255,255,0.6); text-align: center; padding: 24px; font-size: 0.85rem; }
     footer span { color: var(--yolk); }
-    .toast { position: fixed; bottom: 24px; left: 50%; transform: translateX(-50%) translateY(80px); background: var(--green); color: white; padding: 14px 24px; border-radius: 12px; font-weight: 600; font-size: 0.95rem; transition: transform 0.3s; z-index: 999; }
+
+    /* TOAST */
+    .toast {
+      position: fixed; bottom: 24px; left: 50%;
+      transform: translateX(-50%) translateY(80px);
+      background: var(--green); color: white; padding: 14px 24px;
+      border-radius: 12px; font-weight: 600; font-size: 0.95rem;
+      transition: transform 0.3s; z-index: 999;
+    }
     .toast.show { transform: translateX(-50%) translateY(0); }
-    .admin-toggle { position: fixed; bottom: 80px; right: 24px; background: var(--earth); color: var(--yolk); border: none; border-radius: 50%; width: 52px; height: 52px; font-size: 1.4rem; cursor: pointer; box-shadow: 0 4px 16px rgba(0,0,0,0.3); z-index: 998; transition: transform 0.2s; }
+
+    /* ADMIN PANEL */
+    .admin-toggle {
+      position: fixed; bottom: 80px; right: 24px;
+      background: var(--earth); color: var(--yolk);
+      border: none; border-radius: 50%; width: 52px; height: 52px;
+      font-size: 1.4rem; cursor: pointer; box-shadow: 0 4px 16px rgba(0,0,0,0.3);
+      z-index: 998; transition: transform 0.2s;
+    }
     .admin-toggle:hover { transform: scale(1.1); }
-    .admin-overlay { display: none; position: fixed; inset: 0; background: rgba(0,0,0,0.5); z-index: 1000; align-items: center; justify-content: center; }
+
+    .admin-overlay {
+      display: none; position: fixed; inset: 0;
+      background: rgba(0,0,0,0.5); z-index: 1000;
+      align-items: center; justify-content: center;
+    }
     .admin-overlay.open { display: flex; }
-    .admin-panel { background: var(--white); border-radius: 20px; padding: 32px; width: 90%; max-width: 420px; box-shadow: 0 20px 60px rgba(0,0,0,0.3); }
-    .admin-panel h2 { font-family: 'Playfair Display', serif; font-size: 1.5rem; margin-bottom: 6px; }
-    .admin-panel > p { color: var(--gray); font-size: 0.9rem; margin-bottom: 24px; }
+    .admin-panel {
+      background: var(--white); border-radius: 20px;
+      padding: 32px; width: 90%; max-width: 420px;
+      box-shadow: 0 20px 60px rgba(0,0,0,0.3);
+    }
+    .admin-panel h2 {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.5rem; margin-bottom: 6px;
+    }
+    .admin-panel p { color: var(--gray); font-size: 0.9rem; margin-bottom: 24px; }
+
     .admin-login { display: flex; flex-direction: column; gap: 12px; }
     .admin-controls { display: none; flex-direction: column; gap: 20px; }
     .admin-controls.visible { display: flex; }
-    .stock-control, .price-control { background: var(--light); border-radius: 14px; padding: 20px; border: 1px solid #EDE0CC; }
-    .stock-control label, .price-control label { font-size: 0.85rem; font-weight: 600; display: block; margin-bottom: 10px; }
+
+    .stock-control {
+      background: var(--light); border-radius: 14px; padding: 20px;
+      border: 1px solid #EDE0CC;
+    }
+    .stock-control label { font-size: 0.85rem; font-weight: 600; display: block; margin-bottom: 10px; }
     .stock-row { display: flex; gap: 10px; align-items: center; }
-    .stock-row input { flex: 1; padding: 10px 14px; border: 1.5px solid #DDD0BC; border-radius: 8px; font-size: 1rem; }
-    .btn-admin { background: var(--earth); color: var(--white); border: none; padding: 10px 20px; border-radius: 8px; font-size: 0.9rem; font-weight: 600; cursor: pointer; transition: background 0.2s; }
+    .stock-row input {
+      flex: 1; padding: 10px 14px; border: 1.5px solid #DDD0BC;
+      border-radius: 8px; font-size: 1rem;
+    }
+    .btn-admin {
+      background: var(--earth); color: var(--white); border: none;
+      padding: 10px 20px; border-radius: 8px; font-size: 0.9rem;
+      font-weight: 600; cursor: pointer; transition: background 0.2s;
+    }
     .btn-admin:hover { background: #5a3d2b; }
-    .btn-danger { background: var(--red); color: var(--white); border: none; padding: 10px 20px; border-radius: 8px; font-size: 0.9rem; font-weight: 600; cursor: pointer; }
-    .admin-close { background: none; border: 1px solid #DDD0BC; border-radius: 8px; padding: 10px; cursor: pointer; font-size: 0.9rem; color: var(--gray); width: 100%; }
+    .btn-danger {
+      background: var(--red); color: var(--white); border: none;
+      padding: 10px 20px; border-radius: 8px; font-size: 0.9rem;
+      font-weight: 600; cursor: pointer;
+    }
+
+    .price-control {
+      background: var(--light); border-radius: 14px; padding: 20px;
+      border: 1px solid #EDE0CC;
+    }
+    .price-control label { font-size: 0.85rem; font-weight: 600; display: block; margin-bottom: 10px; }
+
+    .admin-close {
+      background: none; border: 1px solid #DDD0BC; border-radius: 8px;
+      padding: 10px; cursor: pointer; font-size: 0.9rem; color: var(--gray);
+      width: 100%;
+    }
     .admin-close:hover { background: var(--shell); }
-    .current-stats { display: flex; gap: 10px; margin-bottom: 4px; }
-    .stat-mini { flex: 1; background: var(--white); border: 1px solid #EDE0CC; border-radius: 10px; padding: 12px; text-align: center; }
+
+    .current-stats {
+      display: flex; gap: 10px; margin-bottom: 4px;
+    }
+    .stat-mini {
+      flex: 1; background: var(--white); border: 1px solid #EDE0CC;
+      border-radius: 10px; padding: 12px; text-align: center;
+    }
     .stat-mini-num { font-size: 1.4rem; font-weight: 700; color: var(--earth); }
     .stat-mini-label { font-size: 0.75rem; color: var(--gray); }
-    @media (max-width: 600px) { .nav-links { display: none; } .hero { padding: 60px 20px 48px; } section { padding: 48px 20px; } .order-section { padding: 32px 20px; } }
+
+    @media (max-width: 600px) {
+      .nav-links { display: none; }
+      .hero { padding: 60px 20px 48px; }
+      section { padding: 48px 20px; }
+      .order-section { padding: 32px 20px; }
+    }
   </style>
 </head>
 <body>
 
+<!-- NAV -->
 <nav>
   <div class="logo">🥚 Ухейилюйa</div>
   <div class="nav-links">
@@ -124,22 +298,26 @@
   </div>
 </nav>
 
+<!-- HERO -->
 <div class="hero">
   <div class="hero-badge">✨ Yangi mahsulot</div>
   <h1>Тoza va Yangi<br /><span>Ухейилюй Tuxumlari</span></h1>
   <p>10 ta sog'lom tovuqdan har kuni yangi tuxum. Uyingizga tez yetkazib beramiz.</p>
+
   <div style="display:flex; gap:16px; justify-content:center; align-items:center; flex-wrap:wrap; margin-bottom:28px;">
     <div class="stock-display">
-      <div class="stock-count" id="hero-stock">30</div>
+      <div class="stock-count" id="hero-stock">—</div>
       <div class="stock-label">ta tuxum mavjud</div>
     </div>
-    <div class="price-tag" id="hero-price">15,000 so'm <small>/ dona</small></div>
+    <div class="price-tag" id="hero-price">— so'm <small>/ dona</small></div>
   </div>
+
   <div class="hero-btns">
     <a href="#order" class="btn-primary" id="hero-order-btn">🛒 Buyurtma qilish</a>
   </div>
 </div>
 
+<!-- STATS -->
 <div class="stats">
   <div class="stat"><div class="stat-num">10</div><div class="stat-label">Sog'lom tovuq</div></div>
   <div class="stat"><div class="stat-num" id="stat-price">—</div><div class="stat-label">So'm / dona</div></div>
@@ -147,66 +325,59 @@
   <div class="stat"><div class="stat-num" id="stat-stock">—</div><div class="stat-label">Dona mavjud</div></div>
 </div>
 
+<!-- FEATURES -->
 <section>
   <div class="section-title">Nima uchun bizni tanlaysiz?</div>
   <div class="section-sub">Ухейилюйa tuxumlarining afzalliklari</div>
   <div class="features-grid">
-    <div class="feature-card"><div class="feature-icon">🐔</div><h3>Sog'lom tovuqlar</h3><p>Tabiiy oziqlantirilgan, erkin yuradigan Хейилюй zotli tovuqlar va ishonchli qo'larda katta bo'lgan</p></div>
-    <div class="feature-card"><div class="feature-icon">🥚🩵</div><h3>Moviy tuxumlar</h3><p>Har kuni yangi, hech qanday kimyoviy moddalar ishlatilmaydi</p></div>
-    <div class="feature-card"><div class="feature-icon">🚗</div><h3>Tez yetkazish</h3><p>Yetkazib berish pulli 1 km 10 000</p></div>
-    <div class="feature-card"><div class="feature-icon">💰</div><h3>Qulay narx</h3><p>Bozordan arzonroq va ishonchli qo'llardan olasiz</p></div>
+    <div class="feature-card">
+      <div class="feature-icon">🐔</div>
+      <h3>Sog'lom tovuqlar</h3>
+      <p>Tabiiy oziqlantirilgan, erkin yuradigan Хейилюй zotli tovuqlar va ishonchli qo'larda katta bo'lgan</p>
+    </div>
+    <div class="feature-card">
+      <div class="feature-icon">🥚🩵</div>
+      <h3>Moviy tuxumlar</h3>
+      <p>Har kuni yangi, hech qanday kimyoviy moddalar ishlatilmaydi</p>
+    </div>
+    <div class="feature-card">
+      <div class="feature-icon">🚗</div>
+      <h3>Tez yetkazish</h3>
+      <p>Yetkazib berish pulli 1 km 10 0000</p>
+    </div>
+    <div class="feature-card">
+      <div class="feature-icon">💰</div>
+      <h3>Qulay narx</h3>
+      <p>Bozordan arzon roq va ishonchli qo'lardan olasiz</p>
+    </div>
   </div>
 </section>
 
+<!-- ORDER -->
 <section id="order">
   <div class="order-section">
     <div class="section-title">Buyurtma qilish</div>
     <div class="section-sub">Quyidagi formani to'ldiring, siz bilan bog'lanamiz</div>
-    <div id="stock-empty-msg" class="stock-empty" style="display:none; margin-bottom:16px;">😔 Hozirda tuxum qolmadi. Tez orada yangi tuxumlar keladi!</div>
-    <div id="stock-low-msg" class="stock-warning" style="display:none; margin-bottom:16px;">⚠️ Kam qoldi! Tez buyurtma bering.</div>
+
+    <div id="stock-empty-msg" class="stock-empty" style="display:none; margin-bottom:16px;">
+      😔 Hozirda tuxum qolmadi. Tez orada yangi tuxumlar keladi!
+    </div>
+    <div id="stock-low-msg" class="stock-warning" style="display:none; margin-bottom:16px;">
+      ⚠️ Kam qoldi! Tez buyurtma bering.
+    </div>
+
     <div class="order-form">
-      <div class="form-group"><label>Ismingiz</label><input type="text" id="name" placeholder="Masalan: Alibek" /></div>
-      <div class="form-group"><label>Telefon raqam</label><input type="tel" id="phone" placeholder="+998 95 100 01 30" /></div>
-      <!-- YETKAZISH TURI -->
       <div class="form-group">
-        <label>🚚 Olish usuli</label>
-        <div style="display:flex; gap:10px; margin-top:4px;">
-          <button type="button" id="btn-delivery" onclick="setDelivery('delivery')" style="
-            flex:1; padding:12px 8px; border-radius:10px; border:2px solid var(--yolk);
-            background:var(--yolk); color:var(--earth); font-weight:700; font-size:0.9rem;
-            cursor:pointer; transition:all 0.2s;">🚗 Yetkazib berish</button>
-          <button type="button" id="btn-pickup" onclick="setDelivery('pickup')" style="
-            flex:1; padding:12px 8px; border-radius:10px; border:2px solid #DDD0BC;
-            background:var(--white); color:var(--gray); font-weight:600; font-size:0.9rem;
-            cursor:pointer; transition:all 0.2s;">🏃 O'zi olib ketish</button>
-        </div>
+        <label>Ismingiz</label>
+        <input type="text" id="name" placeholder="Masalan: Alibek" />
       </div>
-
-      <!-- YETKAZISH: manzil -->
-      <div id="delivery-section">
-        <div class="form-group">
-          <label>🏠 Turar joy adresi</label>
-          <input type="text" id="address" placeholder="Ko'cha, uy raqami, kvartira" />
-        </div>
-        <div class="form-group">
-          <label>📍 Hozirgi joylashuv (ixtiyoriy)</label>
-          <div style="display:flex; gap:10px; align-items:center;">
-            <input type="text" id="location" placeholder="Avtomatik aniqlash uchun bosing 👇" readonly style="flex:1; background:#f9f4ee; cursor:default; font-size:0.88rem;" />
-            <button type="button" onclick="detectLocation()" id="locate-btn" style="background:var(--earth);color:var(--yolk);border:none;border-radius:10px;padding:12px 14px;font-size:1.2rem;cursor:pointer;transition:background 0.2s;flex-shrink:0;" title="Joylashuvni aniqlash">📍</button>
-          </div>
-          <div id="map-preview" style="display:none; margin-top:10px; border-radius:12px; overflow:hidden; border:1.5px solid #DDD0BC;">
-            <iframe id="map-frame" width="100%" height="180" frameborder="0" style="display:block;"></iframe>
-          </div>
-          <div id="location-status" style="font-size:0.82rem; color:var(--gray); margin-top:6px;"></div>
-        </div>
+      <div class="form-group">
+        <label>Telefon raqam</label>
+        <input type="tel" id="phone" placeholder="+998 95 100 01 30" />
       </div>
-
-      <!-- O'ZI OLISH: xabar -->
-      <div id="pickup-section" style="display:none;">
-        <div style="background:#FFF9F0; border:1.5px solid #EDE0CC; border-radius:12px; padding:16px; font-size:0.9rem; color:var(--gray); line-height:1.6;">
-          📞 Siz bilan bog'lanamiz va manzilimizni yuboramiz.<br>
-          Tayyor bo'lgach telefon orqali xabar beramiz.
-        </div>
+      <div class="form-group">
+        <label>Manzil</label>
+        <input type="text" id="address" placeholder="Ko'cha, uy raqami" />
       </div>
       <div class="form-group">
         <label>Dona soni</label>
@@ -216,12 +387,18 @@
           <button class="qty-btn" onclick="changeQty(1)">+</button>
         </div>
       </div>
-      <div class="total-box"><span>Jami to'lov:</span><span id="total-price">— so'm</span></div>
-      <button class="btn-primary" id="order-btn" onclick="submitOrder()" style="font-size:1rem; padding:16px;">✅ Buyurtma yuborish</button>
+      <div class="total-box">
+        <span>Jami to'lov:</span>
+        <span id="total-price">— so'm</span>
+      </div>
+      <button class="btn-primary" id="order-btn" onclick="submitOrder()" style="font-size:1rem; padding:16px;">
+        ✅ Buyurtma yuborish
+      </button>
     </div>
   </div>
 </section>
 
+<!-- DELIVERY -->
 <section id="delivery">
   <div class="section-title">Yetkazib berish</div>
   <div class="section-sub">Buyurtmangiz qanday yetib keladi?</div>
@@ -233,25 +410,39 @@
   </div>
 </section>
 
+<!-- CONTACT -->
 <section id="contact">
   <div class="section-title">Aloqa</div>
   <div class="section-sub">Qo'shimcha savol bo'lsa, bog'laning</div>
   <div class="contact-grid">
-    <a href="https://t.me/salohiddinTm" target="_blank" class="contact-card"><div class="icon">✈️</div><h4>Telegram</h4><p>@salohiddinTm</p></a>
-    <a href="https://t.me/txum_bot" target="_blank" class="contact-card"><div class="icon">🤖</div><h4>Telegram Bot</h4><p>@txum_bot</p></a>
-    <a href="tel:+998951000130" class="contact-card"><div class="icon">📞</div><h4>Telefon</h4><p>+998 95 100 01 30</p></a>
+    <a href="https://t.me/salohiddinTm" target="_blank" class="contact-card">
+      <div class="icon">✈️</div><h4>Telegram</h4><p>@salohiddinTm</p>
+    </a>
+    <a href="https://t.me/txum_bot" target="_blank" class="contact-card">
+      <div class="icon">🤖</div><h4>Telegram Bot</h4><p>@txum_bot</p>
+    </a>
+    <a href="tel:+998951000130" class="contact-card">
+      <div class="icon">📞</div><h4>Telefon</h4><p>+998 95 100 01 30</p>
+    </a>
   </div>
 </section>
 
-<footer><p>© 2025 <span>Хейилюй Tuxum</span> — Barcha huquqlar himoyalangan</p></footer>
+<footer>
+  <p>© 2025 <span>Хейилюй Tuxum</span> — Barcha huquqlar himoyalangan</p>
+</footer>
 
 <div class="toast" id="toast"></div>
+
+<!-- ADMIN BUTTON -->
 <button class="admin-toggle" onclick="openAdmin()" title="Admin panel">⚙️</button>
 
+<!-- ADMIN OVERLAY -->
 <div class="admin-overlay" id="admin-overlay" onclick="closeAdminOutside(event)">
   <div class="admin-panel">
     <h2>⚙️ Admin Panel</h2>
     <p>Tuxum soni va narxini boshqaring</p>
+
+    <!-- LOGIN -->
     <div class="admin-login" id="admin-login">
       <div class="form-group">
         <label>Parol</label>
@@ -260,11 +451,21 @@
       <button class="btn-primary" onclick="adminLogin()">Kirish</button>
       <button class="admin-close" onclick="closeAdmin()">Bekor qilish</button>
     </div>
+
+    <!-- CONTROLS -->
     <div class="admin-controls" id="admin-controls">
+
       <div class="current-stats">
-        <div class="stat-mini"><div class="stat-mini-num" id="admin-stock-display">—</div><div class="stat-mini-label">Mavjud dona</div></div>
-        <div class="stat-mini"><div class="stat-mini-num" id="admin-price-display">—</div><div class="stat-mini-label">Narx (so'm)</div></div>
+        <div class="stat-mini">
+          <div class="stat-mini-num" id="admin-stock-display">—</div>
+          <div class="stat-mini-label">Mavjud dona</div>
+        </div>
+        <div class="stat-mini">
+          <div class="stat-mini-num" id="admin-price-display">—</div>
+          <div class="stat-mini-label">Narx (so'm)</div>
+        </div>
       </div>
+
       <div class="stock-control">
         <label>📦 Tuxum sonini o'zgartirish</label>
         <div class="stock-row">
@@ -276,9 +477,10 @@
           <button class="btn-admin" onclick="addStock(20)" style="padding:7px 14px; font-size:0.82rem;">+20</button>
           <button class="btn-admin" onclick="addStock(50)" style="padding:7px 14px; font-size:0.82rem;">+50</button>
           <button class="btn-danger" onclick="addStock(-10)" style="padding:7px 14px; font-size:0.82rem;">−10</button>
-          <button class="btn-danger" onclick="setStockVal(0)" style="padding:7px 14px; font-size:0.82rem;">0 qilish</button>
+          <button class="btn-danger" onclick="setStock(0)" style="padding:7px 14px; font-size:0.82rem;">0 qilish</button>
         </div>
       </div>
+
       <div class="price-control">
         <label>💰 Narxni o'zgartirish (so'm)</label>
         <div class="stock-row">
@@ -286,315 +488,128 @@
           <button class="btn-admin" onclick="updatePrice()">Saqlash</button>
         </div>
       </div>
+
       <button class="admin-close" onclick="closeAdmin()">✅ Yopish</button>
     </div>
   </div>
 </div>
 
 <script>
-  // ========== FIREBASE CONFIG ==========
-  const DB_URL = "https://tuxumlar-94057-default-rtdb.asia-southeast1.firebasedatabase.app";
-  const ADMIN_PASSWORD = "admin123";
-
-  let state = { stock: 30, price: 15000 };
+  // ========== STATE ==========
+  const ADMIN_PASSWORD = "admin123"; // O'zgartiring!
+  let state = {
+    stock: parseInt(localStorage.getItem('tuxum_stock') ?? '30'),
+    price: parseInt(localStorage.getItem('tuxum_price') ?? '15000'),
+  };
   let qty = 1;
 
-  // ========== FIREBASE READ/WRITE ==========
-  async function fbGet(path) {
-    const res = await fetch(`${DB_URL}/${path}.json`);
-    return res.json();
-  }
-
-  async function fbSet(path, value) {
-    await fetch(`${DB_URL}/${path}.json`, {
-      method: 'PUT',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify(value)
-    });
-  }
-
-  // ========== LOAD STATE ==========
-  async function loadState() {
-    // localStorage dan tez ko'rsat (darhol)
-    const cs = localStorage.getItem('tuxum_stock');
-    const cp = localStorage.getItem('tuxum_price');
-    if (cs && cp) {
-      state.stock = parseInt(cs);
-      state.price = parseInt(cp);
-      updateUI();
-    }
-    // Firebase dan yangilash
-    try {
-      const data = await fbGet('shop');
-      if (data) {
-        state.stock = data.stock ?? 30;
-        state.price = data.price ?? 15000;
-      } else {
-        state.stock = 30;
-        state.price = 15000;
-        await fbSet('shop', state);
-      }
-      localStorage.setItem('tuxum_stock', state.stock);
-      localStorage.setItem('tuxum_price', state.price);
-    } catch {}
-    updateUI();
-  }
-
-  async function saveState() {
+  function saveState() {
     localStorage.setItem('tuxum_stock', state.stock);
     localStorage.setItem('tuxum_price', state.price);
-    await fbSet('shop', { stock: state.stock, price: state.price });
   }
 
   // ========== UI UPDATE ==========
   function updateUI() {
-    document.getElementById('hero-stock').textContent = state.stock;
-    document.getElementById('hero-price').innerHTML = state.price.toLocaleString('uz-UZ') + " so'm <small>/ dona</small>";
-    document.getElementById('stat-price').textContent = (state.price / 1000).toFixed(0) + 'K';
-    document.getElementById('stat-stock').textContent = state.stock;
+    const stockEl    = document.getElementById('hero-stock');
+    const priceEl    = document.getElementById('hero-price');
+    const statPrice  = document.getElementById('stat-price');
+    const statStock  = document.getElementById('stat-stock');
+    const orderBtn   = document.getElementById('order-btn');
+    const heroBtn    = document.getElementById('hero-order-btn');
+    const emptyMsg   = document.getElementById('stock-empty-msg');
+    const lowMsg     = document.getElementById('stock-low-msg');
+    const adminSD    = document.getElementById('admin-stock-display');
+    const adminPD    = document.getElementById('admin-price-display');
 
-    const adminSD = document.getElementById('admin-stock-display');
-    const adminPD = document.getElementById('admin-price-display');
+    stockEl.textContent = state.stock;
+    priceEl.innerHTML   = state.price.toLocaleString('uz-UZ') + " so'm <small>/ dona</small>";
+    statPrice.textContent = (state.price/1000).toFixed(0) + 'K';
+    statStock.textContent = state.stock;
     if (adminSD) adminSD.textContent = state.stock;
     if (adminPD) adminPD.textContent = state.price.toLocaleString('uz-UZ');
 
     updateTotal();
 
-    const orderBtn = document.getElementById('order-btn');
-    const heroBtn  = document.getElementById('hero-order-btn');
-    const emptyMsg = document.getElementById('stock-empty-msg');
-    const lowMsg   = document.getElementById('stock-low-msg');
-
+    // Stock status
     if (state.stock === 0) {
-      emptyMsg.style.display = 'block'; lowMsg.style.display = 'none';
-      orderBtn.disabled = true; orderBtn.textContent = '😔 Tuxum qolmadi';
-      heroBtn.style.pointerEvents = 'none'; heroBtn.style.opacity = '0.5';
+      emptyMsg.style.display = 'block';
+      lowMsg.style.display = 'none';
+      orderBtn.disabled = true;
+      orderBtn.textContent = '😔 Tuxum qolmadi';
+      heroBtn.style.pointerEvents = 'none';
+      heroBtn.style.opacity = '0.5';
     } else if (state.stock <= 5) {
-      emptyMsg.style.display = 'none'; lowMsg.style.display = 'block';
-      orderBtn.disabled = false; orderBtn.textContent = '✅ Buyurtma yuborish';
-      heroBtn.style.pointerEvents = ''; heroBtn.style.opacity = '';
+      emptyMsg.style.display = 'none';
+      lowMsg.style.display = 'block';
+      orderBtn.disabled = false;
+      orderBtn.textContent = '✅ Buyurtma yuborish';
+      heroBtn.style.pointerEvents = '';
+      heroBtn.style.opacity = '';
     } else {
-      emptyMsg.style.display = 'none'; lowMsg.style.display = 'none';
-      orderBtn.disabled = false; orderBtn.textContent = '✅ Buyurtma yuborish';
-      heroBtn.style.pointerEvents = ''; heroBtn.style.opacity = '';
+      emptyMsg.style.display = 'none';
+      lowMsg.style.display = 'none';
+      orderBtn.disabled = false;
+      orderBtn.textContent = '✅ Buyurtma yuborish';
+      heroBtn.style.pointerEvents = '';
+      heroBtn.style.opacity = '';
     }
   }
 
   function updateTotal() {
-    document.getElementById('total-price').textContent = (qty * state.price).toLocaleString('uz-UZ') + " so'm";
+    document.getElementById('total-price').textContent =
+      (qty * state.price).toLocaleString('uz-UZ') + " so'm";
   }
 
   // ========== QTY ==========
   function changeQty(delta) {
-    qty = Math.min(state.stock, Math.max(1, qty + delta));
+    const max = state.stock;
+    qty = Math.min(max, Math.max(1, qty + delta));
     document.getElementById('qty-display').textContent = qty;
     updateTotal();
-  }
-
-  // ========== DELIVERY MODE ==========
-  let deliveryMode = 'delivery';
-
-  function setDelivery(mode) {
-    deliveryMode = mode;
-    const btnD = document.getElementById('btn-delivery');
-    const btnP = document.getElementById('btn-pickup');
-    const secD = document.getElementById('delivery-section');
-    const secP = document.getElementById('pickup-section');
-
-    if (mode === 'delivery') {
-      btnD.style.background = 'var(--yolk)';
-      btnD.style.borderColor = 'var(--yolk)';
-      btnD.style.color = 'var(--earth)';
-      btnP.style.background = 'var(--white)';
-      btnP.style.borderColor = '#DDD0BC';
-      btnP.style.color = 'var(--gray)';
-      secD.style.display = 'block';
-      secP.style.display = 'none';
-    } else {
-      btnP.style.background = 'var(--yolk)';
-      btnP.style.borderColor = 'var(--yolk)';
-      btnP.style.color = 'var(--earth)';
-      btnD.style.background = 'var(--white)';
-      btnD.style.borderColor = '#DDD0BC';
-      btnD.style.color = 'var(--gray)';
-      secD.style.display = 'none';
-      secP.style.display = 'block';
-    }
-  }
-
-  // ========== DELIVERY MODE ==========
-  let deliveryMode = 'delivery';
-
-  function setDelivery(mode) {
-    deliveryMode = mode;
-    const btnD = document.getElementById('btn-delivery');
-    const btnP = document.getElementById('btn-pickup');
-    const secD = document.getElementById('delivery-section');
-    const secP = document.getElementById('pickup-section');
-    if (mode === 'delivery') {
-      btnD.style.cssText += ';background:var(--yolk);border-color:var(--yolk);color:var(--earth);';
-      btnP.style.cssText += ';background:var(--white);border-color:#DDD0BC;color:var(--gray);';
-      secD.style.display = 'block'; secP.style.display = 'none';
-    } else {
-      btnP.style.cssText += ';background:var(--yolk);border-color:var(--yolk);color:var(--earth);';
-      btnD.style.cssText += ';background:var(--white);border-color:#DDD0BC;color:var(--gray);';
-      secD.style.display = 'none'; secP.style.display = 'block';
-    }
-  }
-
-  // ========== DELIVERY MODE ==========
-  let deliveryMode = 'delivery';
-
-  function setDelivery(mode) {
-    deliveryMode = mode;
-    const btnD = document.getElementById('btn-delivery');
-    const btnP = document.getElementById('btn-pickup');
-    const secD = document.getElementById('delivery-section');
-    const secP = document.getElementById('pickup-section');
-    if (mode === 'delivery') {
-      [btnD.style.background, btnD.style.borderColor, btnD.style.color] = ['var(--yolk)','var(--yolk)','var(--earth)'];
-      [btnP.style.background, btnP.style.borderColor, btnP.style.color] = ['var(--white)','#DDD0BC','var(--gray)'];
-      secD.style.display = 'block'; secP.style.display = 'none';
-    } else {
-      [btnP.style.background, btnP.style.borderColor, btnP.style.color] = ['var(--yolk)','var(--yolk)','var(--earth)'];
-      [btnD.style.background, btnD.style.borderColor, btnD.style.color] = ['var(--white)','#DDD0BC','var(--gray)'];
-      secD.style.display = 'none'; secP.style.display = 'block';
-    }
-  }
-
-  // ========== LOCATION ==========
-  let userCoords = null;
-
-  function detectLocation() {
-    const btn = document.getElementById('locate-btn');
-    const status = document.getElementById('location-status');
-    const input = document.getElementById('location');
-    const mapPreview = document.getElementById('map-preview');
-    const mapFrame = document.getElementById('map-frame');
-
-    if (!navigator.geolocation) {
-      status.textContent = '❌ Brauzeringiz geolokatsiyani qollab-quvvatlamaydi';
-      return;
-    }
-
-    btn.textContent = '⏳';
-    btn.disabled = true;
-    status.textContent = '📡 Joylashuv aniqlanmoqda...';
-
-    navigator.geolocation.getCurrentPosition(
-      async (pos) => {
-        const lat = pos.coords.latitude.toFixed(6);
-        const lon = pos.coords.longitude.toFixed(6);
-        userCoords = { lat, lon };
-
-        // Reverse geocoding — nominatim (bepul)
-        try {
-          const res = await fetch(`https://nominatim.openstreetmap.org/reverse?lat=${lat}&lon=${lon}&format=json`);
-          const data = await res.json();
-          const addr = data.display_name || `${lat}, ${lon}`;
-          input.value = addr;
-          status.textContent = '✅ Joylashuv aniqlandi';
-        } catch {
-          input.value = `${lat}, ${lon}`;
-          status.textContent = '✅ Koordinatalar aniqlandi';
-        }
-
-        // Xarita preview
-        mapFrame.src = `https://www.openstreetmap.org/export/embed.html?bbox=${parseFloat(lon)-0.005},${parseFloat(lat)-0.005},${parseFloat(lon)+0.005},${parseFloat(lat)+0.005}&layer=mapnik&marker=${lat},${lon}`;
-        mapPreview.style.display = 'block';
-        btn.textContent = '✅';
-        btn.disabled = false;
-      },
-      (err) => {
-        btn.textContent = '📍';
-        btn.disabled = false;
-        if (err.code === 1) status.textContent = '❌ Ruxsat berilmadi. Brauzer sozlamalaridan joylashuvga ruxsat bering.';
-        else status.textContent = '❌ Joylashuvni aniqlab bo'lmadi. Qo'lda kiriting.';
-      },
-      { enableHighAccuracy: true, timeout: 10000 }
-    );
   }
 
   // ========== ORDER ==========
   async function submitOrder() {
     if (state.stock === 0) return;
-    const name  = document.getElementById('name').value.trim();
-    const phone = document.getElementById('phone').value.trim();
-
-    if (!name || !phone) { showToast("❌ Ism va telefon kerak!", '#e53935'); return; }
-
-    let address = '';
-    let location = '';
-    if (deliveryMode === 'delivery') {
-      address  = document.getElementById('address').value.trim();
-      location = document.getElementById('location').value.trim();
-      if (!address) { showToast("❌ Manzilni kiriting!", '#e53935'); return; }
+    const name    = document.getElementById('name').value.trim();
+    const phone   = document.getElementById('phone').value.trim();
+    const address = document.getElementById('address').value.trim();
+    if (!name || !phone || !address) {
+      showToast("❌ Barcha maydonlarni to'ldiring!", '#e53935'); return;
     }
-
-    if (qty > state.stock) { showToast(`⚠️ Faqat ${state.stock} ta mavjud!`, '#e53935'); return; }
-
-    const total = (qty * state.price).toLocaleString('uz-UZ') + " so'm";
-
+    if (qty > state.stock) {
+      showToast(`⚠️ Faqat ${state.stock} ta mavjud!`, '#e53935'); return;
+    }
     const btn = document.getElementById('order-btn');
     btn.textContent = '⏳ Yuborilmoqda...';
     btn.disabled = true;
-
     try {
-      const orderData = {
-        name, phone,
-        deliveryMode: deliveryMode === 'delivery' ? 'Yetkazib berish 🚗' : "O'zi olib ketish 🏃",
-        address: address || null,
-        location: location || null,
-        mapLink: userCoords ? `https://www.google.com/maps?q=${userCoords.lat},${userCoords.lon}` : null,
-        qty, total,
-        time: Date.now()
-      };
-
-      const res = await fetch(`${DB_URL}/orders.json`, {
+      const res = await fetch('/api/order', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify(orderData)
+        body: JSON.stringify({ name, phone, address, qty, total: (qty * state.price).toLocaleString('uz-UZ') + " so'm" })
       });
       const data = await res.json();
-
-      if (data.name) {
-        // Telegram ga ham yuborish
-        const deliveryLine = deliveryMode === 'delivery'
-          ? `\n🏠 Adres: ${address}${location ? '\n📌 ' + location : ''}${userCoords ? '\n🗺 ' + 'https://www.google.com/maps?q=' + userCoords.lat + ',' + userCoords.lon : ''}`
-          : "\n🏃 O\'zi olib ketadi";
-        const tgText = `🥚 Yangi buyurtma!\n\n👤 Ism: ${name}\n📞 Tel: ${phone}\n${deliveryMode === 'delivery' ? '🚗 Yetkazib berish' : "🏃 O'zi oladi"}${deliveryLine}\n🔢 Soni: ${qty} ta\n💰 Jami: ${total}`;
-        fetch(`https://api.telegram.org/bot8656295440:AAEUBRVs4umfJkh-YPm3XMJh52R3e9l56bw/sendMessage`, {
-          method: 'POST',
-          headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify({ chat_id: '6283517295', text: tgText })
-        }).catch(() => {});
-
+      if (data.success) {
         showToast("✅ Buyurtma yuborildi! Tez orada bog'lanamiz 🎉");
         document.getElementById('name').value = '';
         document.getElementById('phone').value = '';
-        if (deliveryMode === 'delivery') {
-          document.getElementById('address').value = '';
-          document.getElementById('location').value = '';
-          document.getElementById('map-preview').style.display = 'none';
-          document.getElementById('location-status').textContent = '';
-          document.getElementById('locate-btn').textContent = '📍';
-        }
-        userCoords = null;
+        document.getElementById('address').value = '';
         qty = 1;
         document.getElementById('qty-display').textContent = '1';
         updateTotal();
       } else {
-        showToast('⚠️ Xatolik yuz berdi!', '#e53935');
+        showToast('⚠️ Xatolik! @txum_bot orqali buyurtma qiling.', '#e53935');
       }
     } catch {
-      showToast('⚠️ Internet xatosi!', '#e53935');
+      showToast('⚠️ Internet xatosi. @txum_bot orqali buyurtma qiling.', '#e53935');
     } finally {
       btn.textContent = '✅ Buyurtma yuborish';
       btn.disabled = false;
     }
   }
 
-    // ========== ADMIN ==========
+  // ========== ADMIN ==========
   function openAdmin() {
     document.getElementById('admin-overlay').classList.add('open');
     document.getElementById('admin-login').style.display = 'flex';
@@ -603,11 +618,17 @@
     setTimeout(() => document.getElementById('admin-password').focus(), 100);
   }
 
-  function closeAdmin() { document.getElementById('admin-overlay').classList.remove('open'); }
-  function closeAdminOutside(e) { if (e.target === document.getElementById('admin-overlay')) closeAdmin(); }
+  function closeAdmin() {
+    document.getElementById('admin-overlay').classList.remove('open');
+  }
+
+  function closeAdminOutside(e) {
+    if (e.target === document.getElementById('admin-overlay')) closeAdmin();
+  }
 
   function adminLogin() {
-    if (document.getElementById('admin-password').value === ADMIN_PASSWORD) {
+    const pw = document.getElementById('admin-password').value;
+    if (pw === ADMIN_PASSWORD) {
       document.getElementById('admin-login').style.display = 'none';
       document.getElementById('admin-controls').classList.add('visible');
       updateUI();
@@ -617,32 +638,32 @@
     }
   }
 
-  async function updateStock() {
+  function updateStock() {
     const val = parseInt(document.getElementById('new-stock').value);
     if (isNaN(val) || val < 0) { showToast("❌ To'g'ri son kiriting!", '#e53935'); return; }
     state.stock = val;
-    await saveState(); updateUI();
+    saveState(); updateUI();
     document.getElementById('new-stock').value = '';
     showToast(`✅ Tuxum soni: ${val} ta`);
   }
 
-  async function addStock(delta) {
+  function addStock(delta) {
     state.stock = Math.max(0, state.stock + delta);
-    await saveState(); updateUI();
+    saveState(); updateUI();
     showToast(`✅ Hozir: ${state.stock} ta`);
   }
 
-  async function setStockVal(val) {
+  function setStock(val) {
     state.stock = val;
-    await saveState(); updateUI();
+    saveState(); updateUI();
     showToast(`✅ Tuxum soni: ${val} ta`);
   }
 
-  async function updatePrice() {
+  function updatePrice() {
     const val = parseInt(document.getElementById('new-price').value);
     if (isNaN(val) || val < 0) { showToast("❌ To'g'ri narx kiriting!", '#e53935'); return; }
     state.price = val;
-    await saveState(); updateUI();
+    saveState(); updateUI();
     document.getElementById('new-price').value = '';
     showToast(`✅ Narx: ${val.toLocaleString('uz-UZ')} so'm`);
   }
@@ -655,21 +676,8 @@
     setTimeout(() => t.classList.remove('show'), 3000);
   }
 
-  // ========== REALTIME LISTENER ==========
-  function startListener() {
-    const evtSource = new EventSource(`${DB_URL}/shop.json`);
-    evtSource.addEventListener('put', (e) => {
-      const d = JSON.parse(e.data);
-      if (d.data) {
-        state.stock = d.data.stock ?? state.stock;
-        state.price = d.data.price ?? state.price;
-        updateUI();
-      }
-    });
-  }
-
   // Init
-  loadState().then(() => startListener());
+  updateUI();
 </script>
 </body>
 </html>
