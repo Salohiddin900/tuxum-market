@@ -130,10 +130,10 @@
   <p>10 ta sog'lom tovuqdan har kuni yangi tuxum. Uyingizga tez yetkazib beramiz.</p>
   <div style="display:flex; gap:16px; justify-content:center; align-items:center; flex-wrap:wrap; margin-bottom:28px;">
     <div class="stock-display">
-      <div class="stock-count" id="hero-stock">⏳</div>
+      <div class="stock-count" id="hero-stock">30</div>
       <div class="stock-label">ta tuxum mavjud</div>
     </div>
-    <div class="price-tag" id="hero-price">⏳ <small>/ dona</small></div>
+    <div class="price-tag" id="hero-price">15,000 so'm <small>/ dona</small></div>
   </div>
   <div class="hero-btns">
     <a href="#order" class="btn-primary" id="hero-order-btn">🛒 Buyurtma qilish</a>
@@ -296,7 +296,7 @@
   const DB_URL = "https://tuxumlar-94057-default-rtdb.asia-southeast1.firebasedatabase.app";
   const ADMIN_PASSWORD = "admin123";
 
-  let state = { stock: 0, price: 0 };
+  let state = { stock: 30, price: 15000 };
   let qty = 1;
 
   // ========== FIREBASE READ/WRITE ==========
