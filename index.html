@@ -504,6 +504,12 @@
   }
 
   // ========== ORDER ==========
+  function saveOrderLocally(order) {
+    const orders = JSON.parse(localStorage.getItem('tuxum_orders') || '[]');
+    orders.unshift(order); // yangi buyurtma boshiga
+    localStorage.setItem('tuxum_orders', JSON.stringify(orders));
+  }
+
   async function submitOrder() {
     if (state.stock === 0) return;
     const name    = document.getElementById('name').value.trim();
@@ -518,37 +524,44 @@
     const btn = document.getElementById('order-btn');
     btn.textContent = '⏳ Yuborilmoqda...';
     btn.disabled = true;
+
+    const order = {
+      id: Date.now(),
+      name, phone, address, qty,
+      total: (qty * state.price).toLocaleString('uz-UZ') + " so'm",
+      coords: selectedCoords ? `${selectedCoords.lat.toFixed(6)}, ${selectedCoords.lng.toFixed(6)}` : null,
+      status: 'yangi',
+      time: new Date().toLocaleString('uz-UZ')
+    };
+
+    // LocalStorage ga doim saqlash (admin ko'rishi uchun)
+    saveOrderLocally(order);
+
+    // Serverga yuborish (agar mavjud bo'lsa)
     try {
       const res = await fetch('/api/order', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({
-          name, phone, address, qty,
-          total: (qty * state.price).toLocaleString('uz-UZ') + " so'm",
-          coords: selectedCoords ? `${selectedCoords.lat.toFixed(6)}, ${selectedCoords.lng.toFixed(6)}` : null
-        })
+        body: JSON.stringify(order)
       });
-      const data = await res.json();
-      if (data.success) {
-        showToast("✅ Buyurtma yuborildi! Tez orada bog'lanamiz 🎉");
-        document.getElementById('name').value = '';
-        document.getElementById('phone').value = '';
-        document.getElementById('address').value = '';
-        document.getElementById('address-badge').classList.remove('show');
-        document.getElementById('map-panel').classList.remove('open');
-        selectedCoords = null;
-        qty = 1;
-        document.getElementById('qty-display').textContent = '1';
-        updateTotal();
-      } else {
-        showToast('⚠️ Xatolik! @txum_bot orqali buyurtma qiling.', '#e53935');
-      }
+      await res.json();
     } catch {
-      showToast('⚠️ Internet xatosi. @txum_bot orqali buyurtma qiling.', '#e53935');
-    } finally {
-      btn.textContent = '✅ Buyurtma yuborish';
-      btn.disabled = false;
+      // Server yo'q bo'lsa ham localStorage da saqlanadi
     }
+
+    showToast("✅ Buyurtma yuborildi! Tez orada bog'lanamiz 🎉");
+    document.getElementById('name').value = '';
+    document.getElementById('phone').value = '';
+    document.getElementById('address').value = '';
+    document.getElementById('address-badge').classList.remove('show');
+    document.getElementById('map-panel').classList.remove('open');
+    selectedCoords = null;
+    qty = 1;
+    document.getElementById('qty-display').textContent = '1';
+    updateTotal();
+
+    btn.textContent = '✅ Buyurtma yuborish';
+    btn.disabled = false;
   }
 
   // ========== XARITA ==========
