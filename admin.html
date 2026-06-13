@@ -149,6 +149,101 @@
     }
     .toast.show { transform: translateX(-50%) translateY(0); }
 
+    /* FILTER TABS */
+    .filter-tabs {
+      display: flex; gap: 6px; flex-wrap: wrap;
+      margin-bottom: 16px; margin-top: 14px;
+    }
+    .filter-tab {
+      background: var(--light); border: 1.5px solid #DDD0BC;
+      border-radius: 8px; padding: 7px 14px; font-size: 0.82rem;
+      font-weight: 600; cursor: pointer; color: var(--gray);
+      transition: all 0.2s; font-family: 'Inter', sans-serif;
+    }
+    .filter-tab.active { background: var(--earth); color: var(--white); border-color: var(--earth); }
+    .filter-tab:hover:not(.active) { border-color: var(--earth); color: var(--earth); }
+
+    .badge {
+      display: inline-block; background: #DDD0BC; color: var(--earth);
+      border-radius: 10px; font-size: 0.75rem; padding: 1px 7px;
+      margin-left: 4px; font-weight: 700;
+    }
+    .badge.yangi { background: #FFF3CD; color: #856404; }
+    .badge.tasdiqlandi { background: #D1FAE5; color: #065F46; }
+    .badge.yetkazildi { background: #DBEAFE; color: #1E3A8A; }
+    .badge.bekor { background: #FEE2E2; color: #991B1B; }
+
+    /* ORDER ITEMS */
+    .order-item {
+      border: 1.5px solid #EDE0CC; border-radius: 14px;
+      padding: 16px 18px; margin-bottom: 12px;
+      background: var(--white); transition: box-shadow 0.2s;
+    }
+    .order-item:hover { box-shadow: 0 4px 16px rgba(59,42,26,0.08); }
+    .order-item.status-yangi { border-left: 4px solid #F5A623; }
+    .order-item.status-tasdiqlandi { border-left: 4px solid #10B981; }
+    .order-item.status-yetkazildi { border-left: 4px solid #3B82F6; }
+    .order-item.status-bekor { border-left: 4px solid var(--red); }
+
+    .order-header {
+      display: flex; justify-content: space-between;
+      align-items: flex-start; flex-wrap: wrap; gap: 8px; margin-bottom: 10px;
+    }
+    .order-name { font-weight: 700; font-size: 1rem; }
+    .order-time { font-size: 0.78rem; color: var(--gray); }
+    .order-id { font-size: 0.72rem; color: #bbb; }
+
+    .order-details {
+      display: grid; grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+      gap: 8px; margin-bottom: 12px;
+    }
+    .order-detail { font-size: 0.83rem; color: var(--gray); }
+    .order-detail strong { color: var(--earth); display: block; font-size: 0.78rem; }
+
+    .order-total {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.1rem; font-weight: 700; color: var(--yolk-dark);
+    }
+
+    .order-address {
+      font-size: 0.83rem; color: var(--gray); margin-bottom: 12px;
+      padding: 8px 10px; background: var(--light); border-radius: 8px;
+    }
+    .order-address strong { color: var(--earth); font-size: 0.78rem; display: block; margin-bottom: 2px; }
+
+    .order-coords { font-size: 0.75rem; color: #bbb; margin-top: 2px; }
+
+    .order-actions { display: flex; gap: 8px; flex-wrap: wrap; align-items: center; }
+    .status-select {
+      padding: 6px 10px; border: 1.5px solid #DDD0BC; border-radius: 8px;
+      font-size: 0.82rem; font-family: 'Inter', sans-serif;
+      background: var(--white); color: var(--earth); cursor: pointer;
+    }
+    .status-select:focus { border-color: var(--yolk); outline: none; }
+    .btn-delete {
+      background: none; border: 1.5px solid #DDD0BC; border-radius: 8px;
+      padding: 6px 12px; font-size: 0.8rem; color: var(--gray);
+      cursor: pointer; transition: all 0.2s;
+    }
+    .btn-delete:hover { border-color: var(--red); color: var(--red); }
+    .btn-call {
+      background: #E8F5E9; border: none; border-radius: 8px;
+      padding: 6px 12px; font-size: 0.8rem; color: #2E7D32;
+      font-weight: 600; cursor: pointer; text-decoration: none;
+      display: inline-flex; align-items: center; gap: 4px;
+    }
+    .btn-map {
+      background: #EEF2FF; border: none; border-radius: 8px;
+      padding: 6px 12px; font-size: 0.8rem; color: #3730A3;
+      font-weight: 600; cursor: pointer; text-decoration: none;
+      display: inline-flex; align-items: center; gap: 4px;
+    }
+
+    .empty-orders {
+      text-align: center; padding: 40px 20px;
+      color: var(--gray); font-size: 0.9rem;
+    }
+
     @media (max-width: 600px) {
       .login-card { padding: 36px 24px; }
       .dashboard { padding: 20px 16px; }
@@ -247,10 +342,37 @@
     </div>
   </div>
 
+  <!-- ORDERS CARD -->
+  <div class="card">
+    <div style="display:flex; justify-content:space-between; align-items:flex-start; flex-wrap:wrap; gap:10px; margin-bottom:6px;">
+      <div>
+        <h2>📋 Buyurtmalar</h2>
+        <p style="margin-bottom:0;">Saytdan kelgan barcha buyurtmalar</p>
+      </div>
+      <div style="display:flex; gap:8px; flex-wrap:wrap;">
+        <button class="btn-outline" onclick="loadOrders()" style="font-size:0.82rem; padding:7px 14px;">🔄 Yangilash</button>
+        <button class="btn-danger" onclick="clearOrders()" style="font-size:0.82rem; padding:7px 14px;">🗑️ Hammasini o'chirish</button>
+      </div>
+    </div>
+
+    <!-- Filter tabs -->
+    <div class="filter-tabs" id="filter-tabs">
+      <button class="filter-tab active" data-status="all" onclick="filterOrders('all', this)">Barchasi <span class="badge" id="cnt-all">0</span></button>
+      <button class="filter-tab" data-status="yangi" onclick="filterOrders('yangi', this)">🆕 Yangi <span class="badge yangi" id="cnt-yangi">0</span></button>
+      <button class="filter-tab" data-status="tasdiqlandi" onclick="filterOrders('tasdiqlandi', this)">✅ Tasdiqlandi <span class="badge tasdiqlandi" id="cnt-tasdiqlandi">0</span></button>
+      <button class="filter-tab" data-status="yetkazildi" onclick="filterOrders('yetkazildi', this)">🚗 Yetkazildi <span class="badge yetkazildi" id="cnt-yetkazildi">0</span></button>
+      <button class="filter-tab" data-status="bekor" onclick="filterOrders('bekor', this)">❌ Bekor <span class="badge bekor" id="cnt-bekor">0</span></button>
+    </div>
+
+    <div id="orders-list">
+      <div class="empty-orders">Hali buyurtma yo'q</div>
+    </div>
+  </div>
+
   <!-- INFO CARD -->
   <div class="card">
     <h2>ℹ️ Ma'lumot</h2>
-    <p style="margin-bottom:8px;">Ma'lumotlar brauzer xotirasida saqlanadi (localStorage). Asosiy sayt bilan bir xil brauzerda ishlaydi.</p>
+    <p style="margin-bottom:8px;">Ma'lumotlar brauzer xotirasida saqlanadi. Asosiy sayt bilan bir xil brauzerda ishlaydi.</p>
     <div class="divider"></div>
     <div class="btn-row">
       <a href="index.html" style="text-decoration:none;">
@@ -264,7 +386,7 @@
 <div class="toast" id="toast"></div>
 
 <script>
-  const ADMIN_PASSWORD = "admin123"; // O'zgartiring!
+  const ADMIN_PASSWORD = "admin_*107#"; // O'zgartiring!
 
   let state = {
     stock: parseInt(localStorage.getItem('tuxum_stock') ?? '30'),
@@ -288,6 +410,7 @@
       document.getElementById('dashboard').classList.add('visible');
       document.getElementById('logout-btn').style.display = 'inline-block';
       updateDashboard();
+      loadOrders();
     } else {
       showToast("❌ Parol noto'g'ri!", '#e53935');
       document.getElementById('admin-password').value = '';
@@ -336,6 +459,138 @@
     saveState(); updateDashboard();
     showToast(`✅ Narx: ${val.toLocaleString('uz-UZ')} so'm`);
   }
+
+  // ========== BUYURTMALAR ==========
+  let allOrders = [];
+  let currentFilter = 'all';
+
+  function loadOrders() {
+    allOrders = JSON.parse(localStorage.getItem('tuxum_orders') || '[]');
+    updateBadges();
+    renderOrders(currentFilter);
+  }
+
+  function updateBadges() {
+    const counts = { yangi: 0, tasdiqlandi: 0, yetkazildi: 0, bekor: 0 };
+    allOrders.forEach(o => { if (counts[o.status] !== undefined) counts[o.status]++; });
+    document.getElementById('cnt-all').textContent = allOrders.length;
+    document.getElementById('cnt-yangi').textContent = counts.yangi;
+    document.getElementById('cnt-tasdiqlandi').textContent = counts.tasdiqlandi;
+    document.getElementById('cnt-yetkazildi').textContent = counts.yetkazildi;
+    document.getElementById('cnt-bekor').textContent = counts.bekor;
+
+    // Stats row da yangi buyurtmalar soni
+    const dStock = document.getElementById('d-stock');
+    if (dStock) dStock.textContent = state.stock;
+  }
+
+  function filterOrders(status, btn) {
+    currentFilter = status;
+    document.querySelectorAll('.filter-tab').forEach(t => t.classList.remove('active'));
+    btn.classList.add('active');
+    renderOrders(status);
+  }
+
+  function renderOrders(filter) {
+    const list = document.getElementById('orders-list');
+    const filtered = filter === 'all' ? allOrders : allOrders.filter(o => o.status === filter);
+
+    if (filtered.length === 0) {
+      list.innerHTML = `<div class="empty-orders">${filter === 'all' ? '📭 Hali buyurtma yo\'q' : '📭 Bu statusda buyurtma yo\'q'}</div>`;
+      return;
+    }
+
+    list.innerHTML = filtered.map(order => `
+      <div class="order-item status-${order.status}" id="order-${order.id}">
+        <div class="order-header">
+          <div>
+            <div class="order-name">👤 ${escHtml(order.name)}</div>
+            <div class="order-time">🕐 ${order.time}</div>
+          </div>
+          <div style="text-align:right;">
+            <div class="order-total">${order.total}</div>
+            <div class="order-id">#${order.id}</div>
+          </div>
+        </div>
+
+        <div class="order-details">
+          <div class="order-detail"><strong>📞 Telefon</strong>${escHtml(order.phone)}</div>
+          <div class="order-detail"><strong>🥚 Dona</strong>${order.qty} ta</div>
+          <div class="order-detail"><strong>📊 Status</strong>${statusLabel(order.status)}</div>
+        </div>
+
+        <div class="order-address">
+          <strong>📍 Manzil</strong>
+          ${escHtml(order.address)}
+          ${order.coords ? `<div class="order-coords">🗺️ Koordinatalar: ${order.coords}</div>` : ''}
+        </div>
+
+        <div class="order-actions">
+          <select class="status-select" onchange="changeStatus(${order.id}, this.value)">
+            <option value="yangi"       ${order.status==='yangi'?'selected':''}>🆕 Yangi</option>
+            <option value="tasdiqlandi" ${order.status==='tasdiqlandi'?'selected':''}>✅ Tasdiqlandi</option>
+            <option value="yetkazildi"  ${order.status==='yetkazildi'?'selected':''}>🚗 Yetkazildi</option>
+            <option value="bekor"       ${order.status==='bekor'?'selected':''}>❌ Bekor</option>
+          </select>
+          <a href="tel:${escHtml(order.phone)}" class="btn-call">📞 Qo'ng'iroq</a>
+          ${order.coords ? `<a href="https://maps.google.com/?q=${order.coords}" target="_blank" class="btn-map">🗺️ Xarita</a>` : ''}
+          <button class="btn-delete" onclick="deleteOrder(${order.id})">🗑️</button>
+        </div>
+      </div>
+    `).join('');
+  }
+
+  function escHtml(str) {
+    return String(str).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');
+  }
+
+  function statusLabel(s) {
+    return { yangi: '🆕 Yangi', tasdiqlandi: '✅ Tasdiqlandi', yetkazildi: '🚗 Yetkazildi', bekor: '❌ Bekor' }[s] || s;
+  }
+
+  function changeStatus(id, newStatus) {
+    const idx = allOrders.findIndex(o => o.id === id);
+    if (idx === -1) return;
+    allOrders[idx].status = newStatus;
+    localStorage.setItem('tuxum_orders', JSON.stringify(allOrders));
+    // Visual update
+    const item = document.getElementById(`order-${id}`);
+    if (item) {
+      item.className = `order-item status-${newStatus}`;
+    }
+    updateBadges();
+    showToast(`✅ Status: ${statusLabel(newStatus)}`);
+  }
+
+  function deleteOrder(id) {
+    if (!confirm('Bu buyurtmani o\'chirasizmi?')) return;
+    allOrders = allOrders.filter(o => o.id !== id);
+    localStorage.setItem('tuxum_orders', JSON.stringify(allOrders));
+    updateBadges();
+    renderOrders(currentFilter);
+    showToast('🗑️ Buyurtma o\'chirildi', '#856404');
+  }
+
+  function clearOrders() {
+    if (!confirm('Barcha buyurtmalarni o\'chirasizmi? Bu amalni qaytarib bo\'lmaydi!')) return;
+    allOrders = [];
+    localStorage.setItem('tuxum_orders', JSON.stringify([]));
+    updateBadges();
+    renderOrders(currentFilter);
+    showToast('🗑️ Barcha buyurtmalar o\'chirildi', '#856404');
+  }
+
+  // localStorage o'zgarishlarini kuzatish (index.html dan yangi buyurtma kelganda)
+  window.addEventListener('storage', function(e) {
+    if (e.key === 'tuxum_orders') {
+      loadOrders();
+    }
+    if (e.key === 'tuxum_stock' || e.key === 'tuxum_price') {
+      state.stock = parseInt(localStorage.getItem('tuxum_stock') ?? '30');
+      state.price = parseInt(localStorage.getItem('tuxum_price') ?? '15000');
+      updateDashboard();
+    }
+  });
 
   function showToast(msg, bg = '#4CAF50') {
     const t = document.getElementById('toast');
