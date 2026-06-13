@@ -315,25 +315,34 @@
 
   // ========== LOAD STATE ==========
   async function loadState() {
+    // localStorage dan tez ko'rsat (darhol)
+    const cs = localStorage.getItem('tuxum_stock');
+    const cp = localStorage.getItem('tuxum_price');
+    if (cs && cp) {
+      state.stock = parseInt(cs);
+      state.price = parseInt(cp);
+      updateUI();
+    }
+    // Firebase dan yangilash
     try {
       const data = await fbGet('shop');
       if (data) {
         state.stock = data.stock ?? 30;
         state.price = data.price ?? 15000;
       } else {
-        // Birinchi marta — default qiymatlar yozamiz
         state.stock = 30;
         state.price = 15000;
         await fbSet('shop', state);
       }
-    } catch {
-      state.stock = 30;
-      state.price = 15000;
-    }
+      localStorage.setItem('tuxum_stock', state.stock);
+      localStorage.setItem('tuxum_price', state.price);
+    } catch {}
     updateUI();
   }
 
   async function saveState() {
+    localStorage.setItem('tuxum_stock', state.stock);
+    localStorage.setItem('tuxum_price', state.price);
     await fbSet('shop', { stock: state.stock, price: state.price });
   }
 
@@ -549,6 +558,17 @@
       const data = await res.json();
 
       if (data.name) {
+        // Telegram ga ham yuborish
+        const deliveryLine = deliveryMode === 'delivery'
+          ? `\n🏠 Adres: ${address}${location ? '\n📌 ' + location : ''}${userCoords ? '\n🗺 ' + 'https://www.google.com/maps?q=' + userCoords.lat + ',' + userCoords.lon : ''}`
+          : "\n🏃 O\'zi olib ketadi";
+        const tgText = `🥚 Yangi buyurtma!\n\n👤 Ism: ${name}\n📞 Tel: ${phone}\n${deliveryMode === 'delivery' ? '🚗 Yetkazib berish' : "🏃 O'zi oladi"}${deliveryLine}\n🔢 Soni: ${qty} ta\n💰 Jami: ${total}`;
+        fetch(`https://api.telegram.org/bot8656295440:AAEUBRVs4umfJkh-YPm3XMJh52R3e9l56bw/sendMessage`, {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ chat_id: '6283517295', text: tgText })
+        }).catch(() => {});
+
         showToast("✅ Buyurtma yuborildi! Tez orada bog'lanamiz 🎉");
         document.getElementById('name').value = '';
         document.getElementById('phone').value = '';
