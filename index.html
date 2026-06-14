@@ -7,7 +7,6 @@
   <title>Хейилюй Tuxum | Toza & Yangi</title>
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700;900&family=Inter:wght@400;500;600&display=swap" rel="stylesheet" />
-  <!-- Leaflet.js xarita -->
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.min.css" />
   <script src="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.min.js"></script>
   <style>
@@ -166,11 +165,9 @@
       font-size: 0.9rem; color: var(--red); display: none;
     }
 
-    /* ===== MANZIL + XARITA ===== */
+    /* MANZIL + XARITA */
     .address-wrapper { position: relative; }
-    .address-input-row {
-      display: flex; gap: 8px; align-items: stretch;
-    }
+    .address-input-row { display: flex; gap: 8px; align-items: stretch; }
     .address-input-row input { flex: 1; }
 
     .btn-locate {
@@ -192,12 +189,7 @@
       overflow: hidden; position: relative;
     }
     .map-panel.open { display: block; }
-
-    #map {
-      height: 260px; width: 100%;
-      z-index: 1;
-    }
-
+    #map { height: 260px; width: 100%; z-index: 1; }
     .map-hint {
       background: var(--earth); color: rgba(255,255,255,0.85);
       font-size: 0.8rem; padding: 10px 14px;
@@ -259,6 +251,31 @@
     }
     .toast.show { transform: translateX(-50%) translateY(0); }
 
+    /* ADMIN BUTTON */
+    .admin-btn {
+      position: fixed;
+      bottom: 20px;
+      right: 20px;
+      background: rgba(59,42,26,0.12);
+      color: rgba(59,42,26,0.3);
+      width: 34px;
+      height: 34px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 0.75rem;
+      text-decoration: none;
+      z-index: 998;
+      transition: opacity 0.2s;
+      border: 1px solid rgba(59,42,26,0.1);
+      user-select: none;
+    }
+    .admin-btn:hover {
+      background: rgba(59,42,26,0.2);
+      color: rgba(59,42,26,0.5);
+    }
+
     @media (max-width: 600px) {
       .nav-links { display: none; }
       .hero { padding: 60px 20px 48px; }
@@ -315,7 +332,7 @@
     <div class="feature-card">
       <div class="feature-icon">🐔</div>
       <h3>Sog'lom tovuqlar</h3>
-      <p>Tabiiy oziqlantirilgan, erkin yuradigan Хейилюй zotli tovuqlar va ishonchli qo'larda katta bo'lgan</p>
+      <p>Tabiiy oziqlantirilgan, erkin yuradigan Хейилюй zotli tovuqlar va ishonchli qo'llanda katta bo'lgan</p>
     </div>
     <div class="feature-card">
       <div class="feature-icon">🥚🩵</div>
@@ -435,6 +452,9 @@
 
 <div class="toast" id="toast"></div>
 
+<!-- ADMIN BUTTON (ko'rinmas, faqat admin uchun) -->
+<a href="admin.html" class="admin-btn" title="">⚙</a>
+
 <script>
   // ========== STATE ==========
   let state = {
@@ -506,7 +526,7 @@
   // ========== ORDER ==========
   function saveOrderLocally(order) {
     const orders = JSON.parse(localStorage.getItem('tuxum_orders') || '[]');
-    orders.unshift(order); // yangi buyurtma boshiga
+    orders.unshift(order);
     localStorage.setItem('tuxum_orders', JSON.stringify(orders));
   }
 
@@ -534,10 +554,8 @@
       time: new Date().toLocaleString('uz-UZ')
     };
 
-    // LocalStorage ga doim saqlash (admin ko'rishi uchun)
     saveOrderLocally(order);
 
-    // Serverga yuborish (agar mavjud bo'lsa)
     try {
       const res = await fetch('/api/order', {
         method: 'POST',
@@ -589,19 +607,16 @@
   function initMap() {
     mapInitialized = true;
 
-    // Toshkent markazi — default
     const defaultLat = 41.2995;
     const defaultLng = 69.2401;
 
     map = L.map('map', { zoomControl: true }).setView([defaultLat, defaultLng], 13);
 
-    // OpenStreetMap tiles
     L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
       attribution: '© OpenStreetMap',
       maxZoom: 19
     }).addTo(map);
 
-    // Custom marker icon
     const eggIcon = L.divIcon({
       className: '',
       html: `<div style="
@@ -614,7 +629,6 @@
       iconAnchor: [18, 18]
     });
 
-    // Xaritaga bosish — marker qo'yish
     map.on('click', function(e) {
       const { lat, lng } = e.latlng;
       selectedCoords = { lat, lng };
@@ -633,7 +647,6 @@
       reverseGeocode(lat, lng);
     });
 
-    // GPS joylashuv
     const locBtn = document.getElementById('locate-btn');
     locBtn.innerHTML = '<span class="spin">⏳</span> Aniqlanmoqda...';
     locBtn.disabled = true;
@@ -679,7 +692,6 @@
     }
   }
 
-  // Koordinatalardan manzil olish (Nominatim)
   async function reverseGeocode(lat, lng) {
     try {
       const url = `https://nominatim.openstreetmap.org/reverse?lat=${lat}&lon=${lng}&format=json&accept-language=uz`;
@@ -688,7 +700,6 @@
 
       if (data && data.address) {
         const a = data.address;
-        // Faqat turar joy ma'lumotlari (ko'cha, mahalla, tuman)
         const parts = [];
         if (a.road || a.pedestrian || a.path) parts.push(a.road || a.pedestrian || a.path);
         if (a.house_number) parts[parts.length - 1] = (parts[parts.length - 1] || '') + ', ' + a.house_number;
@@ -703,7 +714,6 @@
         document.getElementById('address-badge').classList.add('show');
       }
     } catch (e) {
-      // Xatolik bo'lsa koordinatalarni yozamiz
       const fallback = `${lat.toFixed(5)}, ${lng.toFixed(5)}`;
       document.getElementById('address').value = fallback;
     }
@@ -729,7 +739,6 @@
   // Init
   updateUI();
 
-  // LocalStorage o'zgarishlarini kuzatish (admin.html dan)
   window.addEventListener('storage', function(e) {
     if (e.key === 'tuxum_stock' || e.key === 'tuxum_price') {
       state.stock = parseInt(localStorage.getItem('tuxum_stock') ?? '30');
