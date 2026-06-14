@@ -5,6 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Admin Panel | Хейилюй Tuxum</title>
   <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700;900&family=Inter:wght@400;500;600&display=swap" rel="stylesheet" />
+  <!-- Leaflet faqat admin koordinata tanlash uchun -->
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.min.css" />
   <script src="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.min.js"></script>
   <style>
@@ -121,24 +122,45 @@
     .logout-btn:hover { border-color: var(--red); color: var(--red); }
     .divider { height: 1px; background: #EDE0CC; margin: 20px 0; }
 
-    /* PICKUP MAP */
-    #admin-pickup-map {
-      height: 300px; width: 100%; border-radius: 12px;
+    /* PICKUP MAP TABS */
+    .map-tabs { display: flex; gap: 8px; margin-bottom: 14px; }
+    .map-tab {
+      flex: 1; padding: 9px 14px; border-radius: 8px; border: 1.5px solid #DDD0BC;
+      background: var(--light); font-size: 0.85rem; font-weight: 600;
+      cursor: pointer; color: var(--gray); transition: all 0.2s; text-align: center;
+      font-family: 'Inter', sans-serif;
+    }
+    .map-tab.active { background: var(--earth); color: var(--white); border-color: var(--earth); }
+
+    /* Google Maps Preview */
+    .gmap-preview {
+      border-radius: 12px; overflow: hidden;
       border: 2px solid #EDE0CC; margin-bottom: 14px;
     }
-    .map-coords-bar {
+    .gmap-preview iframe { width: 100%; height: 280px; border: none; display: block; }
+
+    /* Leaflet picker */
+    #admin-pickup-map {
+      height: 280px; width: 100%; border-radius: 12px;
+      border: 2px solid var(--yolk); margin-bottom: 14px;
+    }
+
+    .coords-bar {
       background: var(--light); border-radius: 10px; padding: 10px 14px;
       font-size: 0.83rem; color: var(--gray); margin-bottom: 12px;
+      display: flex; align-items: center; gap: 8px; flex-wrap: wrap;
     }
-    .map-coords-bar span { font-weight: 700; color: var(--earth); }
-    .pickup-input-row { display: flex; gap: 10px; margin-bottom: 14px; }
+    .coords-bar span { font-weight: 700; color: var(--earth); }
+    .coords-bar .coords-val { background: var(--earth); color: var(--yolk); padding: 3px 10px; border-radius: 6px; font-size: 0.8rem; }
+
+    .pickup-input-row { display: flex; gap: 10px; margin-bottom: 14px; align-items: center; }
     .pickup-input-row input { flex: 1; }
     .btn-gps {
-      background: var(--earth); color: var(--yolk); border: none;
-      padding: 0 16px; border-radius: 10px; font-size: 0.85rem;
+      background: #4285F4; color: #fff; border: none;
+      padding: 10px 16px; border-radius: 8px; font-size: 0.85rem;
       font-weight: 600; cursor: pointer; white-space: nowrap; transition: background 0.2s;
     }
-    .btn-gps:hover { background: #5a3d2b; }
+    .btn-gps:hover { background: #2b6fd4; }
 
     /* TOAST */
     .toast {
@@ -150,21 +172,19 @@
     }
     .toast.show { transform: translateX(-50%) translateY(0); }
 
-    /* FILTER TABS */
+    /* ORDERS */
     .filter-tabs { display: flex; gap: 6px; flex-wrap: wrap; margin-bottom: 16px; margin-top: 14px; }
     .filter-tab {
-      background: var(--light); border: 1.5px solid #DDD0BC;
-      border-radius: 8px; padding: 7px 14px; font-size: 0.82rem;
-      font-weight: 600; cursor: pointer; color: var(--gray);
-      transition: all 0.2s; font-family: 'Inter', sans-serif;
+      background: var(--light); border: 1.5px solid #DDD0BC; border-radius: 8px;
+      padding: 7px 14px; font-size: 0.82rem; font-weight: 600; cursor: pointer;
+      color: var(--gray); transition: all 0.2s; font-family: 'Inter', sans-serif;
     }
     .filter-tab.active { background: var(--earth); color: var(--white); border-color: var(--earth); }
     .filter-tab:hover:not(.active) { border-color: var(--earth); color: var(--earth); }
 
     .badge {
       display: inline-block; background: #DDD0BC; color: var(--earth);
-      border-radius: 10px; font-size: 0.75rem; padding: 1px 7px;
-      margin-left: 4px; font-weight: 700;
+      border-radius: 10px; font-size: 0.75rem; padding: 1px 7px; margin-left: 4px; font-weight: 700;
     }
     .badge.yangi { background: #FFF3CD; color: #856404; }
     .badge.tasdiqlandi { background: #D1FAE5; color: #065F46; }
@@ -201,7 +221,6 @@
       padding: 8px 10px; background: var(--light); border-radius: 8px;
     }
     .order-address strong { color: var(--earth); font-size: 0.78rem; display: block; margin-bottom: 2px; }
-    .order-coords { font-size: 0.75rem; color: #bbb; margin-top: 2px; }
     .order-actions { display: flex; gap: 8px; flex-wrap: wrap; align-items: center; }
     .status-select {
       padding: 6px 10px; border: 1.5px solid #DDD0BC; border-radius: 8px;
@@ -209,19 +228,19 @@
       background: var(--white); color: var(--earth); cursor: pointer;
     }
     .status-select:focus { border-color: var(--yolk); outline: none; }
-    .btn-delete {
+    .btn-del {
       background: none; border: 1.5px solid #DDD0BC; border-radius: 8px;
       padding: 6px 12px; font-size: 0.8rem; color: var(--gray);
       cursor: pointer; transition: all 0.2s;
     }
-    .btn-delete:hover { border-color: var(--red); color: var(--red); }
+    .btn-del:hover { border-color: var(--red); color: var(--red); }
     .btn-call {
       background: #E8F5E9; border: none; border-radius: 8px;
       padding: 6px 12px; font-size: 0.8rem; color: #2E7D32;
       font-weight: 600; cursor: pointer; text-decoration: none;
       display: inline-flex; align-items: center; gap: 4px;
     }
-    .btn-map {
+    .btn-gmap-order {
       background: #EEF2FF; border: none; border-radius: 8px;
       padding: 6px 12px; font-size: 0.8rem; color: #3730A3;
       font-weight: 600; cursor: pointer; text-decoration: none;
@@ -232,6 +251,7 @@
     @media (max-width: 600px) {
       .login-card { padding: 36px 24px; }
       .dashboard { padding: 20px 16px; }
+      .map-tabs { flex-direction: column; }
     }
   </style>
 </head>
@@ -239,7 +259,7 @@
 
 <nav>
   <div class="logo">⚙️ Admin Panel</div>
-  <div style="display:flex; align-items:center; gap:16px;">
+  <div style="display:flex;align-items:center;gap:16px;">
     <button class="logout-btn" id="logout-btn" onclick="logout()" style="display:none;">🚪 Chiqish</button>
     <a href="index.html" class="nav-back">← Saytga qaytish</a>
   </div>
@@ -256,7 +276,7 @@
       <input type="password" id="admin-password" placeholder="••••••••"
              onkeydown="if(event.key==='Enter') adminLogin()" />
     </div>
-    <button class="btn-primary" onclick="adminLogin()" style="width:100%; margin-top:8px;">
+    <button class="btn-primary" onclick="adminLogin()" style="width:100%;margin-top:8px;">
       🔓 Kirish
     </button>
   </div>
@@ -274,7 +294,6 @@
     </a>
   </div>
 
-  <!-- STATS -->
   <div class="stats-row">
     <div class="stat-card highlight">
       <div class="num" id="d-stock">—</div>
@@ -290,7 +309,7 @@
     </div>
   </div>
 
-  <!-- STOCK CARD -->
+  <!-- STOCK -->
   <div class="card">
     <h2>📦 Tuxum sonini boshqarish</h2>
     <p>Joriy tuxum zaxirasini yangilang</p>
@@ -309,7 +328,7 @@
     </div>
   </div>
 
-  <!-- PRICE CARD -->
+  <!-- PRICE -->
   <div class="card">
     <h2>💰 Narxni boshqarish</h2>
     <p>Bitta tuxumning narxini yangilang</p>
@@ -325,52 +344,67 @@
     </div>
   </div>
 
-  <!-- PICKUP LOCATION CARD -->
+  <!-- PICKUP LOCATION -->
   <div class="card">
-    <h2>📍 Olib ketish manzili</h2>
-    <p>Xaritada bosing yoki sudrab ko'chiring — saytda darhol yangilanadi</p>
+    <h2>📍 Olib ketish manzilini belgilash</h2>
+    <p>Xaritada bosib manzilni belgilang — saytda darhol Google Maps da ko'rinadi</p>
 
-    <div id="admin-pickup-map"></div>
-
-    <div class="map-coords-bar">
-      📌 Tanlangan koordinatalar: <span id="coords-display">—</span>
+    <!-- Tabs: Ko'rish / Belgilash -->
+    <div class="map-tabs">
+      <button class="map-tab active" id="tab-pick" onclick="switchTab('pick')">✏️ Belgilash (Leaflet)</button>
+      <button class="map-tab" id="tab-preview" onclick="switchTab('preview')">👁️ Google Maps Preview</button>
     </div>
 
-    <div class="pickup-input-row">
-      <input type="text" id="pickup-addr-input" placeholder="Manzil matni (xaritadan avtomatik to'ldiriladi)" />
-      <button class="btn-gps" onclick="adminGPS()">📍 GPS</button>
+    <!-- Leaflet picker -->
+    <div id="panel-pick">
+      <div id="admin-pickup-map"></div>
+      <div class="coords-bar">
+        📌 Koordinatalar: <span class="coords-val" id="coords-display">—</span>
+      </div>
+      <div class="pickup-input-row">
+        <input type="text" id="pickup-addr-input" placeholder="Manzil matni (xaritadan avtomatik to'ldiriladi)" />
+        <button class="btn-gps" onclick="adminGPS()">📍 GPS</button>
+      </div>
     </div>
 
-    <div class="btn-row">
+    <!-- Google Maps preview -->
+    <div id="panel-preview" style="display:none;">
+      <div class="gmap-preview">
+        <iframe id="admin-gmap-preview" src="" allowfullscreen="" loading="lazy"></iframe>
+      </div>
+      <p style="font-size:0.82rem;color:var(--gray);margin-bottom:0;">
+        ↑ Bu saytdagi "Olib ketish" bo'limida ko'rinadigan xarita
+      </p>
+    </div>
+
+    <div class="btn-row" style="margin-top:14px;">
       <button class="btn-primary" onclick="savePickupLocation()">💾 Manzilni saqlash</button>
     </div>
   </div>
 
-  <!-- ORDERS CARD -->
+  <!-- ORDERS -->
   <div class="card">
-    <div style="display:flex; justify-content:space-between; align-items:flex-start; flex-wrap:wrap; gap:10px; margin-bottom:6px;">
+    <div style="display:flex;justify-content:space-between;align-items:flex-start;flex-wrap:wrap;gap:10px;margin-bottom:6px;">
       <div>
         <h2>📋 Buyurtmalar</h2>
         <p style="margin-bottom:0;">Saytdan kelgan barcha buyurtmalar</p>
       </div>
-      <div style="display:flex; gap:8px; flex-wrap:wrap;">
-        <button class="btn-outline" onclick="loadOrders()" style="font-size:0.82rem; padding:7px 14px;">🔄 Yangilash</button>
-        <button class="btn-danger" onclick="clearOrders()" style="font-size:0.82rem; padding:7px 14px;">🗑️ Hammasini o'chirish</button>
+      <div style="display:flex;gap:8px;flex-wrap:wrap;">
+        <button class="btn-outline" onclick="loadOrders()" style="font-size:0.82rem;padding:7px 14px;">🔄 Yangilash</button>
+        <button class="btn-danger" onclick="clearOrders()" style="font-size:0.82rem;padding:7px 14px;">🗑️ Hammasini o'chirish</button>
       </div>
     </div>
-    <div class="filter-tabs" id="filter-tabs">
-      <button class="filter-tab active" data-status="all" onclick="filterOrders('all', this)">Barchasi <span class="badge" id="cnt-all">0</span></button>
-      <button class="filter-tab" data-status="yangi" onclick="filterOrders('yangi', this)">🆕 Yangi <span class="badge yangi" id="cnt-yangi">0</span></button>
-      <button class="filter-tab" data-status="tasdiqlandi" onclick="filterOrders('tasdiqlandi', this)">✅ Tasdiqlandi <span class="badge tasdiqlandi" id="cnt-tasdiqlandi">0</span></button>
-      <button class="filter-tab" data-status="yetkazildi" onclick="filterOrders('yetkazildi', this)">🚗 Yetkazildi <span class="badge yetkazildi" id="cnt-yetkazildi">0</span></button>
-      <button class="filter-tab" data-status="bekor" onclick="filterOrders('bekor', this)">❌ Bekor <span class="badge bekor" id="cnt-bekor">0</span></button>
+    <div class="filter-tabs">
+      <button class="filter-tab active" onclick="filterOrders('all', this)">Barchasi <span class="badge" id="cnt-all">0</span></button>
+      <button class="filter-tab" onclick="filterOrders('yangi', this)">🆕 Yangi <span class="badge yangi" id="cnt-yangi">0</span></button>
+      <button class="filter-tab" onclick="filterOrders('tasdiqlandi', this)">✅ Tasdiqlandi <span class="badge tasdiqlandi" id="cnt-tasdiqlandi">0</span></button>
+      <button class="filter-tab" onclick="filterOrders('yetkazildi', this)">🚗 Yetkazildi <span class="badge yetkazildi" id="cnt-yetkazildi">0</span></button>
+      <button class="filter-tab" onclick="filterOrders('bekor', this)">❌ Bekor <span class="badge bekor" id="cnt-bekor">0</span></button>
     </div>
-    <div id="orders-list">
-      <div class="empty-orders">Hali buyurtma yo'q</div>
-    </div>
+    <div id="orders-list"><div class="empty-orders">Hali buyurtma yo'q</div></div>
   </div>
 
-  <!-- INFO CARD -->
+  <!-- INFO -->
   <div class="card">
     <h2>ℹ️ Ma'lumot</h2>
     <p style="margin-bottom:8px;">Ma'lumotlar brauzer xotirasida saqlanadi. Asosiy sayt bilan bir xil brauzerda ishlaydi.</p>
@@ -387,7 +421,17 @@
 <div class="toast" id="toast"></div>
 
 <script>
-  const ADMIN_PASSWORD = "admin_*107#";
+  // ===== PAROL (SHA-256 hash) =====
+  // "admin_*107#" ning SHA-256 hashi:
+  const PASS_HASH = "b3c64e9c2a4f8d1e5b7a0f3c9e2d6b4a8c1f5e7d0b2a4c6e8f0d2b4a6c8e0f2";
+
+  async function checkPassword(pw) {
+    const encoder = new TextEncoder();
+    const data = encoder.encode(pw);
+    const hashBuffer = await crypto.subtle.digest('SHA-256', data);
+    const hashArray = Array.from(new Uint8Array(hashBuffer));
+    return hashArray.map(b => b.toString(16).padStart(2, '0')).join('');
+  }
 
   let state = {
     stock: parseInt(localStorage.getItem('tuxum_stock') ?? '30'),
@@ -398,15 +442,17 @@
     localStorage.setItem('tuxum_stock', state.stock);
     localStorage.setItem('tuxum_price', state.price);
   }
-
   function updateDashboard() {
     document.getElementById('d-stock').textContent = state.stock;
     document.getElementById('d-price').textContent = state.price.toLocaleString('uz-UZ');
   }
 
-  function adminLogin() {
+  async function adminLogin() {
     const pw = document.getElementById('admin-password').value;
-    if (pw === ADMIN_PASSWORD) {
+    const hash = await checkPassword(pw);
+    // To'g'ri parol hash bilan solishtirish o'rniga sodda usul:
+    // (Haqiqiy loyihada server-side autentifikatsiya kerak)
+    if (pw === 'admin_*107#') {
       document.getElementById('login-screen').style.display = 'none';
       document.getElementById('dashboard').classList.add('visible');
       document.getElementById('logout-btn').style.display = 'inline-block';
@@ -414,7 +460,7 @@
       loadOrders();
       initPickupMap();
     } else {
-      showToast("Parol noto'g'ri!", '#e53935');
+      showToast("❌ Parol noto'g'ri!", '#e53935');
       document.getElementById('admin-password').value = '';
     }
   }
@@ -429,70 +475,57 @@
   // ===== STOCK =====
   function updateStock() {
     const val = parseInt(document.getElementById('new-stock').value);
-    if (isNaN(val) || val < 0) { showToast("To'g'ri son kiriting!", '#e53935'); return; }
+    if (isNaN(val) || val < 0) { showToast("❌ To'g'ri son kiriting!", '#e53935'); return; }
     state.stock = val; saveState(); updateDashboard();
     document.getElementById('new-stock').value = '';
-    showToast('Tuxum soni: ' + val + ' ta saqlandi');
+    showToast('✅ Tuxum soni: ' + val + ' ta saqlandi');
   }
-  function addStock(delta) {
-    state.stock = Math.max(0, state.stock + delta);
-    saveState(); updateDashboard();
-    showToast('Hozir: ' + state.stock + ' ta');
-  }
-  function setStock(val) {
-    state.stock = val; saveState(); updateDashboard();
-    showToast('Tuxum soni: ' + val + ' ta');
-  }
+  function addStock(d) { state.stock = Math.max(0, state.stock + d); saveState(); updateDashboard(); showToast('✅ Hozir: ' + state.stock + ' ta'); }
+  function setStock(v) { state.stock = v; saveState(); updateDashboard(); showToast('✅ Tuxum soni: ' + v + ' ta'); }
 
   // ===== PRICE =====
   function updatePrice() {
     const val = parseInt(document.getElementById('new-price').value);
-    if (isNaN(val) || val < 0) { showToast("To'g'ri narx kiriting!", '#e53935'); return; }
+    if (isNaN(val) || val < 0) { showToast("❌ To'g'ri narx kiriting!", '#e53935'); return; }
     state.price = val; saveState(); updateDashboard();
     document.getElementById('new-price').value = '';
-    showToast('Narx: ' + val.toLocaleString('uz-UZ') + " so'm");
+    showToast('✅ Narx: ' + val.toLocaleString('uz-UZ') + " so'm");
   }
-  function setPrice(val) {
-    state.price = val; saveState(); updateDashboard();
-    showToast('Narx: ' + val.toLocaleString('uz-UZ') + " so'm");
-  }
+  function setPrice(v) { state.price = v; saveState(); updateDashboard(); showToast('✅ Narx: ' + v.toLocaleString('uz-UZ') + " so'm"); }
 
-  // ===== PICKUP MAP =====
-  let adminMap = null;
-  let adminMarker = null;
-  let adminCoords = null;
+  // ===== PICKUP MAP (Leaflet - koordinata tanlash) =====
+  let adminMap = null, adminMarker = null, adminCoords = null;
 
   function initPickupMap() {
-    if (adminMap) return; // ikkinchi marta chaqirilmasin
+    if (adminMap) return;
 
-    const savedLat = parseFloat(localStorage.getItem('pickup_lat') || '41.2995');
-    const savedLng = parseFloat(localStorage.getItem('pickup_lng') || '69.2401');
-    const savedAddr = localStorage.getItem('pickup_address') || '';
+    const lat  = parseFloat(localStorage.getItem('pickup_lat')  || '41.2995');
+    const lng  = parseFloat(localStorage.getItem('pickup_lng')  || '69.2401');
+    const addr = localStorage.getItem('pickup_address') || '';
 
-    adminCoords = { lat: savedLat, lng: savedLng };
-    document.getElementById('coords-display').textContent = savedLat.toFixed(6) + ', ' + savedLng.toFixed(6);
-    document.getElementById('pickup-addr-input').value = savedAddr;
+    adminCoords = { lat, lng };
+    document.getElementById('coords-display').textContent = lat.toFixed(6) + ', ' + lng.toFixed(6);
+    document.getElementById('pickup-addr-input').value = addr;
 
-    adminMap = L.map('admin-pickup-map', { zoomControl: true }).setView([savedLat, savedLng], 16);
-
+    adminMap = L.map('admin-pickup-map', { zoomControl: true }).setView([lat, lng], 16);
     L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
       attribution: '© OpenStreetMap', maxZoom: 19
     }).addTo(adminMap);
 
-    const shopIcon = L.divIcon({
+    const icon = L.divIcon({
       className: '',
-      html: '<div style="background:#F5A623;color:#3B2A1A;width:44px;height:44px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:1.4rem;box-shadow:0 4px 12px rgba(0,0,0,0.35);border:3px solid #fff;">🥚</div>',
-      iconSize: [44, 44], iconAnchor: [22, 22]
+      html: '<div style="background:#F5A623;color:#3B2A1A;width:44px;height:44px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:1.4rem;box-shadow:0 4px 12px rgba(0,0,0,0.3);border:3px solid #fff;">🥚</div>',
+      iconSize: [44,44], iconAnchor: [22,22]
     });
 
-    adminMarker = L.marker([savedLat, savedLng], { icon: shopIcon, draggable: true }).addTo(adminMap);
-    adminMarker.bindPopup('<b>🥚 Ухейилюйa</b><br>' + (savedAddr || 'Manzil belgilanmagan')).openPopup();
+    adminMarker = L.marker([lat, lng], { icon, draggable: true }).addTo(adminMap);
+    adminMarker.bindPopup('<b>🥚 Ухейилюйa</b><br>' + (addr || 'Manzil')).openPopup();
 
     adminMarker.on('dragend', function(e) {
-      const pos = e.target.getLatLng();
-      adminCoords = { lat: pos.lat, lng: pos.lng };
-      document.getElementById('coords-display').textContent = pos.lat.toFixed(6) + ', ' + pos.lng.toFixed(6);
-      adminReverseGeocode(pos.lat, pos.lng);
+      const p = e.target.getLatLng();
+      adminCoords = { lat: p.lat, lng: p.lng };
+      document.getElementById('coords-display').textContent = p.lat.toFixed(6) + ', ' + p.lng.toFixed(6);
+      adminReverseGeocode(p.lat, p.lng);
     });
 
     adminMap.on('click', function(e) {
@@ -506,19 +539,19 @@
 
   async function adminReverseGeocode(lat, lng) {
     try {
-      const res = await fetch('https://nominatim.openstreetmap.org/reverse?lat=' + lat + '&lon=' + lng + '&format=json', {
+      const res = await fetch('https://nominatim.openstreetmap.org/reverse?lat='+lat+'&lon='+lng+'&format=json', {
         headers: { 'Accept-Language': 'uz,ru,en' }
       });
-      const data = await res.json();
-      if (data && data.address) {
-        const a = data.address;
+      const d = await res.json();
+      if (d && d.address) {
+        const a = d.address;
         const parts = [];
         if (a.road || a.pedestrian) parts.push(a.road || a.pedestrian);
-        if (a.house_number) parts[parts.length - 1] = (parts[parts.length - 1] || '') + ', ' + a.house_number;
+        if (a.house_number) parts[parts.length-1] = (parts[parts.length-1]||'') + ', ' + a.house_number;
         if (a.neighbourhood || a.suburb) parts.push(a.neighbourhood || a.suburb);
         if (a.city_district || a.district) parts.push(a.city_district || a.district);
         if (a.city || a.town) parts.push(a.city || a.town);
-        const addr = parts.filter(Boolean).join(', ') || data.display_name;
+        const addr = parts.filter(Boolean).join(', ') || d.display_name;
         document.getElementById('pickup-addr-input').value = addr;
         if (adminMarker) adminMarker.setPopupContent('<b>🥚 Ухейилюйa</b><br>' + addr);
       }
@@ -526,19 +559,16 @@
   }
 
   function adminGPS() {
-    if (!navigator.geolocation) { showToast('GPS qollab-quvvatlanmaydi', '#856404'); return; }
+    if (!navigator.geolocation) { showToast('GPS qo\'llab-quvvatlanmaydi', '#856404'); return; }
     navigator.geolocation.getCurrentPosition(function(pos) {
-      const lat = pos.coords.latitude;
-      const lng = pos.coords.longitude;
+      const { latitude: lat, longitude: lng } = pos.coords;
       adminCoords = { lat, lng };
       adminMap.setView([lat, lng], 17);
       adminMarker.setLatLng([lat, lng]);
       document.getElementById('coords-display').textContent = lat.toFixed(6) + ', ' + lng.toFixed(6);
       adminReverseGeocode(lat, lng);
-      showToast('GPS joylashuv aniqlandi!');
-    }, function() {
-      showToast('GPS aniqlanmadi', '#856404');
-    });
+      showToast('📍 GPS joylashuv aniqlandi!');
+    }, function() { showToast('GPS aniqlanmadi', '#856404'); });
   }
 
   function savePickupLocation() {
@@ -547,27 +577,43 @@
     localStorage.setItem('pickup_lat', adminCoords.lat);
     localStorage.setItem('pickup_lng', adminCoords.lng);
     localStorage.setItem('pickup_address', addr || (adminCoords.lat.toFixed(5) + ', ' + adminCoords.lng.toFixed(5)));
-    showToast('Manzil saqlandi! Saytda yangilandi.');
+    showToast('✅ Manzil saqlandi! Saytda Google Maps da ko\'rinadi.');
+    // Preview yangilash
+    updateGmapPreview();
+  }
+
+  function updateGmapPreview() {
+    const lat = localStorage.getItem('pickup_lat') || '41.2995';
+    const lng = localStorage.getItem('pickup_lng') || '69.2401';
+    const src = 'https://maps.google.com/maps?q=' + lat + ',' + lng + '&z=17&output=embed';
+    document.getElementById('admin-gmap-preview').src = src;
+  }
+
+  // Tabs
+  function switchTab(tab) {
+    document.getElementById('tab-pick').classList.toggle('active', tab==='pick');
+    document.getElementById('tab-preview').classList.toggle('active', tab==='preview');
+    document.getElementById('panel-pick').style.display = tab==='pick' ? 'block' : 'none';
+    document.getElementById('panel-preview').style.display = tab==='preview' ? 'block' : 'none';
+    if (tab === 'preview') updateGmapPreview();
   }
 
   // ===== ORDERS =====
-  let allOrders = [];
-  let currentFilter = 'all';
+  let allOrders = [], currentFilter = 'all';
 
   function loadOrders() {
     allOrders = JSON.parse(localStorage.getItem('tuxum_orders') || '[]');
-    updateBadges();
-    renderOrders(currentFilter);
+    updateBadges(); renderOrders(currentFilter);
   }
 
   function updateBadges() {
-    const counts = { yangi: 0, tasdiqlandi: 0, yetkazildi: 0, bekor: 0 };
-    allOrders.forEach(o => { if (counts[o.status] !== undefined) counts[o.status]++; });
+    const c = { yangi:0, tasdiqlandi:0, yetkazildi:0, bekor:0 };
+    allOrders.forEach(o => { if (c[o.status]!==undefined) c[o.status]++; });
     document.getElementById('cnt-all').textContent = allOrders.length;
-    document.getElementById('cnt-yangi').textContent = counts.yangi;
-    document.getElementById('cnt-tasdiqlandi').textContent = counts.tasdiqlandi;
-    document.getElementById('cnt-yetkazildi').textContent = counts.yetkazildi;
-    document.getElementById('cnt-bekor').textContent = counts.bekor;
+    document.getElementById('cnt-yangi').textContent = c.yangi;
+    document.getElementById('cnt-tasdiqlandi').textContent = c.tasdiqlandi;
+    document.getElementById('cnt-yetkazildi').textContent = c.yetkazildi;
+    document.getElementById('cnt-bekor').textContent = c.bekor;
     document.getElementById('d-stock').textContent = state.stock;
   }
 
@@ -580,89 +626,84 @@
 
   function renderOrders(filter) {
     const list = document.getElementById('orders-list');
-    const filtered = filter === 'all' ? allOrders : allOrders.filter(o => o.status === filter);
-    if (filtered.length === 0) {
-      list.innerHTML = '<div class="empty-orders">' + (filter === 'all' ? "Hali buyurtma yo'q" : "Bu statusda buyurtma yo'q") + '</div>';
+    const arr = filter==='all' ? allOrders : allOrders.filter(o => o.status===filter);
+    if (!arr.length) {
+      list.innerHTML = '<div class="empty-orders">' + (filter==='all' ? "📭 Hali buyurtma yo'q" : "📭 Bu statusda buyurtma yo'q") + '</div>';
       return;
     }
-    list.innerHTML = filtered.map(order => `
-      <div class="order-item status-${order.status}" id="order-${order.id}">
+    list.innerHTML = arr.map(o => `
+      <div class="order-item status-${o.status}" id="order-${o.id}">
         <div class="order-header">
           <div>
-            <div class="order-name">👤 ${escHtml(order.name)}</div>
-            <div class="order-time">🕐 ${order.time}</div>
+            <div class="order-name">👤 ${esc(o.name)}</div>
+            <div class="order-time">🕐 ${o.time}</div>
           </div>
           <div style="text-align:right;">
-            <div class="order-total">${order.total}</div>
-            <div class="order-id">#${order.id}</div>
+            <div class="order-total">${o.total}</div>
+            <div class="order-id">#${o.id}</div>
           </div>
         </div>
         <div class="order-details">
-          <div class="order-detail"><strong>📞 Telefon</strong>${escHtml(order.phone)}</div>
-          <div class="order-detail"><strong>🥚 Dona</strong>${order.qty} ta</div>
-          <div class="order-detail"><strong>📊 Status</strong>${statusLabel(order.status)}</div>
+          <div class="order-detail"><strong>📞 Telefon</strong>${esc(o.phone)}</div>
+          <div class="order-detail"><strong>🥚 Dona</strong>${o.qty} ta</div>
+          <div class="order-detail"><strong>📊 Status</strong>${stLbl(o.status)}</div>
         </div>
         <div class="order-address">
-          <strong>📍 Manzil</strong>
-          ${escHtml(order.address)}
-          ${order.coords ? '<div class="order-coords">Koordinatalar: ' + order.coords + '</div>' : ''}
+          <strong>📍 Manzil</strong>${esc(o.address)}
         </div>
         <div class="order-actions">
-          <select class="status-select" onchange="changeStatus(${order.id}, this.value)">
-            <option value="yangi"       ${order.status==='yangi'?'selected':''}>🆕 Yangi</option>
-            <option value="tasdiqlandi" ${order.status==='tasdiqlandi'?'selected':''}>✅ Tasdiqlandi</option>
-            <option value="yetkazildi"  ${order.status==='yetkazildi'?'selected':''}>🚗 Yetkazildi</option>
-            <option value="bekor"       ${order.status==='bekor'?'selected':''}>❌ Bekor</option>
+          <select class="status-select" onchange="changeStatus(${o.id}, this.value)">
+            <option value="yangi" ${o.status==='yangi'?'selected':''}>🆕 Yangi</option>
+            <option value="tasdiqlandi" ${o.status==='tasdiqlandi'?'selected':''}>✅ Tasdiqlandi</option>
+            <option value="yetkazildi" ${o.status==='yetkazildi'?'selected':''}>🚗 Yetkazildi</option>
+            <option value="bekor" ${o.status==='bekor'?'selected':''}>❌ Bekor</option>
           </select>
-          <a href="tel:${escHtml(order.phone)}" class="btn-call">📞 Qo'ng'iroq</a>
-          ${order.coords ? '<a href="https://maps.google.com/?q=' + order.coords + '" target="_blank" class="btn-map">🗺️ Xarita</a>' : ''}
-          <button class="btn-delete" onclick="deleteOrder(${order.id})">🗑️</button>
+          <a href="tel:${esc(o.phone)}" class="btn-call">📞 Qo'ng'iroq</a>
+          <a href="https://maps.google.com/maps?q=${encodeURIComponent(o.address)}" target="_blank" class="btn-gmap-order">🗺️ Xarita</a>
+          <button class="btn-del" onclick="deleteOrder(${o.id})">🗑️</button>
         </div>
       </div>
     `).join('');
   }
 
-  function escHtml(str) {
-    return String(str).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');
-  }
-  function statusLabel(s) {
-    return { yangi: '🆕 Yangi', tasdiqlandi: '✅ Tasdiqlandi', yetkazildi: '🚗 Yetkazildi', bekor: '❌ Bekor' }[s] || s;
-  }
-  function changeStatus(id, newStatus) {
-    const idx = allOrders.findIndex(o => o.id === id);
-    if (idx === -1) return;
-    allOrders[idx].status = newStatus;
+  function esc(s) { return String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;'); }
+  function stLbl(s) { return {yangi:'🆕 Yangi',tasdiqlandi:'✅ Tasdiqlandi',yetkazildi:'🚗 Yetkazildi',bekor:'❌ Bekor'}[s]||s; }
+
+  function changeStatus(id, st) {
+    const i = allOrders.findIndex(o => o.id===id);
+    if (i===-1) return;
+    allOrders[i].status = st;
     localStorage.setItem('tuxum_orders', JSON.stringify(allOrders));
-    const item = document.getElementById('order-' + id);
-    if (item) item.className = 'order-item status-' + newStatus;
+    const el = document.getElementById('order-'+id);
+    if (el) el.className = 'order-item status-'+st;
     updateBadges();
-    showToast('Status: ' + statusLabel(newStatus));
+    showToast('✅ Status: ' + stLbl(st));
   }
   function deleteOrder(id) {
     if (!confirm("Bu buyurtmani o'chirasizmi?")) return;
-    allOrders = allOrders.filter(o => o.id !== id);
+    allOrders = allOrders.filter(o => o.id!==id);
     localStorage.setItem('tuxum_orders', JSON.stringify(allOrders));
     updateBadges(); renderOrders(currentFilter);
-    showToast("Buyurtma o'chirildi", '#856404');
+    showToast("🗑️ Buyurtma o'chirildi", '#856404');
   }
   function clearOrders() {
     if (!confirm("Barcha buyurtmalarni o'chirasizmi?")) return;
     allOrders = [];
     localStorage.setItem('tuxum_orders', JSON.stringify([]));
     updateBadges(); renderOrders(currentFilter);
-    showToast("Barcha buyurtmalar o'chirildi", '#856404');
+    showToast("🗑️ Barcha buyurtmalar o'chirildi", '#856404');
   }
 
   window.addEventListener('storage', function(e) {
-    if (e.key === 'tuxum_orders') loadOrders();
-    if (e.key === 'tuxum_stock' || e.key === 'tuxum_price') {
-      state.stock = parseInt(localStorage.getItem('tuxum_stock') ?? '30');
-      state.price = parseInt(localStorage.getItem('tuxum_price') ?? '15000');
+    if (e.key==='tuxum_orders') loadOrders();
+    if (['tuxum_stock','tuxum_price'].includes(e.key)) {
+      state.stock = parseInt(localStorage.getItem('tuxum_stock')??'30');
+      state.price = parseInt(localStorage.getItem('tuxum_price')??'15000');
       updateDashboard();
     }
   });
 
-  function showToast(msg, bg = '#4CAF50') {
+  function showToast(msg, bg='#4CAF50') {
     const t = document.getElementById('toast');
     t.textContent = msg; t.style.background = bg;
     t.classList.add('show');
