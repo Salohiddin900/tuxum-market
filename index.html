@@ -4,7 +4,16 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <meta name="google-site-verification" content="abMYvG-5519II23ce-LRWntP0fGI_EgX-otClOTi_-0" />
-  <title>Хейилюй Tuxum | Toza & Yangi</title>
+  <title>Tuxum Market Farg'ona — Toza Uheyiluy Tuxumlari | Yetkazib berish</title>
+  <meta name="description" content="Farg'onada toza va yangi Uheyiluy tuxumlari. Tuxum market — uyingizga tez yetkazib beramiz. Arzon narx, sifatli mahsulot." />
+  <meta name="keywords" content="tuxum market, tuxum fargona, uheyiluy tuxum, moviy tuxum, toza tuxum, tuxum yetkazib berish fargona" />
+  <meta name="author" content="Tuxum Market Farg'ona" />
+  <meta property="og:title" content="Tuxum Market Farg'ona — Toza Uheyiluy Tuxumlari" />
+  <meta property="og:description" content="Farg'onada toza Uheyiluy tuxumlari. Uyingizga yetkazib beramiz!" />
+  <meta property="og:type" content="website" />
+  <meta property="og:url" content="https://salohiddin900.github.io/tuxum-market/" />
+  <meta name="robots" content="index, follow" />
+  <link rel="canonical" href="https://salohiddin900.github.io/tuxum-market/" />
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700;900&family=Inter:wght@400;500;600&display=swap" rel="stylesheet" />
   <style>
@@ -108,7 +117,6 @@
     .feature-card h3 { font-size: 1rem; font-weight: 600; margin-bottom: 8px; }
     .feature-card p { font-size: 0.88rem; color: var(--gray); line-height: 1.5; }
 
-    /* ORDER */
     .order-section { background: var(--light); border-radius: 24px; padding: 48px 32px; border: 1px solid #EDE0CC; }
     .order-form { display: flex; flex-direction: column; gap: 16px; max-width: 520px; }
     .form-group { display: flex; flex-direction: column; gap: 6px; }
@@ -142,7 +150,6 @@
       border-radius: 10px; padding: 12px 16px; font-size: 0.9rem; color: var(--red);
     }
 
-    /* MANZIL QIDIRISH */
     .address-input-row { display: flex; gap: 8px; align-items: stretch; }
     .address-input-row input { flex: 1; }
     .btn-locate {
@@ -154,7 +161,6 @@
     }
     .btn-locate:hover { background: #5a3d2b; }
 
-    /* GOOGLE MAPS PANEL (order form uchun) */
     .gmap-panel {
       display: none; margin-top: 10px; border-radius: 14px; overflow: hidden;
       border: 2px solid var(--yolk); position: relative;
@@ -165,7 +171,6 @@
       background: var(--earth); padding: 10px 14px;
       display: flex; align-items: center; gap: 8px;
     }
-    .gmap-bar span { flex: 1; font-size: 0.8rem; color: rgba(255,255,255,0.8); }
     .gmap-bar input {
       flex: 1; padding: 7px 12px; border-radius: 8px; border: none;
       font-size: 0.85rem; background: rgba(255,255,255,0.15); color: #fff;
@@ -190,7 +195,6 @@
     }
     .address-badge.show { display: block; }
 
-    /* PICKUP SECTION */
     .pickup-section { background: var(--light); border-radius: 24px; padding: 48px 32px; border: 1px solid #EDE0CC; }
     .pickup-map-box {
       border-radius: 16px; overflow: hidden;
@@ -276,7 +280,7 @@
 <body>
 
 <nav>
-  <div class="logo">🥚 Ухейилюйa</div>
+  <div class="logo">🥚 Tuxum Market</div>
   <div class="nav-links">
     <a href="#order">Buyurtma</a>
     <a href="#pickup">Olib ketish</a>
@@ -286,9 +290,9 @@
 </nav>
 
 <div class="hero">
-  <div class="hero-badge">✨ Yangi mahsulot</div>
-  <h1>Toza va Yangi<br /><span>Ухейилюй Tuxumlari</span></h1>
-  <p>10 ta sog'lom tovuqdan har kuni yangi tuxum. Uyingizga tez yetkazib beramiz.</p>
+  <div class="hero-badge">✨ Farg'ona shahrida yetkazib berish</div>
+  <h1>Toza va Yangi<br /><span>Uheyiluy Tuxumlari</span></h1>
+  <p>10 ta sog'lom tovuqdan har kuni yangi tuxum. Farg'ona bo'ylab uyingizga tez yetkazib beramiz.</p>
   <div style="display:flex;gap:16px;justify-content:center;align-items:center;flex-wrap:wrap;margin-bottom:28px;">
     <div class="stock-display">
       <div class="stock-count" id="hero-stock">—</div>
@@ -311,11 +315,11 @@
 
 <section>
   <div class="section-title">Nima uchun bizni tanlaysiz?</div>
-  <div class="section-sub">Ухейилюйa tuxumlarining afzalliklari</div>
+  <div class="section-sub">Uheyiluy tuxumlarining afzalliklari — Farg'onada faqat bizda</div>
   <div class="features-grid">
-    <div class="feature-card"><div class="feature-icon">🐔</div><h3>Sog'lom tovuqlar</h3><p>Tabiiy oziqlantirilgan, erkin yuradigan Хейилюй zotli tovuqlar</p></div>
+    <div class="feature-card"><div class="feature-icon">🐔</div><h3>Sog'lom tovuqlar</h3><p>Tabiiy oziqlantirilgan, erkin yuradigan Uheyiluy zotli tovuqlar</p></div>
     <div class="feature-card"><div class="feature-icon">🥚🩵</div><h3>Moviy tuxumlar</h3><p>Har kuni yangi, hech qanday kimyoviy moddalar ishlatilmaydi</p></div>
-    <div class="feature-card"><div class="feature-icon">🚗</div><h3>Tez yetkazish</h3><p>Yetkazib berish pulli — 1 km 10 000 so'm</p></div>
+    <div class="feature-card"><div class="feature-icon">🚗</div><h3>Tez yetkazish</h3><p>Farg'ona bo'ylab yetkazib berish — 1 km 10 000 so'm</p></div>
     <div class="feature-card"><div class="feature-icon">💰</div><h3>Qulay narx</h3><p>Bozordan arzonroq va ishonchli qo'llardan olasiz</p></div>
   </div>
 </section>
@@ -343,22 +347,20 @@
         <input type="tel" id="phone" placeholder="+998 95 100 01 30" />
       </div>
 
-      <!-- MANZIL -->
       <div class="form-group">
-        <label>Manzil</label>
+        <label>Manzil (Farg'ona)</label>
         <div class="address-input-row">
-          <input type="text" id="address" placeholder="Ko'cha, uy raqami" />
+          <input type="text" id="address" placeholder="Ko'cha, uy raqami, mahalla" />
           <button class="btn-locate" onclick="toggleGmapPanel()">🗺️ Xaritadan</button>
         </div>
 
-        <!-- GOOGLE MAPS PANEL -->
         <div class="gmap-panel" id="gmap-panel">
           <iframe id="gmap-iframe"
-            src="https://www.google.com/maps/embed?pb=!1m14!1m12!1m3!1d11976.0!2d69.2401!3d41.2995!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!5e0!3m2!1suz!2suz!4v1"
+            src="https://www.google.com/maps/embed?pb=!1m14!1m12!1m3!1d24000!2d71.7748!3d40.3842!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!5e0!3m2!1suz!2suz!4v1"
             allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade">
           </iframe>
           <div class="gmap-bar">
-            <input type="text" id="gmap-search-input" placeholder="Manzil kiriting va qidiring..." 
+            <input type="text" id="gmap-search-input" placeholder="Manzil kiriting va qidiring..."
                    onkeydown="if(event.key==='Enter') searchOnMap()" />
             <button class="gmap-search-btn" onclick="searchOnMap()">🔍</button>
             <button class="gmap-confirm" onclick="useMapAddress()">✅ Tasdiqlash</button>
@@ -391,11 +393,11 @@
 <section id="pickup">
   <div class="pickup-section">
     <div class="section-title">📍 Olib ketish manzili</div>
-    <div class="section-sub">Xaritada ko'rsatilgan manzilga kelib tuxum olib keta olasiz</div>
+    <div class="section-sub">Farg'onada xaritada ko'rsatilgan manzilga kelib tuxum olib keta olasiz</div>
 
     <div class="pickup-map-box">
       <iframe id="pickup-iframe"
-        src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2996.0!2d69.2401!3d41.2995!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0x0!2zNDHCsDE3JzU4LjIiTiA2OcKwMTQnMjQuNCJF!5e0!3m2!1suz!2suz!4v1"
+        src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3000!2d71.7748!3d40.3842!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0x0!2zNDAuMzg0Miw3MS43NzQ4!5e0!3m2!1suz!2suz!4v1"
         allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade">
       </iframe>
     </div>
@@ -403,10 +405,10 @@
     <div class="pickup-actions">
       <div class="pickup-address-box">
         <strong>📌 Manzil</strong>
-        <span id="pickup-address-text">Toshkent, Chilonzor tumani</span>
+        <span id="pickup-address-text">Farg'ona shahri</span>
       </div>
       <a href="tel:+998951000130" class="btn-call-green">📞 Qo'ng'iroq</a>
-      <a id="pickup-gmaps-link" href="https://maps.google.com/?q=41.2995,69.2401" target="_blank" class="btn-gmaps">
+      <a id="pickup-gmaps-link" href="https://maps.google.com/?q=40.3842,71.7748" target="_blank" class="btn-gmaps">
         🗺️ Google Maps
       </a>
     </div>
@@ -416,11 +418,11 @@
 <!-- DELIVERY -->
 <section id="delivery">
   <div class="section-title">Yetkazib berish</div>
-  <div class="section-sub">Buyurtmangiz qanday yetib keladi?</div>
+  <div class="section-sub">Buyurtmangiz Farg'onada qanday yetib keladi?</div>
   <div class="delivery-steps">
     <div class="step"><div class="step-num">1</div><div><h4>Buyurtma qiling</h4><p>Saytdan yoki Telegram bot orqali buyurtma bering</p></div></div>
     <div class="step"><div class="step-num">2</div><div><h4>Tasdiqlash</h4><p>Biz telefon orqali buyurtmangizni tasdiqlaymiz</p></div></div>
-    <div class="step"><div class="step-num">3</div><div><h4>Yetkazib berish</h4><p>Yangi tuxumlar ehtiyotkorlik bilan qadoqlanib, eshigingizga yetkaziladi</p></div></div>
+    <div class="step"><div class="step-num">3</div><div><h4>Yetkazib berish</h4><p>Yangi tuxumlar ehtiyotkorlik bilan qadoqlanib, Farg'onada eshigingizga yetkaziladi</p></div></div>
     <div class="step"><div class="step-num">4</div><div><h4>To'lov</h4><p>Naqd yoki Click / Payme orqali to'lang</p></div></div>
   </div>
 </section>
@@ -443,7 +445,7 @@
 </section>
 
 <footer>
-  <p>© 2025 <span>Хейилюй Tuxum</span> — Barcha huquqlar himoyalangan</p>
+  <p>© 2025 <span>Tuxum Market Farg'ona</span> — Barcha huquqlar himoyalangan</p>
 </footer>
 
 <div class="toast" id="toast"></div>
@@ -499,7 +501,6 @@
     updateTotal();
   }
 
-  // ===== GOOGLE MAPS PANEL (order) =====
   function toggleGmapPanel() {
     const panel = document.getElementById('gmap-panel');
     panel.classList.toggle('open');
@@ -508,12 +509,9 @@
   function searchOnMap() {
     const q = document.getElementById('gmap-search-input').value.trim();
     if (!q) return;
-    const query = encodeURIComponent(q + ', Toshkent, O\'zbekiston');
-    const src = `https://www.google.com/maps/embed/v1/search?key=AIzaSyD-9tSrke72I7lkiE_e972ihW1X3bpIWAA&q=${query}&zoom=16`;
-    // API keysiz: place search iframe
+    const query = encodeURIComponent(q + ", Farg'ona, O'zbekiston");
     const fallback = `https://maps.google.com/maps?q=${query}&output=embed&z=16`;
     document.getElementById('gmap-iframe').src = fallback;
-    // Manzil maydoniga yoz
     document.getElementById('address').value = q;
   }
 
@@ -528,7 +526,6 @@
     showToast('✅ Manzil aniqlandi!');
   }
 
-  // ===== ORDER =====
   function saveOrderLocally(order) {
     const orders = JSON.parse(localStorage.getItem('tuxum_orders') || '[]');
     orders.unshift(order);
@@ -581,21 +578,18 @@
     btn.textContent = '✅ Buyurtma yuborish'; btn.disabled = false;
   }
 
-  // ===== PICKUP MAP — localStorage dan yangilash =====
   function updatePickupMap() {
-    const lat  = localStorage.getItem('pickup_lat')  || '41.2995';
-    const lng  = localStorage.getItem('pickup_lng')  || '69.2401';
-    const addr = localStorage.getItem('pickup_address') || 'Toshkent, Chilonzor tumani';
+    const lat  = localStorage.getItem('pickup_lat')  || '40.3842';
+    const lng  = localStorage.getItem('pickup_lng')  || '71.7748';
+    const addr = localStorage.getItem('pickup_address') || "Farg'ona shahri";
 
     document.getElementById('pickup-address-text').textContent = addr;
     document.getElementById('pickup-gmaps-link').href = 'https://maps.google.com/?q=' + lat + ',' + lng;
 
-    // Google Maps Embed — koordinata bilan
     const embedSrc = 'https://maps.google.com/maps?q=' + lat + ',' + lng + '&z=17&output=embed';
     document.getElementById('pickup-iframe').src = embedSrc;
   }
 
-  // ===== TOAST =====
   function showToast(msg, bg = '#4CAF50') {
     const t = document.getElementById('toast');
     t.textContent = msg; t.style.background = bg;
@@ -603,7 +597,6 @@
     setTimeout(() => t.classList.remove('show'), 3000);
   }
 
-  // localStorage kuzatish
   window.addEventListener('storage', function(e) {
     if (['tuxum_stock','tuxum_price'].includes(e.key)) {
       state.stock = parseInt(localStorage.getItem('tuxum_stock') ?? '30');
