@@ -98,6 +98,38 @@
     }
     .btn-primary:hover { background: var(--yolk-dark); transform: translateY(-2px); }
     .btn-primary:disabled { opacity: 0.5; cursor: not-allowed; transform: none; }
+    .btn-secondary {
+      background: transparent; color: var(--white); border: 2px solid rgba(255,255,255,0.5);
+      padding: 14px 28px; border-radius: 10px; font-size: 1rem;
+      font-weight: 600; cursor: pointer; text-decoration: none;
+      transition: transform 0.2s, border-color 0.2s, background 0.2s; display: inline-block;
+    }
+    .btn-secondary:hover { border-color: var(--yolk); color: var(--yolk); transform: translateY(-2px); }
+
+    /* PICKUP SECTION */
+    .pickup-section { background: var(--light); border-radius: 24px; padding: 48px 32px; border: 1px solid #EDE0CC; }
+    .pickup-map-box {
+      border-radius: 16px; overflow: hidden;
+      border: 2px solid var(--yolk); margin-bottom: 20px;
+    }
+    #pickup-map { height: 320px; width: 100%; }
+    .pickup-actions {
+      display: flex; gap: 12px; flex-wrap: wrap; align-items: center; margin-top: 4px;
+    }
+    .btn-call {
+      display: inline-flex; align-items: center; gap: 8px;
+      background: var(--green); color: #fff; border: none;
+      padding: 14px 24px; border-radius: 10px; font-size: 1rem;
+      font-weight: 600; cursor: pointer; text-decoration: none;
+      transition: transform 0.2s, background 0.2s;
+    }
+    .btn-call:hover { background: #388E3C; transform: translateY(-2px); }
+    .pickup-address-box {
+      background: var(--white); border: 1px solid #EDE0CC; border-radius: 12px;
+      padding: 14px 18px; font-size: 0.9rem; color: var(--gray); flex: 1;
+      min-width: 200px;
+    }
+    .pickup-address-box strong { display: block; color: var(--earth); margin-bottom: 4px; font-size: 0.95rem; }
 
     /* STATS */
     .stats {
@@ -313,6 +345,7 @@
 
   <div class="hero-btns">
     <a href="#order" class="btn-primary" id="hero-order-btn">🛒 Buyurtma qilish</a>
+    <a href="#pickup" class="btn-secondary" id="hero-pickup-btn">📍 Olib ketish</a>
   </div>
 </div>
 
@@ -413,6 +446,26 @@
       <button class="btn-primary" id="order-btn" onclick="submitOrder()" style="font-size:1rem; padding:16px;">
         ✅ Buyurtma yuborish
       </button>
+    </div>
+  </div>
+</section>
+
+<!-- PICKUP -->
+<section id="pickup">
+  <div class="pickup-section">
+    <div class="section-title">📍 Olib ketish manzili</div>
+    <div class="section-sub">Xaritada ko'rsatilgan manzilga kelib tuxum olib keta olasiz</div>
+    <div class="pickup-map-box">
+      <div id="pickup-map"></div>
+    </div>
+    <div class="pickup-actions">
+      <div class="pickup-address-box">
+        <strong>📌 Manzil</strong>
+        <span id="pickup-address-text">Toshkent, Chilonzor tumani</span>
+      </div>
+      <a href="tel:+998951000130" class="btn-call">
+        📞 Qo'ng'iroq qilish
+      </a>
     </div>
   </div>
 </section>
@@ -741,6 +794,67 @@
     t.classList.add('show');
     setTimeout(() => t.classList.remove('show'), 3000);
   }
+
+  // ========== PICKUP MAP ==========
+  let pickupMap = null;
+  let pickupMarker = null;
+
+  function initPickupMap() {
+    // Admin localStorage dan manzil olish
+    const savedLat = parseFloat(localStorage.getItem('pickup_lat') || '41.2995');
+    const savedLng = parseFloat(localStorage.getItem('pickup_lng') || '69.2401');
+    const savedAddress = localStorage.getItem('pickup_address') || 'Toshkent, Chilonzor tumani';
+
+    document.getElementById('pickup-address-text').textContent = savedAddress;
+
+    pickupMap = L.map('pickup-map', { zoomControl: true, scrollWheelZoom: false })
+      .setView([savedLat, savedLng], 16);
+
+    L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+      attribution: '© OpenStreetMap', maxZoom: 19
+    }).addTo(pickupMap);
+
+    const shopIcon = L.divIcon({
+      className: '',
+      html: `<div style="
+        background: #F5A623; color: #3B2A1A; width: 44px; height: 44px;
+        border-radius: 50%; display:flex; align-items:center; justify-content:center;
+        font-size: 1.4rem; box-shadow: 0 4px 12px rgba(0,0,0,0.35);
+        border: 3px solid #fff;
+      ">🥚</div>`,
+      iconSize: [44, 44], iconAnchor: [22, 22]
+    });
+
+    pickupMarker = L.marker([savedLat, savedLng], { icon: shopIcon }).addTo(pickupMap);
+    pickupMarker.bindPopup('<b>🥚 Ухейилюйa</b><br>' + savedAddress).openPopup();
+  }
+
+  // Pickup section ko'ringanda xaritani yuklash
+  const pickupObserver = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting && !pickupMap) {
+        initPickupMap();
+      }
+    });
+  }, { threshold: 0.1 });
+
+  const pickupSection = document.getElementById('pickup');
+  if (pickupSection) pickupObserver.observe(pickupSection);
+
+  // Admin localStorage o'zgarishlarini kuzatish
+  window.addEventListener('storage', function(e) {
+    if (e.key === 'pickup_lat' || e.key === 'pickup_lng' || e.key === 'pickup_address') {
+      const lat = parseFloat(localStorage.getItem('pickup_lat') || '41.2995');
+      const lng = parseFloat(localStorage.getItem('pickup_lng') || '69.2401');
+      const addr = localStorage.getItem('pickup_address') || 'Toshkent, Chilonzor tumani';
+      document.getElementById('pickup-address-text').textContent = addr;
+      if (pickupMap && pickupMarker) {
+        pickupMap.setView([lat, lng], 16);
+        pickupMarker.setLatLng([lat, lng]);
+        pickupMarker.setPopupContent('<b>🥚 Ухейилюйa</b><br>' + addr);
+      }
+    }
+  });
 
   // Init
   updateUI();
