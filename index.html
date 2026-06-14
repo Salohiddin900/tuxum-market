@@ -567,12 +567,6 @@
       // Server yo'q bo'lsa ham localStorage da saqlanadi
     }
 
-    // Stockni kamaytirish
-    state.stock -= qty;
-    if (state.stock < 0) state.stock = 0;
-    saveState();
-    updateUI();
-
     // Tuxum sonini kamaytirish
     state.stock -= qty;
     if (state.stock < 0) state.stock = 0;
