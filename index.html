@@ -567,6 +567,18 @@
       // Server yo'q bo'lsa ham localStorage da saqlanadi
     }
 
+    // Stockni kamaytirish
+    state.stock -= qty;
+    if (state.stock < 0) state.stock = 0;
+    saveState();
+    updateUI();
+
+    // Tuxum sonini kamaytirish
+    state.stock -= qty;
+    if (state.stock < 0) state.stock = 0;
+    saveState();
+    updateUI();
+
     showToast("✅ Buyurtma yuborildi! Tez orada bog'lanamiz 🎉");
     document.getElementById('name').value = '';
     document.getElementById('phone').value = '';
