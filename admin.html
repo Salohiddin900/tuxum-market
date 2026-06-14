@@ -5,22 +5,18 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Admin Panel | Хейилюй Tuxum</title>
   <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700;900&family=Inter:wght@400;500;600&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.min.css" />
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.min.js"></script>
   <style>
     :root {
-      --yolk: #F5A623;
-      --yolk-dark: #C97F0A;
-      --shell: #FDF6EC;
-      --earth: #3B2A1A;
-      --white: #FFFFFF;
-      --gray: #7A6A5A;
-      --light: #FFF9F0;
-      --green: #4CAF50;
-      --red: #e53935;
+      --yolk: #F5A623; --yolk-dark: #C97F0A;
+      --shell: #FDF6EC; --earth: #3B2A1A;
+      --white: #FFFFFF; --gray: #7A6A5A;
+      --light: #FFF9F0; --green: #4CAF50; --red: #e53935;
     }
     * { margin: 0; padding: 0; box-sizing: border-box; }
     body { font-family: 'Inter', sans-serif; background: var(--shell); color: var(--earth); min-height: 100vh; }
 
-    /* NAV */
     nav {
       background: var(--earth); padding: 16px 24px;
       display: flex; justify-content: space-between; align-items: center;
@@ -32,7 +28,6 @@
     }
     .nav-back:hover { color: var(--yolk); }
 
-    /* LOGIN SCREEN */
     .login-screen {
       min-height: calc(100vh - 56px);
       display: flex; align-items: center; justify-content: center; padding: 24px;
@@ -46,7 +41,6 @@
     .login-card h1 { font-family: 'Playfair Display', serif; font-size: 1.8rem; margin-bottom: 6px; }
     .login-card p { color: var(--gray); font-size: 0.9rem; margin-bottom: 28px; }
 
-    /* ADMIN DASHBOARD */
     .dashboard { display: none; padding: 32px 24px; max-width: 800px; margin: 0 auto; }
     .dashboard.visible { display: block; }
 
@@ -57,7 +51,6 @@
     .dash-header h1 { font-family: 'Playfair Display', serif; font-size: 1.8rem; }
     .dash-header p { color: var(--gray); font-size: 0.9rem; margin-top: 4px; }
 
-    /* STATS ROW */
     .stats-row { display: grid; grid-template-columns: repeat(auto-fit, minmax(160px, 1fr)); gap: 16px; margin-bottom: 28px; }
     .stat-card {
       background: var(--white); border-radius: 16px; padding: 24px 20px;
@@ -67,7 +60,6 @@
     .stat-card .lbl { font-size: 0.8rem; color: var(--gray); margin-top: 4px; }
     .stat-card.highlight .num { color: var(--yolk-dark); }
 
-    /* CARDS */
     .card {
       background: var(--white); border-radius: 20px; padding: 28px;
       border: 1px solid #EDE0CC; margin-bottom: 20px;
@@ -75,7 +67,6 @@
     .card h2 { font-family: 'Playfair Display', serif; font-size: 1.2rem; margin-bottom: 6px; }
     .card p { color: var(--gray); font-size: 0.85rem; margin-bottom: 20px; }
 
-    /* FORM ELEMENTS */
     .form-group { display: flex; flex-direction: column; gap: 6px; margin-bottom: 14px; }
     label { font-size: 0.85rem; font-weight: 600; color: var(--earth); }
     input[type="text"], input[type="number"], input[type="password"] {
@@ -85,39 +76,33 @@
     }
     input:focus { border-color: var(--yolk); }
 
-    /* BUTTONS */
     .btn-primary {
       background: var(--yolk); color: var(--earth); border: none;
       padding: 13px 24px; border-radius: 10px; font-size: 0.95rem;
       font-weight: 600; cursor: pointer; transition: background 0.2s, transform 0.15s;
     }
     .btn-primary:hover { background: var(--yolk-dark); transform: translateY(-1px); }
-
     .btn-earth {
       background: var(--earth); color: var(--white); border: none;
       padding: 10px 18px; border-radius: 8px; font-size: 0.88rem;
       font-weight: 600; cursor: pointer; transition: background 0.2s;
     }
     .btn-earth:hover { background: #5a3d2b; }
-
     .btn-danger {
       background: var(--red); color: var(--white); border: none;
       padding: 10px 18px; border-radius: 8px; font-size: 0.88rem;
       font-weight: 600; cursor: pointer;
     }
-
     .btn-outline {
       background: none; border: 1.5px solid #DDD0BC; border-radius: 8px;
       padding: 10px 18px; font-size: 0.88rem; color: var(--gray);
       cursor: pointer; transition: all 0.2s;
     }
     .btn-outline:hover { border-color: var(--earth); color: var(--earth); }
-
     .btn-row { display: flex; gap: 10px; flex-wrap: wrap; align-items: center; }
     .input-row { display: flex; gap: 10px; align-items: center; }
     .input-row input { flex: 1; }
 
-    /* QUICK BTNS */
     .quick-btns { display: flex; gap: 8px; flex-wrap: wrap; margin-top: 12px; }
     .quick-btn {
       border: none; padding: 8px 16px; border-radius: 8px;
@@ -128,16 +113,32 @@
     .qb-remove { background: #FFEBEE; color: var(--red); }
     .qb-zero { background: var(--earth); color: var(--white); }
 
-    /* LOG OUT */
     .logout-btn {
       background: none; border: 1px solid rgba(255,255,255,0.3);
       color: rgba(255,255,255,0.7); padding: 8px 16px;
       border-radius: 8px; font-size: 0.85rem; cursor: pointer; transition: all 0.2s;
     }
     .logout-btn:hover { border-color: var(--red); color: var(--red); }
-
-    /* DIVIDER */
     .divider { height: 1px; background: #EDE0CC; margin: 20px 0; }
+
+    /* PICKUP MAP */
+    #admin-pickup-map {
+      height: 300px; width: 100%; border-radius: 12px;
+      border: 2px solid #EDE0CC; margin-bottom: 14px;
+    }
+    .map-coords-bar {
+      background: var(--light); border-radius: 10px; padding: 10px 14px;
+      font-size: 0.83rem; color: var(--gray); margin-bottom: 12px;
+    }
+    .map-coords-bar span { font-weight: 700; color: var(--earth); }
+    .pickup-input-row { display: flex; gap: 10px; margin-bottom: 14px; }
+    .pickup-input-row input { flex: 1; }
+    .btn-gps {
+      background: var(--earth); color: var(--yolk); border: none;
+      padding: 0 16px; border-radius: 10px; font-size: 0.85rem;
+      font-weight: 600; cursor: pointer; white-space: nowrap; transition: background 0.2s;
+    }
+    .btn-gps:hover { background: #5a3d2b; }
 
     /* TOAST */
     .toast {
@@ -150,10 +151,7 @@
     .toast.show { transform: translateX(-50%) translateY(0); }
 
     /* FILTER TABS */
-    .filter-tabs {
-      display: flex; gap: 6px; flex-wrap: wrap;
-      margin-bottom: 16px; margin-top: 14px;
-    }
+    .filter-tabs { display: flex; gap: 6px; flex-wrap: wrap; margin-bottom: 16px; margin-top: 14px; }
     .filter-tab {
       background: var(--light); border: 1.5px solid #DDD0BC;
       border-radius: 8px; padding: 7px 14px; font-size: 0.82rem;
@@ -173,7 +171,6 @@
     .badge.yetkazildi { background: #DBEAFE; color: #1E3A8A; }
     .badge.bekor { background: #FEE2E2; color: #991B1B; }
 
-    /* ORDER ITEMS */
     .order-item {
       border: 1.5px solid #EDE0CC; border-radius: 14px;
       padding: 16px 18px; margin-bottom: 12px;
@@ -192,27 +189,19 @@
     .order-name { font-weight: 700; font-size: 1rem; }
     .order-time { font-size: 0.78rem; color: var(--gray); }
     .order-id { font-size: 0.72rem; color: #bbb; }
-
     .order-details {
       display: grid; grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
       gap: 8px; margin-bottom: 12px;
     }
     .order-detail { font-size: 0.83rem; color: var(--gray); }
     .order-detail strong { color: var(--earth); display: block; font-size: 0.78rem; }
-
-    .order-total {
-      font-family: 'Playfair Display', serif;
-      font-size: 1.1rem; font-weight: 700; color: var(--yolk-dark);
-    }
-
+    .order-total { font-family: 'Playfair Display', serif; font-size: 1.1rem; font-weight: 700; color: var(--yolk-dark); }
     .order-address {
       font-size: 0.83rem; color: var(--gray); margin-bottom: 12px;
       padding: 8px 10px; background: var(--light); border-radius: 8px;
     }
     .order-address strong { color: var(--earth); font-size: 0.78rem; display: block; margin-bottom: 2px; }
-
     .order-coords { font-size: 0.75rem; color: #bbb; margin-top: 2px; }
-
     .order-actions { display: flex; gap: 8px; flex-wrap: wrap; align-items: center; }
     .status-select {
       padding: 6px 10px; border: 1.5px solid #DDD0BC; border-radius: 8px;
@@ -238,11 +227,7 @@
       font-weight: 600; cursor: pointer; text-decoration: none;
       display: inline-flex; align-items: center; gap: 4px;
     }
-
-    .empty-orders {
-      text-align: center; padding: 40px 20px;
-      color: var(--gray); font-size: 0.9rem;
-    }
+    .empty-orders { text-align: center; padding: 40px 20px; color: var(--gray); font-size: 0.9rem; }
 
     @media (max-width: 600px) {
       .login-card { padding: 36px 24px; }
@@ -282,7 +267,7 @@
   <div class="dash-header">
     <div>
       <h1>Boshqaruv paneli</h1>
-      <p>Tuxum soni va narxini boshqaring</p>
+      <p>Tuxum soni, narxi va manzilni boshqaring</p>
     </div>
     <a href="index.html" style="text-decoration:none;">
       <button class="btn-outline">🏠 Saytni ko'rish</button>
@@ -309,12 +294,10 @@
   <div class="card">
     <h2>📦 Tuxum sonini boshqarish</h2>
     <p>Joriy tuxum zaxirasini yangilang</p>
-
     <div class="input-row">
       <input type="number" id="new-stock" placeholder="Yangi son kiriting (masalan: 50)" min="0" />
       <button class="btn-earth" onclick="updateStock()">Saqlash</button>
     </div>
-
     <div class="quick-btns">
       <button class="quick-btn qb-add" onclick="addStock(5)">+5</button>
       <button class="quick-btn qb-add" onclick="addStock(10)">+10</button>
@@ -342,6 +325,27 @@
     </div>
   </div>
 
+  <!-- PICKUP LOCATION CARD -->
+  <div class="card">
+    <h2>📍 Olib ketish manzili</h2>
+    <p>Xaritada bosing yoki sudrab ko'chiring — saytda darhol yangilanadi</p>
+
+    <div id="admin-pickup-map"></div>
+
+    <div class="map-coords-bar">
+      📌 Tanlangan koordinatalar: <span id="coords-display">—</span>
+    </div>
+
+    <div class="pickup-input-row">
+      <input type="text" id="pickup-addr-input" placeholder="Manzil matni (xaritadan avtomatik to'ldiriladi)" />
+      <button class="btn-gps" onclick="adminGPS()">📍 GPS</button>
+    </div>
+
+    <div class="btn-row">
+      <button class="btn-primary" onclick="savePickupLocation()">💾 Manzilni saqlash</button>
+    </div>
+  </div>
+
   <!-- ORDERS CARD -->
   <div class="card">
     <div style="display:flex; justify-content:space-between; align-items:flex-start; flex-wrap:wrap; gap:10px; margin-bottom:6px;">
@@ -354,8 +358,6 @@
         <button class="btn-danger" onclick="clearOrders()" style="font-size:0.82rem; padding:7px 14px;">🗑️ Hammasini o'chirish</button>
       </div>
     </div>
-
-    <!-- Filter tabs -->
     <div class="filter-tabs" id="filter-tabs">
       <button class="filter-tab active" data-status="all" onclick="filterOrders('all', this)">Barchasi <span class="badge" id="cnt-all">0</span></button>
       <button class="filter-tab" data-status="yangi" onclick="filterOrders('yangi', this)">🆕 Yangi <span class="badge yangi" id="cnt-yangi">0</span></button>
@@ -363,7 +365,6 @@
       <button class="filter-tab" data-status="yetkazildi" onclick="filterOrders('yetkazildi', this)">🚗 Yetkazildi <span class="badge yetkazildi" id="cnt-yetkazildi">0</span></button>
       <button class="filter-tab" data-status="bekor" onclick="filterOrders('bekor', this)">❌ Bekor <span class="badge bekor" id="cnt-bekor">0</span></button>
     </div>
-
     <div id="orders-list">
       <div class="empty-orders">Hali buyurtma yo'q</div>
     </div>
@@ -386,7 +387,7 @@
 <div class="toast" id="toast"></div>
 
 <script>
-  const ADMIN_PASSWORD = "admin_*107#"; // O'zgartiring!
+  const ADMIN_PASSWORD = "admin_*107#";
 
   let state = {
     stock: parseInt(localStorage.getItem('tuxum_stock') ?? '30'),
@@ -411,8 +412,9 @@
       document.getElementById('logout-btn').style.display = 'inline-block';
       updateDashboard();
       loadOrders();
+      initPickupMap();
     } else {
-      showToast("❌ Parol noto'g'ri!", '#e53935');
+      showToast("Parol noto'g'ri!", '#e53935');
       document.getElementById('admin-password').value = '';
     }
   }
@@ -424,43 +426,131 @@
     document.getElementById('admin-password').value = '';
   }
 
+  // ===== STOCK =====
   function updateStock() {
     const val = parseInt(document.getElementById('new-stock').value);
-    if (isNaN(val) || val < 0) { showToast("❌ To'g'ri son kiriting!", '#e53935'); return; }
-    state.stock = val;
-    saveState(); updateDashboard();
+    if (isNaN(val) || val < 0) { showToast("To'g'ri son kiriting!", '#e53935'); return; }
+    state.stock = val; saveState(); updateDashboard();
     document.getElementById('new-stock').value = '';
-    showToast(`✅ Tuxum soni: ${val} ta saqlandi`);
+    showToast('Tuxum soni: ' + val + ' ta saqlandi');
   }
-
   function addStock(delta) {
     state.stock = Math.max(0, state.stock + delta);
     saveState(); updateDashboard();
-    showToast(`✅ Hozir: ${state.stock} ta`);
+    showToast('Hozir: ' + state.stock + ' ta');
   }
-
   function setStock(val) {
-    state.stock = val;
-    saveState(); updateDashboard();
-    showToast(`✅ Tuxum soni: ${val} ta`);
+    state.stock = val; saveState(); updateDashboard();
+    showToast('Tuxum soni: ' + val + ' ta');
   }
 
+  // ===== PRICE =====
   function updatePrice() {
     const val = parseInt(document.getElementById('new-price').value);
-    if (isNaN(val) || val < 0) { showToast("❌ To'g'ri narx kiriting!", '#e53935'); return; }
-    state.price = val;
-    saveState(); updateDashboard();
+    if (isNaN(val) || val < 0) { showToast("To'g'ri narx kiriting!", '#e53935'); return; }
+    state.price = val; saveState(); updateDashboard();
     document.getElementById('new-price').value = '';
-    showToast(`✅ Narx: ${val.toLocaleString('uz-UZ')} so'm`);
+    showToast('Narx: ' + val.toLocaleString('uz-UZ') + " so'm");
   }
-
   function setPrice(val) {
-    state.price = val;
-    saveState(); updateDashboard();
-    showToast(`✅ Narx: ${val.toLocaleString('uz-UZ')} so'm`);
+    state.price = val; saveState(); updateDashboard();
+    showToast('Narx: ' + val.toLocaleString('uz-UZ') + " so'm");
   }
 
-  // ========== BUYURTMALAR ==========
+  // ===== PICKUP MAP =====
+  let adminMap = null;
+  let adminMarker = null;
+  let adminCoords = null;
+
+  function initPickupMap() {
+    if (adminMap) return; // ikkinchi marta chaqirilmasin
+
+    const savedLat = parseFloat(localStorage.getItem('pickup_lat') || '41.2995');
+    const savedLng = parseFloat(localStorage.getItem('pickup_lng') || '69.2401');
+    const savedAddr = localStorage.getItem('pickup_address') || '';
+
+    adminCoords = { lat: savedLat, lng: savedLng };
+    document.getElementById('coords-display').textContent = savedLat.toFixed(6) + ', ' + savedLng.toFixed(6);
+    document.getElementById('pickup-addr-input').value = savedAddr;
+
+    adminMap = L.map('admin-pickup-map', { zoomControl: true }).setView([savedLat, savedLng], 16);
+
+    L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+      attribution: '© OpenStreetMap', maxZoom: 19
+    }).addTo(adminMap);
+
+    const shopIcon = L.divIcon({
+      className: '',
+      html: '<div style="background:#F5A623;color:#3B2A1A;width:44px;height:44px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:1.4rem;box-shadow:0 4px 12px rgba(0,0,0,0.35);border:3px solid #fff;">🥚</div>',
+      iconSize: [44, 44], iconAnchor: [22, 22]
+    });
+
+    adminMarker = L.marker([savedLat, savedLng], { icon: shopIcon, draggable: true }).addTo(adminMap);
+    adminMarker.bindPopup('<b>🥚 Ухейилюйa</b><br>' + (savedAddr || 'Manzil belgilanmagan')).openPopup();
+
+    adminMarker.on('dragend', function(e) {
+      const pos = e.target.getLatLng();
+      adminCoords = { lat: pos.lat, lng: pos.lng };
+      document.getElementById('coords-display').textContent = pos.lat.toFixed(6) + ', ' + pos.lng.toFixed(6);
+      adminReverseGeocode(pos.lat, pos.lng);
+    });
+
+    adminMap.on('click', function(e) {
+      const { lat, lng } = e.latlng;
+      adminCoords = { lat, lng };
+      adminMarker.setLatLng([lat, lng]);
+      document.getElementById('coords-display').textContent = lat.toFixed(6) + ', ' + lng.toFixed(6);
+      adminReverseGeocode(lat, lng);
+    });
+  }
+
+  async function adminReverseGeocode(lat, lng) {
+    try {
+      const res = await fetch('https://nominatim.openstreetmap.org/reverse?lat=' + lat + '&lon=' + lng + '&format=json', {
+        headers: { 'Accept-Language': 'uz,ru,en' }
+      });
+      const data = await res.json();
+      if (data && data.address) {
+        const a = data.address;
+        const parts = [];
+        if (a.road || a.pedestrian) parts.push(a.road || a.pedestrian);
+        if (a.house_number) parts[parts.length - 1] = (parts[parts.length - 1] || '') + ', ' + a.house_number;
+        if (a.neighbourhood || a.suburb) parts.push(a.neighbourhood || a.suburb);
+        if (a.city_district || a.district) parts.push(a.city_district || a.district);
+        if (a.city || a.town) parts.push(a.city || a.town);
+        const addr = parts.filter(Boolean).join(', ') || data.display_name;
+        document.getElementById('pickup-addr-input').value = addr;
+        if (adminMarker) adminMarker.setPopupContent('<b>🥚 Ухейилюйa</b><br>' + addr);
+      }
+    } catch(e) {}
+  }
+
+  function adminGPS() {
+    if (!navigator.geolocation) { showToast('GPS qollab-quvvatlanmaydi', '#856404'); return; }
+    navigator.geolocation.getCurrentPosition(function(pos) {
+      const lat = pos.coords.latitude;
+      const lng = pos.coords.longitude;
+      adminCoords = { lat, lng };
+      adminMap.setView([lat, lng], 17);
+      adminMarker.setLatLng([lat, lng]);
+      document.getElementById('coords-display').textContent = lat.toFixed(6) + ', ' + lng.toFixed(6);
+      adminReverseGeocode(lat, lng);
+      showToast('GPS joylashuv aniqlandi!');
+    }, function() {
+      showToast('GPS aniqlanmadi', '#856404');
+    });
+  }
+
+  function savePickupLocation() {
+    if (!adminCoords) { showToast('Avval xaritada joy tanlang', '#e53935'); return; }
+    const addr = document.getElementById('pickup-addr-input').value.trim();
+    localStorage.setItem('pickup_lat', adminCoords.lat);
+    localStorage.setItem('pickup_lng', adminCoords.lng);
+    localStorage.setItem('pickup_address', addr || (adminCoords.lat.toFixed(5) + ', ' + adminCoords.lng.toFixed(5)));
+    showToast('Manzil saqlandi! Saytda yangilandi.');
+  }
+
+  // ===== ORDERS =====
   let allOrders = [];
   let currentFilter = 'all';
 
@@ -478,10 +568,7 @@
     document.getElementById('cnt-tasdiqlandi').textContent = counts.tasdiqlandi;
     document.getElementById('cnt-yetkazildi').textContent = counts.yetkazildi;
     document.getElementById('cnt-bekor').textContent = counts.bekor;
-
-    // Stats row da yangi buyurtmalar soni
-    const dStock = document.getElementById('d-stock');
-    if (dStock) dStock.textContent = state.stock;
+    document.getElementById('d-stock').textContent = state.stock;
   }
 
   function filterOrders(status, btn) {
@@ -494,12 +581,10 @@
   function renderOrders(filter) {
     const list = document.getElementById('orders-list');
     const filtered = filter === 'all' ? allOrders : allOrders.filter(o => o.status === filter);
-
     if (filtered.length === 0) {
-      list.innerHTML = `<div class="empty-orders">${filter === 'all' ? '📭 Hali buyurtma yo\'q' : '📭 Bu statusda buyurtma yo\'q'}</div>`;
+      list.innerHTML = '<div class="empty-orders">' + (filter === 'all' ? "Hali buyurtma yo'q" : "Bu statusda buyurtma yo'q") + '</div>';
       return;
     }
-
     list.innerHTML = filtered.map(order => `
       <div class="order-item status-${order.status}" id="order-${order.id}">
         <div class="order-header">
@@ -512,19 +597,16 @@
             <div class="order-id">#${order.id}</div>
           </div>
         </div>
-
         <div class="order-details">
           <div class="order-detail"><strong>📞 Telefon</strong>${escHtml(order.phone)}</div>
           <div class="order-detail"><strong>🥚 Dona</strong>${order.qty} ta</div>
           <div class="order-detail"><strong>📊 Status</strong>${statusLabel(order.status)}</div>
         </div>
-
         <div class="order-address">
           <strong>📍 Manzil</strong>
           ${escHtml(order.address)}
-          ${order.coords ? `<div class="order-coords">🗺️ Koordinatalar: ${order.coords}</div>` : ''}
+          ${order.coords ? '<div class="order-coords">Koordinatalar: ' + order.coords + '</div>' : ''}
         </div>
-
         <div class="order-actions">
           <select class="status-select" onchange="changeStatus(${order.id}, this.value)">
             <option value="yangi"       ${order.status==='yangi'?'selected':''}>🆕 Yangi</option>
@@ -533,7 +615,7 @@
             <option value="bekor"       ${order.status==='bekor'?'selected':''}>❌ Bekor</option>
           </select>
           <a href="tel:${escHtml(order.phone)}" class="btn-call">📞 Qo'ng'iroq</a>
-          ${order.coords ? `<a href="https://maps.google.com/?q=${order.coords}" target="_blank" class="btn-map">🗺️ Xarita</a>` : ''}
+          ${order.coords ? '<a href="https://maps.google.com/?q=' + order.coords + '" target="_blank" class="btn-map">🗺️ Xarita</a>' : ''}
           <button class="btn-delete" onclick="deleteOrder(${order.id})">🗑️</button>
         </div>
       </div>
@@ -543,48 +625,36 @@
   function escHtml(str) {
     return String(str).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');
   }
-
   function statusLabel(s) {
     return { yangi: '🆕 Yangi', tasdiqlandi: '✅ Tasdiqlandi', yetkazildi: '🚗 Yetkazildi', bekor: '❌ Bekor' }[s] || s;
   }
-
   function changeStatus(id, newStatus) {
     const idx = allOrders.findIndex(o => o.id === id);
     if (idx === -1) return;
     allOrders[idx].status = newStatus;
     localStorage.setItem('tuxum_orders', JSON.stringify(allOrders));
-    // Visual update
-    const item = document.getElementById(`order-${id}`);
-    if (item) {
-      item.className = `order-item status-${newStatus}`;
-    }
+    const item = document.getElementById('order-' + id);
+    if (item) item.className = 'order-item status-' + newStatus;
     updateBadges();
-    showToast(`✅ Status: ${statusLabel(newStatus)}`);
+    showToast('Status: ' + statusLabel(newStatus));
   }
-
   function deleteOrder(id) {
-    if (!confirm('Bu buyurtmani o\'chirasizmi?')) return;
+    if (!confirm("Bu buyurtmani o'chirasizmi?")) return;
     allOrders = allOrders.filter(o => o.id !== id);
     localStorage.setItem('tuxum_orders', JSON.stringify(allOrders));
-    updateBadges();
-    renderOrders(currentFilter);
-    showToast('🗑️ Buyurtma o\'chirildi', '#856404');
+    updateBadges(); renderOrders(currentFilter);
+    showToast("Buyurtma o'chirildi", '#856404');
   }
-
   function clearOrders() {
-    if (!confirm('Barcha buyurtmalarni o\'chirasizmi? Bu amalni qaytarib bo\'lmaydi!')) return;
+    if (!confirm("Barcha buyurtmalarni o'chirasizmi?")) return;
     allOrders = [];
     localStorage.setItem('tuxum_orders', JSON.stringify([]));
-    updateBadges();
-    renderOrders(currentFilter);
-    showToast('🗑️ Barcha buyurtmalar o\'chirildi', '#856404');
+    updateBadges(); renderOrders(currentFilter);
+    showToast("Barcha buyurtmalar o'chirildi", '#856404');
   }
 
-  // localStorage o'zgarishlarini kuzatish (index.html dan yangi buyurtma kelganda)
   window.addEventListener('storage', function(e) {
-    if (e.key === 'tuxum_orders') {
-      loadOrders();
-    }
+    if (e.key === 'tuxum_orders') loadOrders();
     if (e.key === 'tuxum_stock' || e.key === 'tuxum_price') {
       state.stock = parseInt(localStorage.getItem('tuxum_stock') ?? '30');
       state.price = parseInt(localStorage.getItem('tuxum_price') ?? '15000');
